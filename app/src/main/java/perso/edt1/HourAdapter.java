@@ -42,6 +42,8 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         timeTV.setText(CalendarUtils.formattedShortTime(time));
     }
 
+    // Doit adapter pour convenir avec les events
+
     private void setEvents(View convertView, ArrayList<Event> events)
     {
         TextView event1 = convertView.findViewById(R.id.event1);

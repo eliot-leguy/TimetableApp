@@ -15,7 +15,7 @@ public class Event
     private ArrayList<String> room = new ArrayList<>();
     private ArrayList<String> teacher = new ArrayList<>();
     private ArrayList<String> group = new ArrayList<>();
-    private String Category;
+    private String category;
     private String notes;
 
     public Event(int dayShift, LocalTime startTime, LocalTime endTime, String category, LocalDate weekStartDate, String module, ArrayList<String> room, ArrayList<String> teacher, ArrayList<String> group, String notes) {
@@ -26,7 +26,7 @@ public class Event
         this.room = room;
         this.teacher = teacher;
         this.group = group;
-        this.Category = category;
+        this.category = category;
         this.notes = notes;
     }
 
@@ -58,19 +58,6 @@ public class Event
         return events;
     }
 
-
-//    private String name;
-//    private LocalDate date;
-//    private LocalTime time;
-
-//    public Event(String name, LocalDate date, LocalTime time)
-//    {
-//        this.name = name;
-//        this.date = date;
-//        this.time = time;
-//    }
-
-
     public String getModule()
     {
         return module;
@@ -101,5 +88,62 @@ public class Event
         this.startTime = startTime;
     }
 
+    public String getCategory()
+    {
+        return category;
+    }
 
+    public void setCategory(String category)
+    {
+        this.category = category;
+    }
+
+    public LocalTime getEndTime()
+    {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime)
+    {
+        this.endTime = endTime;
+    }
+
+    public ArrayList<String> getRoom()
+    {
+        return room;
+    }
+
+    public void setRoom(ArrayList<String> room) {
+            this.room = room;
+        }
+
+    public ArrayList<String> getTeacher()
+        {
+            return teacher;
+        }
+
+    public void setTeacher(ArrayList<String> teacher)
+        {
+            this.teacher = teacher;
+        }
+
+    public ArrayList<String> getGroup()
+        {
+            return group;
+        }
+
+    public void setGroup(ArrayList<String> group)
+        {
+            this.group = group;
+        }
+
+    public String getNotes()
+        {
+            return notes;
+        }
+
+    public void setNotes(String notes)
+        {
+            this.notes = notes;
+        }
 }
