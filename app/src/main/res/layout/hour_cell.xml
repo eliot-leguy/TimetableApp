@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:id="@+id/event1"
             android:padding="5dp">
 
 
@@ -92,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:id="@+id/event2"
             android:padding="5dp">
 
 
@@ -158,6 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:id="@+id/event3"
             android:padding="5dp">
 
 

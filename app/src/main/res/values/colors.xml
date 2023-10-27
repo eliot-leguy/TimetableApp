@@ -5,4 +5,9 @@
     <color name="blue">#0000FF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="CM">#ff8080</color>
+    <color name="TD">#64b1ff</color>
+    <color name="TP">#64b1ff</color>
+    <color name="Examen">#7889fe</color>
+    <color name="TD_Anglais">#ffff80</color>
 </resources>

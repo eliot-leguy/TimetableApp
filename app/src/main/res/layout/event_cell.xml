@@ -3,16 +3,60 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:id="@+id/event_layout"
+    android:color="@color/lightGray">
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:layout_marginStart="20dp"
-        android:id="@+id/eventCellTV"
+        android:layout_weight=".95"
+        android:layout_margin="5dp"
+        android:id="@+id/module"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:text="Event"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:id="@+id/room"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="Room"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:id="@+id/prof"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="Prof"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:id="@+id/group"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="Group"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:id="@+id/notes"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="notes"/>
 
 </LinearLayout>

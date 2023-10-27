@@ -29,6 +29,12 @@ public class CalendarUtils
         return time.format(formatter);
     }
 
+    public static String formattedHours(LocalTime time)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
+        return time.format(formatter);
+    }
+
     public static String monthYearFromDate(LocalDate date)
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");

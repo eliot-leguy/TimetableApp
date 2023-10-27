@@ -46,6 +46,9 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
 
     private void setEvents(View convertView, ArrayList<Event> events)
     {
+        for (int i = 0; i < events.size(); i++)
+            System.out.println(events.get(i).getModule());
+
         TextView event1 = convertView.findViewById(R.id.event1);
         TextView event2 = convertView.findViewById(R.id.event2);
         TextView event3 = convertView.findViewById(R.id.event3);
