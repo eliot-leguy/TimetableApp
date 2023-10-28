@@ -66,7 +66,7 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
         //Log.d("Test", result);
         try {
             XmlParser.parseXml(result);
-        } catch (XmlPullParserException e) {
+        } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
         Context context = contextRef.get();
