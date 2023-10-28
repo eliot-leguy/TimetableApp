@@ -43,8 +43,7 @@ public class EventAdapter extends ArrayAdapter<Event>
 
         module.setText(event.getModule());
 
-        ArrayList<String> eventRooms = new ArrayList<>();
-        eventRooms = event.getRoom();
+        ArrayList<String> eventRooms =  event.getRoom();
         String eventRoom = "";
         for (int i = 0; i < eventRooms.size(); i++) {
             eventRoom += eventRooms.get(i);
@@ -53,9 +52,8 @@ public class EventAdapter extends ArrayAdapter<Event>
         }
         room.setText(eventRoom);
 
-        ArrayList<String> eventProfs = new ArrayList<>();
-        eventProfs = event.getTeacher();
-        String eventProf = "";
+        ArrayList<String> eventProfs = event.getTeacher();
+                String eventProf = "";
         for (int i = 0; i < eventProfs.size(); i++) {
             eventProf += eventProfs.get(i);
             if (i != eventProfs.size() - 1)
@@ -63,9 +61,8 @@ public class EventAdapter extends ArrayAdapter<Event>
         }
         prof.setText(eventProf);
 
-        ArrayList<String> eventGroups = new ArrayList<>();
-        eventGroups = event.getGroup();
-        String eventGroup = "";
+        ArrayList<String> eventGroups = event.getGroup();
+                String eventGroup = "";
         for (int i = 0; i < eventGroups.size(); i++) {
             eventGroup += eventGroups.get(i);
             if (i != eventGroups.size() - 1)
