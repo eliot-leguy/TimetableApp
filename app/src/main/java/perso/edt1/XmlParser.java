@@ -170,11 +170,11 @@ public class XmlParser {
 
                     try {
                         eventType = parser.nextTag();
+                        eventType = parser.next();
                         if(eventType == XmlPullParser.START_TAG){
-                            eventType = parser.next();
-                            module = parser.getText();
-                        } else {
                             module = parser.nextText();
+                        } else {
+                            module = parser.getText();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -197,49 +197,62 @@ public class XmlParser {
                 }
 
                 if(parser.getName() != null && parser.getName().equals("room")){
-
-                    while(eventType != XmlPullParser.END_TAG && parser.getName() != null && parser.getName().equals("room")){
+                    boolean stillData = true;
+                    while(stillData){
                         try {
                             eventType = parser.nextTag();
-                            Log.d("infoRoom", parser.getName());
-                            eventType = parser.nextTag();
-                            Log.d("infoRoom", parser.getName());
-                            room.add(parser.nextText());
+                            if(eventType != XmlPullParser.END_TAG) {
+                                if (parser.next() == XmlPullParser.TEXT) {
+                                    room.add(parser.getText());
+                                } else {
+                                    room.add(parser.nextText());
+
+                                }
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        stillData = !(eventType == XmlPullParser.END_TAG && parser.getName() != null && parser.getName().equals("room"));
                     }
                 }
 
                 if(parser.getName() != null && parser.getName().equals("staff")){
-                    while(eventType != XmlPullParser.END_TAG && parser.getName() != null && parser.getName().equals("staff")){
+                    boolean stillData = true;
+                    while(stillData){
                         try {
                             eventType = parser.nextTag();
-                            if(eventType == XmlPullParser.START_TAG){
-                                eventType = parser.next();
-                                teacher.add(parser.getText());
-                            } else {
-                                teacher.add(parser.nextText());
+                            if(eventType != XmlPullParser.END_TAG) {
+                                if (parser.next() == XmlPullParser.TEXT) {
+                                    teacher.add(parser.getText());
+                                } else {
+                                    teacher.add(parser.nextText());
+
+                                }
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        stillData = !(eventType == XmlPullParser.END_TAG && parser.getName() != null && parser.getName().equals("staff"));
                     }
                 }
 
                 if(parser.getName() != null && parser.getName().equals("group")){
-                    while(eventType != XmlPullParser.END_TAG && parser.getName() != null && parser.getName().equals("group")){
+                    boolean stillData = true;
+                    while(stillData){
                         try {
                             eventType = parser.nextTag();
-                            if(eventType == XmlPullParser.START_TAG){
-                                eventType = parser.next();
-                                group.add(parser.getText());
-                            } else {
-                                group.add(parser.nextText());
+                            if(eventType != XmlPullParser.END_TAG) {
+                                if (parser.next() == XmlPullParser.TEXT) {
+                                    group.add(parser.getText());
+                                } else {
+                                    group.add(parser.nextText());
+
+                                }
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        stillData = !(eventType == XmlPullParser.END_TAG && parser.getName() != null && parser.getName().equals("group"));
                     }
                 }
 
@@ -253,6 +266,7 @@ public class XmlParser {
                 // Si on a toutes les infos sur l'évènement on le créer et on l'ajoute dans la liste
                 if(parser.getName().equals("event")){
                     LocalDate weekStartDate = weekInfoMap.get(rawWeeks);
+                    assert weekStartDate != null;           //TODO : Pas sur ce celui la
                     Event event = new Event(dayShift, startTime, endTime, category, weekStartDate, module, room, teacher, group, notes);
                     Event.eventsList.add(event);
 
