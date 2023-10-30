@@ -19,7 +19,7 @@ import java.util.List;
 
 public class HourAdapter extends ArrayAdapter<HourEvent>
 {
-    private Context context;
+    private int RelativeLayoutWidth;
     
     public HourAdapter(@NonNull Context context, List<HourEvent> hourEvents)
     {
@@ -34,7 +34,12 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         HourEvent event = getItem(position);
 
         if (convertView == null)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.hour_cell, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.pretty_hour_layout, parent, false);
+
+
+
+        ViewGroup.LayoutParams MainRelativeLayoutParams = convertView.getLayoutParams();
+        RelativeLayoutWidth = MainRelativeLayoutParams.width;
 
         setHour(convertView, event.time);
         setEvents(convertView, event.events);
@@ -52,9 +57,6 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
 
     private void setEvents(View convertView, ArrayList<Event> events)
     {
-//        for (int i = 0; i < events.size(); i++)
-//            Log.d("HourAdapter", events.get(i).getModule());
-
         LinearLayout event1 = convertView.findViewById(R.id.event1);
         LinearLayout event2 = convertView.findViewById(R.id.event2);
         LinearLayout event3 = convertView.findViewById(R.id.event3);
@@ -69,35 +71,39 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         }
         else if(events.size() == 1)
         {
-            setEvent(convertView, event1, events.get(0),1);
+            int perEventWidth = RelativeLayoutWidth - 70;
+            setEvent(convertView, event1, events.get(0),1, perEventWidth);
             hideEvent(event2);
             hideEvent(event3);
             hideEvent(event4);
         }
         else if(events.size() == 2)
         {
-            setEvent(convertView, event1, events.get(0),1);
-            setEvent(convertView, event2, events.get(1),2);
+            int perEventWidth = (RelativeLayoutWidth - 70) / 2;
+            setEvent(convertView, event1, events.get(0),1, perEventWidth);
+            setEvent(convertView, event2, events.get(1),2, perEventWidth);
             hideEvent(event3);
             hideEvent(event4);
         }
         else if(events.size() == 3)
         {
-            setEvent(convertView, event1, events.get(0),1);
-            setEvent(convertView, event2, events.get(1),2);
-            setEvent(convertView, event3, events.get(2),3);
+            int perEventWidth = (RelativeLayoutWidth - 70) / 3;
+            setEvent(convertView, event1, events.get(0),1, perEventWidth);
+            setEvent(convertView, event2, events.get(1),2, perEventWidth);
+            setEvent(convertView, event3, events.get(2),3, perEventWidth);
             hideEvent(event4);
         }
         else        //TODO: Limiter à 4 events max
         {
-            setEvent(convertView, event1, events.get(0),1);
-            setEvent(convertView, event2, events.get(1),2);
-            setEvent(convertView, event3, events.get(2),3);
-            setEvent(convertView, event4, events.get(3),4);
+            int perEventWidth = (RelativeLayoutWidth - 70) / 4;
+            setEvent(convertView, event1, events.get(0),1, perEventWidth);
+            setEvent(convertView, event2, events.get(1),2, perEventWidth);
+            setEvent(convertView, event3, events.get(2),3, perEventWidth);
+            setEvent(convertView, event4, events.get(3),4, perEventWidth);
         }
     }
 
-    private void setEvent(View convertView, LinearLayout eventCell, Event event, int eventNb)
+    private void setEvent(View convertView, LinearLayout eventCell, Event event, int eventNb, int perEventWidth)
     {
         int moduleId = getContext().getResources().getIdentifier("event" + eventNb + "Module", "id", getContext().getPackageName());
         TextView eventModule = convertView.findViewById(moduleId);
@@ -110,17 +116,18 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         int noteId = getContext().getResources().getIdentifier("event" + eventNb + "Note", "id", getContext().getPackageName());
         TextView eventNote = convertView.findViewById(noteId);
 
-
-        String eventCategory = event.getCategory().replaceAll("\\s+", "_");
-        Log.d("HourAdapter", eventCategory);
-
+       String eventCategory = event.getCategory().replaceAll("\\s+", "_");
 
         int color = getContext().getResources().getIdentifier(eventCategory, "color", getContext().getPackageName());
         if(color != 0) {
             eventCell.setBackgroundColor(getContext().getColor(color));
-        } else {
-            Log.d("HourAdapter", event.getCategory());
         }
+
+        ViewGroup.LayoutParams layoutParameters = eventCell.getLayoutParams();
+        layoutParameters.width = perEventWidth;
+        layoutParameters.height = 150 * Integer.parseInt(CalendarUtils.formattedHours(event.getEndTime())) - Integer.parseInt(CalendarUtils.formattedHours(event.getStartTime()));
+        eventCell.setLayoutParams(layoutParameters);
+
 
         eventModule.setText(event.getModule());
 

@@ -8,10 +8,11 @@
     <TextView
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="top"
         android:id="@+id/timeTV"
         android:textSize="20sp"
         android:textColor="@color/black"
+        android:textAlignment="center"
         android:text="10:00"/>
 
     <LinearLayout
