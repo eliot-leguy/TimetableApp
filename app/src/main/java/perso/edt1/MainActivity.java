@@ -4,17 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static perso.edt1.CalendarUtils.daysInMonthArray;
 import static perso.edt1.CalendarUtils.monthYearFromDate;
+import static perso.edt1.LoadXMLedt.loadEdt;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
@@ -76,10 +79,14 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         startActivity(new Intent(this, WeekViewActivity.class));
     }
 
-    public void testAction(View view) {
-        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
+    public void downloadEDT_action(View view) {
+        //Toast.makeText(this, "Downloading Edt", Toast.LENGTH_SHORT).show();
         String url = "https://edt.univ-nantes.fr/chantrerie-gavy/g914391.xml";
         new UrlRequests(this).execute(url);
+    }
+
+    public void loadEDT_action(View view) {
+        loadEdt(this.getDir("edtDir", Context.MODE_PRIVATE));
     }
 }
 

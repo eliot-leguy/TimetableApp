@@ -8,16 +8,35 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="test"
-        android:textColor="@color/blue"
-        android:background="@null"
-        android:textStyle="bold"
-        android:onClick="testAction"
-        android:textSize="20sp"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Download EDT"
+            android:textColor="@color/blue"
+            android:background="@null"
+            android:textStyle="bold"
+            android:onClick="downloadEDT_action"
+            android:textSize="20sp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Load EDT"
+            android:spacing="10dp"
+            android:textColor="@color/blue"
+            android:background="@null"
+            android:textStyle="bold"
+            android:onClick="loadEDT_action"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
