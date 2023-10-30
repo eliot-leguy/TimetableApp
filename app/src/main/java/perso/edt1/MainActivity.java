@@ -80,13 +80,14 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     }
 
     public void downloadEDT_action(View view) {
-        //Toast.makeText(this, "Downloading Edt", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Downloading Edt", Toast.LENGTH_SHORT).show();
         String url = "https://edt.univ-nantes.fr/chantrerie-gavy/g914391.xml";
         new UrlRequests(this).execute(url);
     }
 
     public void loadEDT_action(View view) {
-        loadEdt(this.getDir("edtDir", Context.MODE_PRIVATE));
+        Toast.makeText(this, "Loading Edt", Toast.LENGTH_SHORT).show();
+        loadEdt(this.getDir("edtDir", Context.MODE_PRIVATE), this);
     }
 }
 

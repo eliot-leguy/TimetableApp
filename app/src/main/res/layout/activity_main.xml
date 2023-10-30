@@ -17,24 +17,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@null"
+            android:onClick="downloadEDT_action"
             android:text="Download EDT"
             android:textColor="@color/blue"
-            android:background="@null"
-            android:textStyle="bold"
-            android:onClick="downloadEDT_action"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Load EDT"
-            android:spacing="10dp"
-            android:textColor="@color/blue"
             android:background="@null"
-            android:textStyle="bold"
             android:onClick="loadEDT_action"
-            android:textSize="20sp"/>
+            android:text="Load EDT"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -1,5 +1,8 @@
 package perso.edt1;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.BufferedReader;
@@ -7,16 +10,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class LoadXMLedt {
 
-    public static void loadEdt(File DirectoryPath){
+    public static void loadEdt(File DirectoryPath, Context context){
 
         ArrayList<File> files = getFiles(DirectoryPath);
-        for (File file : files) {
-            if(file.getName().endsWith(".xml")){
-                loadXML(file);
+        if(files.size() == 0){
+            Toast.makeText(context, "No Local Edt", Toast.LENGTH_SHORT).show();
+        } else {
+            for (File file : files) {
+                if (file.getName().endsWith(".xml")) {
+                    loadXML(file);
+                }
             }
         }
     }
