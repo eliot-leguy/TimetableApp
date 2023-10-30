@@ -1,7 +1,6 @@
 package perso.edt1;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
-public class HourAdapter extends ArrayAdapter<HourEvent>
-{
+public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
+
     private int RelativeLayoutWidth;
-    
-    public HourAdapter(@NonNull Context context, List<HourEvent> hourEvents)
-    {
+
+    public DailyEventAdapter(@NonNull Context context, ArrayList<HourEvent> hourEvents) {
         super(context, 0, hourEvents);
     }
 
@@ -33,7 +29,7 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         HourEvent event = getItem(position);
 
         if (convertView == null)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.hour_cell2, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
 
         LayoutInflater inflaterCell = LayoutInflater.from(getContext());
 
@@ -42,19 +38,10 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         ViewGroup.LayoutParams MainRelativeLayoutParams = convertView.getLayoutParams();
         RelativeLayoutWidth = MainRelativeLayoutParams.width;
 
-        setHour(convertView, event.time);
-        //setEvents(convertView, event.events);
+        setEvents(convertView, event.events);
 
         return convertView;
     }
-
-    private void setHour(View convertView, LocalTime time)
-    {
-        TextView timeTV = convertView.findViewById(R.id.timeTV);
-        timeTV.setText(CalendarUtils.formattedShortTime(time));
-    }
-
-    // Doit adapter pour convenir avec les events
 
     private void setEvents(View convertView, ArrayList<Event> events)
     {
@@ -62,6 +49,8 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         LinearLayout event2 = convertView.findViewById(R.id.event2);
         LinearLayout event3 = convertView.findViewById(R.id.event3);
         LinearLayout event4 = convertView.findViewById(R.id.event4);
+
+        Log.d("DailyEventAdapter", "setEvents: " + events.size());
 
         if(events.size() == 0)
         {
@@ -114,10 +103,10 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         TextView eventTeacher = convertView.findViewById(teacherId);
         int groupId = getContext().getResources().getIdentifier("event" + eventNb + "Group", "id", getContext().getPackageName());
         TextView eventGroup = convertView.findViewById(groupId);
-        int noteId = getContext().getResources().getIdentifier("event" + eventNb + "Note", "id", getContext().getPackageName());
+        int noteId = getContext().getResources().getIdentifier("event" + eventNb + "Notes", "id", getContext().getPackageName());
         TextView eventNote = convertView.findViewById(noteId);
 
-       String eventCategory = event.getCategory().replaceAll("\\s+", "_");
+        String eventCategory = event.getCategory().replaceAll("\\s+", "_");
 
         int color = getContext().getResources().getIdentifier(eventCategory, "color", getContext().getPackageName());
         if(color != 0) {
@@ -168,18 +157,4 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
     {
         eventCell.setVisibility(View.GONE);
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

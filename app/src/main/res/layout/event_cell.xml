@@ -1,62 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:id="@+id/event_layout"
-    android:color="@color/lightGray">
+    android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:gravity="center_horizontal"
-        android:layout_weight=".95"
-        android:layout_margin="5dp"
-        android:id="@+id/module"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:text="Event"/>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:id="@+id/room"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:text="Room"/>
+        android:padding="5dp"
+        android:id="@+id/event1"
+        android:color="@color/lightGray">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:id="@+id/prof"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:text="Prof"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:id="@+id/event1Module"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Module"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:id="@+id/group"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:text="Group"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event1Room"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Room"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event1Prof"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Prof"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event1Group"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Group"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event1Notes"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="notes"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:id="@+id/notes"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:text="notes"/>
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:id="@+id/event2"
+        android:color="@color/lightGray">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:id="@+id/event2Module"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Module"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event2Room"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Room"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event2Prof"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Prof"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event2Group"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Group"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event2Notes"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="notes"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/event3"
+        android:color="@color/lightGray">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:id="@+id/event3Module"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Module"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event3Room"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Room"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event3Prof"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Prof"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event3Group"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Group"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event3Notes"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="notes"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/event4"
+        android:color="@color/lightGray">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:id="@+id/event4Module"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Module"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event4Room"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Room"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event4Prof"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Prof"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event4Group"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Group"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/event4Notes"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="notes"/>
+
+    </LinearLayout>
 
 </LinearLayout>

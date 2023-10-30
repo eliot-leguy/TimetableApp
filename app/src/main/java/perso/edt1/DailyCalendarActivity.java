@@ -23,6 +23,7 @@ public class DailyCalendarActivity extends AppCompatActivity
     private TextView monthDayText;
     private TextView dayOfWeekTV;
     private ListView hourListView;
+    private ListView eventListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,6 +38,7 @@ public class DailyCalendarActivity extends AppCompatActivity
         monthDayText = findViewById(R.id.monthDayText);
         dayOfWeekTV = findViewById(R.id.dayOfWeekTV);
         hourListView = findViewById(R.id.hourListView);
+        eventListView = findViewById(R.id.eventListView);
     }
 
     @Override
@@ -52,6 +54,12 @@ public class DailyCalendarActivity extends AppCompatActivity
         String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
         dayOfWeekTV.setText(dayOfWeek);
         setHourAdapter();
+        setEventAdapter();
+    }
+
+    private void setEventAdapter() {
+        DailyEventAdapter dailyEventAdapter = new DailyEventAdapter(getApplicationContext(), hourEventList());
+        eventListView.setAdapter(dailyEventAdapter);
     }
 
     private void setHourAdapter()
@@ -59,6 +67,11 @@ public class DailyCalendarActivity extends AppCompatActivity
         HourAdapter hourAdapter = new HourAdapter(getApplicationContext(), hourEventList());
         hourListView.setAdapter(hourAdapter);
     }
+
+//    private void setEventAdapter(){
+//        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), hourEventList());
+//        eventListView.setAdapter(eventAdapter);
+//    }
 
     private ArrayList<HourEvent> hourEventList()
     {

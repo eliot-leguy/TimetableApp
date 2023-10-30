@@ -35,11 +35,11 @@ public class EventAdapter extends ArrayAdapter<Event>
         params.height = 100 * Integer.parseInt(CalendarUtils.formattedHours(event.getEndTime())) - Integer.parseInt(CalendarUtils.formattedHours(event.getStartTime()));
         convertView.setLayoutParams(params);
 
-        TextView module = convertView.findViewById(R.id.module);
-        TextView room = convertView.findViewById(R.id.room);
-        TextView prof = convertView.findViewById(R.id.prof);
-        TextView group = convertView.findViewById(R.id.group);
-        TextView notes = convertView.findViewById(R.id.notes);
+        TextView module = convertView.findViewById(R.id.event1Module);
+        TextView room = convertView.findViewById(R.id.event1Room);
+        TextView prof = convertView.findViewById(R.id.event1Prof);
+        TextView group = convertView.findViewById(R.id.event1Group);
+        TextView notes = convertView.findViewById(R.id.event1Notes);
 
         module.setText(event.getModule());
 
