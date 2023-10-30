@@ -22,9 +22,11 @@
 
         <LinearLayout
             android:background="@color/lightGray"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             android:id="@+id/event1"
             android:padding="5dp">
 
@@ -90,7 +92,8 @@
 
         <LinearLayout
             android:background="@color/lightGray"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/event2"
@@ -157,7 +160,8 @@
 
         <LinearLayout
             android:background="@color/lightGray"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/event3"
@@ -215,6 +219,74 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event3Note"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@color/lightGray"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/event4"
+            android:padding="5dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight=".95"
+                android:layout_margin="5dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/event4Module"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/event4Room"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/event4Prof"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="Prof"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/event4Group"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Group"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/event4Note"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:text="Note"/>

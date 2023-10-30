@@ -1,5 +1,7 @@
 package perso.edt1;
 
+import android.util.Log;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -54,6 +56,8 @@ public class Event
             if(event.getDate().equals(date) && eventHour == cellHour)
                 events.add(event);
         }
+
+        Log.d("HourAdapter", "events.size()2 = " + events.size());
 
         return events;
     }
