@@ -31,10 +31,6 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
 
-        LayoutInflater inflaterCell = LayoutInflater.from(getContext());
-
-
-
         ViewGroup.LayoutParams MainRelativeLayoutParams = convertView.getLayoutParams();
         RelativeLayoutWidth = MainRelativeLayoutParams.width;
 
