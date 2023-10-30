@@ -55,8 +55,6 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
 //        for (int i = 0; i < events.size(); i++)
 //            Log.d("HourAdapter", events.get(i).getModule());
 
-        Log.d("HourAdapter", "events.size() = " + events.size());
-
         LinearLayout event1 = convertView.findViewById(R.id.event1);
         LinearLayout event2 = convertView.findViewById(R.id.event2);
         LinearLayout event3 = convertView.findViewById(R.id.event3);
@@ -112,10 +110,19 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
         int noteId = getContext().getResources().getIdentifier("event" + eventNb + "Note", "id", getContext().getPackageName());
         TextView eventNote = convertView.findViewById(noteId);
 
-        eventModule.setText(event.getModule());
-        if(event.getModule() != null){
-            Log.d("HourAdapter", "event.getModule() = " + event.getModule());
+
+        String eventCategory = event.getCategory().replaceAll("\\s+", "_");
+        Log.d("HourAdapter", eventCategory);
+
+
+        int color = getContext().getResources().getIdentifier(eventCategory, "color", getContext().getPackageName());
+        if(color != 0) {
+            eventCell.setBackgroundColor(getContext().getColor(color));
+        } else {
+            Log.d("HourAdapter", event.getCategory());
         }
+
+        eventModule.setText(event.getModule());
 
         ArrayList<String> eventRooms = event.getRoom();
         String StringEventRoom = "";

@@ -57,8 +57,6 @@ public class Event
                 events.add(event);
         }
 
-        Log.d("HourAdapter", "events.size()2 = " + events.size());
-
         return events;
     }
 
