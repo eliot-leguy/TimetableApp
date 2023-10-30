@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalendarAppExample">
+
         <activity
             android:name=".DailyCalendarActivity"
             android:exported="true" />

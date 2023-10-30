@@ -1,6 +1,7 @@
 package perso.edt1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,12 @@ import java.util.List;
 
 public class HourAdapter extends ArrayAdapter<HourEvent>
 {
+    private Context context;
+    
     public HourAdapter(@NonNull Context context, List<HourEvent> hourEvents)
     {
         super(context, 0, hourEvents);
+        context = context;
     }
 
     @NonNull
@@ -48,82 +52,99 @@ public class HourAdapter extends ArrayAdapter<HourEvent>
 
     private void setEvents(View convertView, ArrayList<Event> events)
     {
-        for (int i = 0; i < events.size(); i++)
-            Log.d("HourAdapter", events.get(i).getModule());
+//        for (int i = 0; i < events.size(); i++)
+//            Log.d("HourAdapter", events.get(i).getModule());
+
+        Log.d("HourAdapter", "events.size() = " + events.size());
 
         LinearLayout event1 = convertView.findViewById(R.id.event1);
         LinearLayout event2 = convertView.findViewById(R.id.event2);
         LinearLayout event3 = convertView.findViewById(R.id.event3);
-
-//        TextView event1 = convertView.findViewById(R.id.event1);
-//        TextView event2 = convertView.findViewById(R.id.event2);
-//        TextView event3 = convertView.findViewById(R.id.event3);
+        LinearLayout event4 = convertView.findViewById(R.id.event4);
 
         if(events.size() == 0)
         {
             hideEvent(event1);
             hideEvent(event2);
             hideEvent(event3);
+            hideEvent(event4);
         }
         else if(events.size() == 1)
         {
-            setEvent(convertView, event1, events.get(0));
+            setEvent(convertView, event1, events.get(0),1);
             hideEvent(event2);
             hideEvent(event3);
+            hideEvent(event4);
         }
         else if(events.size() == 2)
         {
-            setEvent(convertView, event1, events.get(0));
-            setEvent(convertView, event2, events.get(1));
+            setEvent(convertView, event1, events.get(0),1);
+            setEvent(convertView, event2, events.get(1),2);
             hideEvent(event3);
+            hideEvent(event4);
         }
-        else        //TODO: Limiter à 3 events max
+        else if(events.size() == 3)
         {
-            setEvent(convertView, event1, events.get(0));
-            setEvent(convertView, event2, events.get(1));
-            setEvent(convertView, event3, events.get(2));
+            setEvent(convertView, event1, events.get(0),1);
+            setEvent(convertView, event2, events.get(1),2);
+            setEvent(convertView, event3, events.get(2),3);
+            hideEvent(event4);
+        }
+        else        //TODO: Limiter à 4 events max
+        {
+            setEvent(convertView, event1, events.get(0),1);
+            setEvent(convertView, event2, events.get(1),2);
+            setEvent(convertView, event3, events.get(2),3);
+            setEvent(convertView, event4, events.get(3),4);
         }
     }
 
-    private void setEvent(View convertView, LinearLayout eventCell, Event event)
+    private void setEvent(View convertView, LinearLayout eventCell, Event event, int eventNb)
     {
-        TextView event1Module = convertView.findViewById(R.id.event1Module);
-        TextView event1Room = convertView.findViewById(R.id.event1Room);
-        TextView event1Teacher = convertView.findViewById(R.id.event1Prof);
-        TextView event1Group = convertView.findViewById(R.id.event1Group);
-        TextView event1Note = convertView.findViewById(R.id.event1Note);
+        int moduleId = getContext().getResources().getIdentifier("event" + eventNb + "Module", "id", getContext().getPackageName());
+        TextView eventModule = convertView.findViewById(moduleId);
+        int roomId = getContext().getResources().getIdentifier("event" + eventNb + "Room", "id", getContext().getPackageName());
+        TextView eventRoom = convertView.findViewById(roomId);
+        int teacherId = getContext().getResources().getIdentifier("event" + eventNb + "Prof", "id", getContext().getPackageName());
+        TextView eventTeacher = convertView.findViewById(teacherId);
+        int groupId = getContext().getResources().getIdentifier("event" + eventNb + "Group", "id", getContext().getPackageName());
+        TextView eventGroup = convertView.findViewById(groupId);
+        int noteId = getContext().getResources().getIdentifier("event" + eventNb + "Note", "id", getContext().getPackageName());
+        TextView eventNote = convertView.findViewById(noteId);
 
-        event1Module.setText(event.getModule());
-        Log.d("HourAdapter", event.getModule());
+        eventModule.setText(event.getModule());
+        if(event.getModule() != null){
+            Log.d("HourAdapter", "event.getModule() = " + event.getModule());
+        }
 
         ArrayList<String> eventRooms = event.getRoom();
-        String eventRoom = "";
+        String StringEventRoom = "";
         for (int i = 0; i < eventRooms.size(); i++) {
-            eventRoom += eventRooms.get(i);
+            StringEventRoom += eventRooms.get(i);
             if (i != eventRooms.size() - 1)
-                eventRoom += ", ";
+                StringEventRoom += ", ";
         }
-        event1Room.setText(eventRoom);
+        eventRoom.setText(StringEventRoom);
 
         ArrayList<String> eventProfs = event.getTeacher();
-        String eventProf = "";
+        String StringEventProf = "";
         for (int i = 0; i < eventProfs.size(); i++) {
-            eventProf += eventProfs.get(i);
+            StringEventProf += eventProfs.get(i);
             if (i != eventProfs.size() - 1)
-                eventProf += ", ";
+                StringEventProf += ", ";
         }
-        event1Teacher.setText(eventProf);
+        eventTeacher.setText(StringEventProf);
 
         ArrayList<String> eventGroups = event.getGroup();
-        String eventGroup = "";
+        String StringEventGroup = "";
         for (int i = 0; i < eventGroups.size(); i++) {
-            eventGroup += eventGroups.get(i);
+            StringEventGroup += eventGroups.get(i);
             if (i != eventGroups.size() - 1)
-                eventGroup += ", ";
+                StringEventGroup += ", ";
         }
-        event1Group.setText(eventGroup);
+        eventGroup.setText(StringEventGroup);
 
-        event1Note.setText(event.getNotes());
+        eventNote.setText(event.getNotes());
 
         eventCell.setVisibility(View.VISIBLE);
     }

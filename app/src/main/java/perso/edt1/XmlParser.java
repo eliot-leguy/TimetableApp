@@ -271,17 +271,17 @@ public class XmlParser {
                     Event.eventsList.add(event);
 
 
-                    String toPrint = "\n";
-                    toPrint += "StartTime : " + event.getStartTime() + "\n";
-                    toPrint += "EndTime : " + event.getEndTime() + "\n";
-                    toPrint += "Category : " + event.getCategory() + "\n";
-                    toPrint += "Date : " + event.getDate() + "\n";
-                    toPrint += "Module : " + event.getModule() + "\n";
-                    toPrint += "Room : " + event.getRoom() + "\n";
-                    toPrint += "Teacher : " + event.getTeacher() + "\n";
-                    toPrint += "Group : " + event.getGroup() + "\n";
-                    toPrint += "Notes : " + event.getNotes() + "\n";
-                    Log.d("truc", toPrint);
+//                    String toPrint = "\n";
+//                    toPrint += "StartTime : " + event.getStartTime() + "\n";
+//                    toPrint += "EndTime : " + event.getEndTime() + "\n";
+//                    toPrint += "Category : " + event.getCategory() + "\n";
+//                    toPrint += "Date : " + event.getDate() + "\n";
+//                    toPrint += "Module : " + event.getModule() + "\n";
+//                    toPrint += "Room : " + event.getRoom() + "\n";
+//                    toPrint += "Teacher : " + event.getTeacher() + "\n";
+//                    toPrint += "Group : " + event.getGroup() + "\n";
+//                    toPrint += "Notes : " + event.getNotes() + "\n";
+//                    Log.d("truc", toPrint);
 
 
 
