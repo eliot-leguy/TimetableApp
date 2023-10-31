@@ -27,6 +27,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:id="@+id/event1Time"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Time"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="5dp"
             android:id="@+id/event1Room"
@@ -84,6 +94,16 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:text="Module"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:id="@+id/event2Time"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Time"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,6 +169,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:id="@+id/event3Time"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Time"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="5dp"
             android:id="@+id/event3Room"
@@ -206,6 +236,16 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:text="Module"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:id="@+id/event4Time"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Time"/>
 
         <TextView
             android:layout_width="wrap_content"

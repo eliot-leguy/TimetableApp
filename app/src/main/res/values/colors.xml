@@ -11,4 +11,5 @@
     <color name="Examens">#7889fe</color>
     <color name="TD_anglais">#ffff80</color>
     <color name="Vacances">#95ffff</color>
+    <color name="Fill">#00000000</color>
 </resources>

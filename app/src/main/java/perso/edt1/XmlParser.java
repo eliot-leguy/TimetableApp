@@ -263,6 +263,10 @@ public class XmlParser {
                     weekInfoMap.put(rawWeeks, date);
                 }
 
+                if(parser.getName().equals("timetable")){
+                    Event.prepareEventListForView();
+                }
+
                 // Si on a toutes les infos sur l'évènement on le créer et on l'ajoute dans la liste
                 if(parser.getName().equals("event")){
                     LocalDate weekStartDate = weekInfoMap.get(rawWeeks);

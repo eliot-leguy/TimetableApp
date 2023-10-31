@@ -139,7 +139,7 @@ public class DailyCalendarActivity extends AppCompatActivity
         monthDayText.setText(CalendarUtils.monthDayFromDate(selectedDate));
         String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
         dayOfWeekTV.setText(dayOfWeek);
-        setHourAdapter();
+        //setHourAdapter();
         setEventAdapter();
     }
 
@@ -163,12 +163,20 @@ public class DailyCalendarActivity extends AppCompatActivity
     {
         ArrayList<HourEvent> list = new ArrayList<>();
 
-        for(int hour = 0; hour < 24; hour++)
-        {
-            LocalTime time = LocalTime.of(hour, 0);
-            ArrayList<Event> events = Event.eventsForDateAndTime(selectedDate, time);
-            HourEvent hourEvent = new HourEvent(time, events);
-            list.add(hourEvent);
+        for(int hour = 0; hour < 24; hour++) {
+                LocalTime time = LocalTime.of(hour, 0);
+                ArrayList<Event> events = Event.eventsForDateAndTime(selectedDate, time);
+                for(int i=0; i < events.size(); i++){
+                    if(events.get(i).getCategory().equals("Fill")){
+                        ArrayList<Event> fillEvent = new ArrayList<Event>();
+                        fillEvent.add(events.get(i));
+                        events.remove(i);
+                        HourEvent hourEvent = new HourEvent(time, fillEvent);
+                        list.add(hourEvent);
+                    }
+                }
+                HourEvent hourEvent = new HourEvent(time, events);
+                list.add(hourEvent);
         }
 
         return list;

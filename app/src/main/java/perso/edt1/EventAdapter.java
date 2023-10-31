@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +42,12 @@ public class EventAdapter extends ArrayAdapter<Event>
         TextView prof = convertView.findViewById(R.id.event1Prof);
         TextView group = convertView.findViewById(R.id.event1Group);
         TextView notes = convertView.findViewById(R.id.event1Notes);
+        TextView timeView = convertView.findViewById(R.id.event1Time);
 
         module.setText(event.getModule());
+
+        String time = CalendarUtils.formattedShortTime(event.getStartTime()) + " - " + CalendarUtils.formattedShortTime(event.getEndTime());
+        timeView.setText(time);
 
         ArrayList<String> eventRooms =  event.getRoom();
         String eventRoom = "";

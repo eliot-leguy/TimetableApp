@@ -79,13 +79,15 @@
         android:id="@+id/hourListView"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:fastScrollEnabled="false"/>
 
     <ListView
         android:id="@+id/eventListView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5" />
+        android:layout_weight="5"
+        android:fastScrollEnabled="false"/>
 
 </LinearLayout>
 

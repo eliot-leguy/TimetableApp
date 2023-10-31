@@ -5,11 +5,16 @@ import android.util.Log;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Map;
 
 
 public class Event
 {
     public static ArrayList<Event> eventsList = new ArrayList<>();
+
+    private static Map<LocalDate, ArrayList<Event>> EventsByDay;
     private String module;
     private LocalDate date;
     private LocalTime startTime;
@@ -32,32 +37,167 @@ public class Event
         this.notes = notes;
     }
 
-    public static ArrayList<Event> eventsForDate(LocalDate date)
-    {
-        ArrayList<Event> events = new ArrayList<>();
-
-        for(Event event : eventsList)
-        {
-            if(event.getDate().equals(date))
-                events.add(event);
-        }
-
-        return events;
+    public static ArrayList<Event> eventsForDate(LocalDate date) {
+        return EventsByDay.get(date);
     }
 
-    public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime time)
-    {
-        ArrayList<Event> events = new ArrayList<>();
+    public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime time) {
+        ArrayList<Event> events = EventsByDay.get(date);
+        ArrayList<Event> eventsForDateAndTime = new ArrayList<>();
 
-        for(Event event : eventsList)
-        {
-            int eventHour = event.startTime.getHour();
-            int cellHour = time.getHour();
-            if(event.getDate().equals(date) && eventHour == cellHour)
-                events.add(event);
+        Log.d("Event", "eventsForDateAndTime: " + date);
+        Log.d("Event", "eventsForDateAndTime: " + events.size());
+
+        LocalTime eventHour;
+
+        for(int i= 0; i < events.size(); i++) {
+            eventHour = events.get(i).startTime;
+            if(eventHour.equals(time) || eventHour.isBefore(time.plusHours(1)) && eventHour.isAfter(time))
+                eventsForDateAndTime.add(events.get(i));
         }
 
-        return events;
+        return eventsForDateAndTime;
+    }
+
+    public static void prepareEventListForView(){
+        EventsByDay = addEmptyEvents(sortedEventsByDay(eventsByDay(eventsList)));
+    }
+
+    private static ArrayList<Event> addEmptyEvents(ArrayList<Event> events) {
+        if (events.size() == 0) {
+            Log.d("Event", "No Empty to add");
+            return events;
+        }
+
+        ArrayList<Event> newEvents = new ArrayList<>();
+
+        Event event = events.get(0);
+        LocalTime midnight = LocalTime.of(0, 0);
+
+        Event emptyEvent = new Event(0, midnight,event.getStartTime(),"Fill", event.getDate(), null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(),"");
+        newEvents.add(emptyEvent);
+        newEvents.add(event);
+
+        for(int i = 1; i < events.size() - 1; i++)
+        {
+            event = events.get(i);
+            newEvents.add(event);
+            Event nextEvent = events.get(i + 1);
+            if(event.getEndTime().isBefore(nextEvent.getStartTime())) {
+                Log.d("Event", "addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
+                emptyEvent = new Event(0, event.getEndTime(),nextEvent.getStartTime(),"Fill", event.getDate(), null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(),"");
+                newEvents.add(emptyEvent);
+            } else {
+                Log.d("Event", "Can't addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
+            }
+        }
+        newEvents.add(events.get(events.size() - 1));
+        return newEvents;
+    }
+
+    private static Map<LocalDate, ArrayList<Event>> addEmptyEvents(Map<LocalDate, ArrayList<Event>> eventsByDaySorted) {
+
+        LocalTime midnight = LocalTime.of(0, 0);
+        LocalTime nextDayMidnight = LocalTime.of(23, 59);
+
+        eventsByDaySorted.forEach((key,value) -> {
+            ArrayList<Event> newEvents = new ArrayList<>();
+
+            if(value.size() == 0){
+                Event emptyEvent = new Event(0, midnight,nextDayMidnight,"Fill", key, null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(),"");
+                newEvents.add(emptyEvent);
+            } else {
+
+                Event event = value.get(0);
+
+                Event emptyEvent = new Event(0, midnight, event.getStartTime(), "Fill", event.getDate(), null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "");
+                newEvents.add(emptyEvent);
+
+                for (int i = 0; i < value.size() - 1; i++) {
+                    event = value.get(i);
+                    newEvents.add(event);
+                    Event nextEvent = value.get(i + 1);
+                    if (event.getEndTime().isBefore(nextEvent.getStartTime())) {
+                        Log.d("Event", "addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
+                        emptyEvent = new Event(0, event.getEndTime(), nextEvent.getStartTime(), "Fill", event.getDate(), null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "");
+                        newEvents.add(emptyEvent);
+                    } else {
+                        Log.d("Event", "Can't addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
+                    }
+                }
+                newEvents.add(value.get(value.size() - 1));
+
+                eventsByDaySorted.put(key, newEvents);
+            }
+        });
+
+        return eventsByDaySorted;
+    }
+
+    private static Map<LocalDate, ArrayList<Event>> eventsByDay(ArrayList<Event> events){
+        LocalDate minDate = events.get(0).getDate();
+        LocalDate maxDate = events.get(0).getDate();
+        LocalDate currentDate = maxDate;
+
+        for(int i = 0; i < events.size(); i++){
+            currentDate = events.get(i).getDate();
+            if(currentDate.isBefore(minDate))
+                minDate = currentDate;
+            if(currentDate.isAfter(maxDate))
+                maxDate = currentDate;
+        }
+
+        // Create a map with all days between minDate and maxDate
+        Map<LocalDate, ArrayList<Event>> EventsByDay = new Hashtable<LocalDate, ArrayList<Event>>();
+        currentDate = minDate;
+        while(currentDate.isBefore(maxDate) || currentDate.isEqual(maxDate)){
+            EventsByDay.put(currentDate, new ArrayList<Event>());
+            currentDate = currentDate.plusDays(1);
+        }
+
+        // Add events to the map
+        for(int i=0; i < events.size(); i++){
+            EventsByDay.get(events.get(i).getDate()).add(events.get(i));
+        }
+
+        currentDate = minDate;
+        while(currentDate.isBefore(maxDate) || currentDate.isEqual(maxDate)){
+            if(EventsByDay.get(currentDate) == null){
+                ArrayList<Event> event =  new ArrayList<Event>();
+                event.add(new Event(0, LocalTime.of(0, 0),LocalTime.of(23, 59),"Fill", currentDate, null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(),""));
+                EventsByDay.put(currentDate, event);
+            }
+            currentDate = currentDate.plusDays(1);
+        }
+
+        return EventsByDay;
+    }
+
+    private static Map<LocalDate, ArrayList<Event>> sortedEventsByDay(Map<LocalDate, ArrayList<Event>> eventsByDay){
+        Map<LocalDate, ArrayList<Event>> sortedEventsByDay = new Hashtable<LocalDate, ArrayList<Event>>();
+
+        eventsByDay.forEach((key, value) -> {
+            ArrayList<Event> sortedEvents = new ArrayList<>();
+            for(int i = 0; i < value.size(); i++){
+                if(sortedEvents.size() == 0){
+                    sortedEvents.add(value.get(i));
+                } else {
+                    for(int j = 0; j < sortedEvents.size(); j++){
+                        if(Integer.parseInt(CalendarUtils.formattedHours(value.get(i).getStartTime())) < Integer.parseInt(CalendarUtils.formattedHours(sortedEvents.get(j).getStartTime()))){
+                            sortedEvents.add(j, value.get(i));
+                            break;
+                        } else if(j == sortedEvents.size() - 1){
+                            sortedEvents.add(value.get(i));
+                            break;
+                        }
+                    }
+                }
+            }
+            sortedEventsByDay.put(key, sortedEvents);
+        });
+        Log.d("Event", "sortedEventsByDay: " + sortedEventsByDay.size());
+
+        return sortedEventsByDay;
     }
 
     public String getModule()

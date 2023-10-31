@@ -14,7 +14,6 @@
         android:background="@color/white"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:textAlignment="center"
         android:text="10:00"/>
 
 </LinearLayout>

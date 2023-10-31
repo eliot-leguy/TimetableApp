@@ -36,6 +36,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
 
         setEvents(convertView, event.events);
 
+
         return convertView;
     }
 
@@ -46,7 +47,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         LinearLayout event3 = convertView.findViewById(R.id.event3);
         LinearLayout event4 = convertView.findViewById(R.id.event4);
 
-        Log.d("DailyEventAdapter", "setEvents: " + events.size());
+        //Log.d("Events", "setEvents: " + events.size());
 
         if(events.size() == 0)
         {
@@ -57,7 +58,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         }
         else if(events.size() == 1)
         {
-            int perEventWidth = RelativeLayoutWidth - 70;
+            int perEventWidth = RelativeLayoutWidth - (int)Math.round(RelativeLayoutWidth * 0.2);
             setEvent(convertView, event1, events.get(0),1, perEventWidth);
             hideEvent(event2);
             hideEvent(event3);
@@ -65,7 +66,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         }
         else if(events.size() == 2)
         {
-            int perEventWidth = (RelativeLayoutWidth - 70) / 2;
+            int perEventWidth = (RelativeLayoutWidth - (int)Math.round(RelativeLayoutWidth * 0.2)) / 2;
             setEvent(convertView, event1, events.get(0),1, perEventWidth);
             setEvent(convertView, event2, events.get(1),2, perEventWidth);
             hideEvent(event3);
@@ -73,7 +74,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         }
         else if(events.size() == 3)
         {
-            int perEventWidth = (RelativeLayoutWidth - 70) / 3;
+            int perEventWidth = (RelativeLayoutWidth - (int)Math.round(RelativeLayoutWidth * 0.2)) / 3;
             setEvent(convertView, event1, events.get(0),1, perEventWidth);
             setEvent(convertView, event2, events.get(1),2, perEventWidth);
             setEvent(convertView, event3, events.get(2),3, perEventWidth);
@@ -81,7 +82,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         }
         else        //TODO: Limiter à 4 events max
         {
-            int perEventWidth = (RelativeLayoutWidth - 70) / 4;
+            int perEventWidth = (RelativeLayoutWidth - (int)Math.round(RelativeLayoutWidth * 0.2)) / 4;
             setEvent(convertView, event1, events.get(0),1, perEventWidth);
             setEvent(convertView, event2, events.get(1),2, perEventWidth);
             setEvent(convertView, event3, events.get(2),3, perEventWidth);
@@ -101,6 +102,8 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         TextView eventGroup = convertView.findViewById(groupId);
         int noteId = getContext().getResources().getIdentifier("event" + eventNb + "Notes", "id", getContext().getPackageName());
         TextView eventNote = convertView.findViewById(noteId);
+        int timeId = getContext().getResources().getIdentifier("event" + eventNb + "Time", "id", getContext().getPackageName());
+        TextView eventTime = convertView.findViewById(timeId);
 
         String eventCategory = event.getCategory().replaceAll("\\s+", "_");
 
@@ -112,10 +115,16 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         ViewGroup.LayoutParams layoutParameters = eventCell.getLayoutParams();
         layoutParameters.width = perEventWidth;
         layoutParameters.height = 150 * Integer.parseInt(CalendarUtils.formattedHours(event.getEndTime())) - Integer.parseInt(CalendarUtils.formattedHours(event.getStartTime()));
+
+        eventCell.post(new Runnable() { @Override public void run() { eventCell.setLayoutParams(layoutParameters); }});
+
         eventCell.setLayoutParams(layoutParameters);
 
 
         eventModule.setText(event.getModule());
+
+        String eventTimeText = CalendarUtils.formattedTime(event.getStartTime()) + " - " + CalendarUtils.formattedTime(event.getEndTime());
+        eventTime.setText(eventTimeText);
 
         ArrayList<String> eventRooms = event.getRoom();
         String StringEventRoom = "";
