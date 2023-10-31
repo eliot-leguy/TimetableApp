@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
@@ -114,7 +115,11 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
 
         ViewGroup.LayoutParams layoutParameters = eventCell.getLayoutParams();
         layoutParameters.width = perEventWidth;
-        layoutParameters.height = 150 * Integer.parseInt(CalendarUtils.formattedHours(event.getEndTime())) - Integer.parseInt(CalendarUtils.formattedHours(event.getStartTime()));
+
+        Duration elapsedTime = Duration.between(event.getStartTime(), event.getEndTime());
+        int minutes = (int) elapsedTime.toMinutes();
+
+        layoutParameters.height = minutes * 8;
 
         eventCell.post(new Runnable() { @Override public void run() { eventCell.setLayoutParams(layoutParameters); }});
 

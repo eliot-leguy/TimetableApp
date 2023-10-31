@@ -45,9 +45,6 @@ public class Event
         ArrayList<Event> events = EventsByDay.get(date);
         ArrayList<Event> eventsForDateAndTime = new ArrayList<>();
 
-        Log.d("Event", "eventsForDateAndTime: " + date);
-        Log.d("Event", "eventsForDateAndTime: " + events.size());
-
         LocalTime eventHour;
 
         for(int i= 0; i < events.size(); i++) {
@@ -95,7 +92,7 @@ public class Event
         return newEvents;
     }
 
-    private static Map<LocalDate, ArrayList<Event>> addEmptyEvents(Map<LocalDate, ArrayList<Event>> eventsByDaySorted) {
+    private static Map<LocalDate, ArrayList<Event>> addEmptyEvents(Map<LocalDate, ArrayList<Event>> eventsByDaySorted) {        //TODO : check why some events are not added
 
         LocalTime midnight = LocalTime.of(0, 0);
         LocalTime nextDayMidnight = LocalTime.of(23, 59);
