@@ -1,6 +1,9 @@
 package perso.edt1;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +50,54 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         LinearLayout event2 = convertView.findViewById(R.id.event2);
         LinearLayout event3 = convertView.findViewById(R.id.event3);
         LinearLayout event4 = convertView.findViewById(R.id.event4);
+
+        event1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!events.get(0).getCategory().equals("Fill")){
+                    Intent intent = new Intent(getContext(), FullScreenEventActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("event", events.get(0));
+                    startActivity(getContext(), intent, null);
+                }
+            }
+        });
+
+        event2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!events.get(1).getCategory().equals("Fill")){
+                    Intent intent = new Intent(getContext(), FullScreenEventActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("event", events.get(1));
+                    startActivity(getContext(), intent, null);
+                }
+            }
+        });
+
+        event3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!events.get(2).getCategory().equals("Fill")){
+                    Intent intent = new Intent(getContext(), FullScreenEventActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("event", events.get(2));
+                    startActivity(getContext(), intent, null);
+                }
+            }
+        });
+
+        event4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!events.get(3).getCategory().equals("Fill")){
+                    Intent intent = new Intent(getContext(), FullScreenEventActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("event", events.get(3));
+                    startActivity(getContext(), intent, null);
+                }
+            }
+        });
 
         //Log.d("Events", "setEvents: " + events.size());
 
@@ -167,4 +218,5 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
     {
         eventCell.setVisibility(View.GONE);
     }
+
 }

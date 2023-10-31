@@ -154,11 +154,6 @@ public class DailyCalendarActivity extends AppCompatActivity
         hourListView.setAdapter(hourAdapter);
     }
 
-//    private void setEventAdapter(){
-//        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), hourEventList());
-//        eventListView.setAdapter(eventAdapter);
-//    }
-
     private ArrayList<HourEvent> hourEventList()
     {
         ArrayList<HourEvent> list = new ArrayList<>();
@@ -201,5 +196,11 @@ public class DailyCalendarActivity extends AppCompatActivity
 
     public void MonthlyAction(View view) {
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    public void fullScreenEventAction(Event event) {
+        Intent intent = new Intent(this, FullScreenEventActivity.class);
+        intent.putExtra("event", event);
+        startActivity(intent);
     }
 }
