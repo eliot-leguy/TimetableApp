@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CalendarAppExample</string>
+    <string name="subject">Matière(s)</string>
+    <string name="group">Groupe(s)</string>
+    <string name="teacher">Prof(s)</string>
+</resources>

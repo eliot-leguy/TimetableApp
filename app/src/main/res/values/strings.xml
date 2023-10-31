@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">CalendarAppExample</string>
-    <string name="back"><![CDATA[<-]]></string>
-    <string name="forward"><![CDATA[->]]></string>
-    <string name="title_activity_test">testActivity</string>
+    <string name="back" translatable="false"><![CDATA[<-]]></string>
+    <string name="forward" translatable="false"><![CDATA[->]]></string>
+    <string name="title_activity_test" translatable="false">testActivity</string>
+    <string name="title_activity_full_sceen_event" translatable="false">FullSceenEventActivity</string>
+    <string name="subject">Subject</string>
+    <string name="group">Group(s)</string>
+    <string name="teacher">Teacher(s)</string>
 </resources>
