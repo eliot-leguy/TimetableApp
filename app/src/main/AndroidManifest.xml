@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CalendarAppExample">
         <activity
-            android:name=".testActivity"
+            android:name=".FullScreenEventActivity"
             android:exported="false"
-            android:label="@string/title_activity_test"
+            android:label="@string/title_activity_full_sceen_event"
             android:theme="@style/Theme.CalendarAppExample" />
         <activity
             android:name=".DailyCalendarActivity"
