@@ -43,8 +43,23 @@ public class CalendarUtils
 
     public static String monthDayFromDate(LocalDate date)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM");
         return date.format(formatter);
+    }
+
+    public static String upperCaseWords(String input) {
+        String[] words = input.split(" "); // Split the input string by space
+
+        StringBuilder result = new StringBuilder();
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                char firstChar = Character.toUpperCase(word.charAt(0));
+                String restOfWord = word.substring(1);
+                result.append(firstChar).append(restOfWord).append(" ");
+            }
+        }
+        return result.toString().trim();
     }
 
     public static ArrayList<LocalDate> daysInMonthArray()
