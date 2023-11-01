@@ -4,4 +4,13 @@
     <string name="subject">Matière(s)</string>
     <string name="group">Groupe(s)</string>
     <string name="teacher">Prof(s)</string>
+    <string name="monday">LUN</string>
+    <string name="tuesday">MAR</string>
+    <string name="wednesday">MER</string>
+    <string name="thursday">JEU</string>
+    <string name="friday">VEN</string>
+    <string name="saturday">SAM</string>
+    <string name="sunday">DIM</string>
+    <string name="daily">Jour</string>
+    <string name="monthly">Mois</string>
 </resources>
