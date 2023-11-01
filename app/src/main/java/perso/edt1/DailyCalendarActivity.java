@@ -1,5 +1,6 @@
 package perso.edt1;
 
+import static perso.edt1.CalendarUtils.formattedHours;
 import static perso.edt1.CalendarUtils.selectedDate;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
@@ -31,7 +33,12 @@ public class DailyCalendarActivity extends AppCompatActivity
 
     private View touchSource;
     private View clickSource;
-    private final int offset = 0;
+    private int HourOffset = 0;
+
+    private int eventPosition = 0;
+    private int hourPosition = 0;
+
+    ArrayList<HourEvent> hourEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,24 +57,9 @@ public class DailyCalendarActivity extends AppCompatActivity
         eventListView = findViewById(R.id.eventListView);
 
 
+
         //When we scroll one list, we want both to scroll so we have to link them :
-        hourListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(touchSource == null)
-                    touchSource = v;
 
-                if(v == touchSource) {
-                    eventListView.dispatchTouchEvent(event);
-                    if(event.getAction() == MotionEvent.ACTION_UP) {
-                        clickSource = v;
-                        touchSource = null;
-                    }
-                }
-
-                return false;
-            }
-        });
         eventListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -80,9 +72,44 @@ public class DailyCalendarActivity extends AppCompatActivity
                         clickSource = v;
                         touchSource = null;
                     }
+                    if(event.getAction() == MotionEvent.ACTION_CANCEL){
+                        clickSource = null;
+                        touchSource = null;
+                    }
                 }
 
                 return false;
+            }
+        });
+
+        hourListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(touchSource == null)
+                    touchSource = v;
+
+                if(v == touchSource) {
+                    eventListView.dispatchTouchEvent(event);
+                    if(event.getAction() == MotionEvent.ACTION_UP) {
+                        clickSource = v;
+                        touchSource = null;
+                    }
+                    if(event.getAction() == MotionEvent.ACTION_CANCEL){
+                        clickSource = null;
+                        touchSource = null;
+                    }
+                }
+
+                return false;
+            }
+        });
+
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(parent == clickSource) {
+                    // Do something with the ListView was clicked
+                }
             }
         });
 
@@ -94,35 +121,42 @@ public class DailyCalendarActivity extends AppCompatActivity
                 }
             }
         });
-        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(parent == clickSource) {
-                    // Do something with the ListView was clicked
-                }
-            }
-        });
 
         hourListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(view == clickSource)
-                    eventListView.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop() + offset);
+                if(view == clickSource) {
+                    //Log.d("Scroll", "2: " + firstVisibleItem + " " + view.getChildAt(0).getTop() + " " + totalItemCount);
+                    //eventListView.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop());
+                    //hourListView.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop());
+
+                    hourPosition = firstVisibleItem;
+                    HourOffset = view.getChildAt(0).getTop();
+                } else {
+                    HourOffset = 0;
+                }
             }
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {}
         });
+
         eventListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(view == clickSource)
-                    hourListView.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop() + offset);
+                if(view == clickSource) {
+                    int position = view.getChildAt(0).getTop();
+                    //hourListView.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop());
+                    int offset = Integer.parseInt(formattedHours(hourEvents.get(firstVisibleItem).time));
+                    hourListView.smoothScrollToPosition(firstVisibleItem);
+                    eventPosition = firstVisibleItem;
+                }
             }
-
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
         });
+
     }
 
     @Override
@@ -130,6 +164,9 @@ public class DailyCalendarActivity extends AppCompatActivity
     {
         super.onResume();
         setDayView();
+        eventListView.setSelection(eventPosition);
+        //eventListView.setSelectionFromTop(eventPosition, eventListView.getChildAt(0).getTop());
+        hourListView.setSelection(hourPosition);
     }
 
     private void setDayView()
@@ -137,7 +174,7 @@ public class DailyCalendarActivity extends AppCompatActivity
         monthDayText.setText(CalendarUtils.monthDayFromDate(selectedDate));
         String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
         dayOfWeekTV.setText(dayOfWeek);
-        //setHourAdapter();
+        setHourAdapter();
         setEventAdapter();
     }
 
@@ -148,7 +185,15 @@ public class DailyCalendarActivity extends AppCompatActivity
 
     private void setHourAdapter()
     {
-        HourAdapter hourAdapter = new HourAdapter(getApplicationContext(), hourEventList());
+        hourEvents = hourEventList();
+        for (int i = 0; i < hourEvents.size() - 1; i++) {
+            if(hourEvents.get(i).getTime() == hourEvents.get(i+1).getTime()){
+                hourEvents.remove(i);
+                i--;
+            }
+        }
+        HourAdapter hourAdapter = new HourAdapter(getApplicationContext(), hourEvents);
+        //HourAdapter hourAdapter = new HourAdapter(getApplicationContext(), hourEventList());
         hourListView.setAdapter(hourAdapter);
     }
 

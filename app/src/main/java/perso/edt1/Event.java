@@ -136,6 +136,7 @@ public class Event implements Parcelable {
                     }
                 }
                 newEvents.add(value.get(value.size() - 1));
+                newEvents.add(new Event(0, value.get(value.size() - 1).getEndTime(), nextDayMidnight, "Fill", key, null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), ""));
 
                 eventsByDaySorted.put(key, newEvents);
             }

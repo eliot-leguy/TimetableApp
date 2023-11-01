@@ -31,6 +31,7 @@ public class HourAdapter extends ArrayAdapter<HourEvent> {
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.hour_cell2, parent, false);
 
+        assert event != null;
         setHour(convertView, event.time);
 
         return convertView;

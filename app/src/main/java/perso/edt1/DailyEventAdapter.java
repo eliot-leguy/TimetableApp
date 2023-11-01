@@ -2,6 +2,8 @@ package perso.edt1;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import static java.lang.Math.round;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -110,7 +112,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         }
         else if(events.size() == 1)
         {
-            int perEventWidth = RelativeLayoutWidth - (int)Math.round(RelativeLayoutWidth * 0.2);
+            int perEventWidth = RelativeLayoutWidth - (int) round(RelativeLayoutWidth * 0.2);
             setEvent(convertView, event1, events.get(0),1, perEventWidth);
             hideEvent(event2);
             hideEvent(event3);
@@ -118,7 +120,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         }
         else if(events.size() == 2)
         {
-            int perEventWidth = (RelativeLayoutWidth - (int)Math.round(RelativeLayoutWidth * 0.2)) / 2;
+            int perEventWidth = (RelativeLayoutWidth - (int) round(RelativeLayoutWidth * 0.2)) / 2;
             setEvent(convertView, event1, events.get(0),1, perEventWidth);
             setEvent(convertView, event2, events.get(1),2, perEventWidth);
             hideEvent(event3);
@@ -126,7 +128,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         }
         else if(events.size() == 3)
         {
-            int perEventWidth = (RelativeLayoutWidth - (int)Math.round(RelativeLayoutWidth * 0.2)) / 3;
+            int perEventWidth = (RelativeLayoutWidth - (int) round(RelativeLayoutWidth * 0.2)) / 3;
             setEvent(convertView, event1, events.get(0),1, perEventWidth);
             setEvent(convertView, event2, events.get(1),2, perEventWidth);
             setEvent(convertView, event3, events.get(2),3, perEventWidth);
@@ -134,7 +136,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         }
         else        //TODO: Limiter à 4 events max
         {
-            int perEventWidth = (RelativeLayoutWidth - (int)Math.round(RelativeLayoutWidth * 0.2)) / 4;
+            int perEventWidth = (RelativeLayoutWidth - (int) round(RelativeLayoutWidth * 0.2)) / 4;
             setEvent(convertView, event1, events.get(0),1, perEventWidth);
             setEvent(convertView, event2, events.get(1),2, perEventWidth);
             setEvent(convertView, event3, events.get(2),3, perEventWidth);
@@ -170,7 +172,7 @@ public class DailyEventAdapter extends ArrayAdapter<HourEvent> {
         Duration elapsedTime = Duration.between(event.getStartTime(), event.getEndTime());
         int minutes = (int) elapsedTime.toMinutes();
 
-        layoutParameters.height = minutes * 8;
+        layoutParameters.height = (int)round(minutes*7);
 
         eventCell.post(new Runnable() { @Override public void run() { eventCell.setLayoutParams(layoutParameters); }});
 

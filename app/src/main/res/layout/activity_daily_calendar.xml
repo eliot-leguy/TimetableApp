@@ -69,26 +69,28 @@
         android:textAlignment="center"
         android:textSize="18sp"/>
 
-    <LinearLayout
-        android:id="@+id/listViewsEventsHours"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/listViewsEventsHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <ListView
-        android:id="@+id/hourListView"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:fastScrollEnabled="false"/>
+            <ListView
+                android:id="@+id/hourListView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:fastScrollEnabled="false"/>
 
-    <ListView
-        android:id="@+id/eventListView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:fastScrollEnabled="false"/>
+            <ListView
+                android:id="@+id/eventListView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:fastScrollEnabled="false"/>
 
-</LinearLayout>
+        </LinearLayout>
+
+
 
 </LinearLayout>
