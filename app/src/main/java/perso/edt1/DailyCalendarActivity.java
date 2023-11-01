@@ -123,8 +123,6 @@ public class DailyCalendarActivity extends AppCompatActivity
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {}
         });
-
-
     }
 
     @Override

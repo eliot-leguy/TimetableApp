@@ -1,5 +1,7 @@
 package perso.edt1;
 
+import static perso.edt1.CalendarUtils.selectedDate;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 
 
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FullScreenEventActivity extends Activity {
 
@@ -39,10 +43,12 @@ public class FullScreenEventActivity extends Activity {
 
 
         categoryText.setText(event.getCategory());
-        dateText.setText(event.getDate().toString());
         startTimeText.setText(event.getStartTime().toString());
         endTimeText.setText(event.getEndTime().toString());
         moduleText.setText(event.getModule());
+
+        String date = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + CalendarUtils.monthDayFromDate(selectedDate);
+        dateText.setText(CalendarUtils.upperCaseWords(date));
 
         ArrayList<String> eventRooms = event.getRoom();
         String StringEventRoom = "";
