@@ -16,4 +16,5 @@
     <string name="sunday">SUN</string>
     <string name="daily">Daily</string>
     <string name="monthly">Monthly</string>
+    <string name="pinpoint">PinPoint</string>
 </resources>

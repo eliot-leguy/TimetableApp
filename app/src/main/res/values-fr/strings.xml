@@ -13,4 +13,5 @@
     <string name="sunday">DIM</string>
     <string name="daily">Jour</string>
     <string name="monthly">Mois</string>
+    <string name="pinpoint">PinPoint</string>
 </resources>

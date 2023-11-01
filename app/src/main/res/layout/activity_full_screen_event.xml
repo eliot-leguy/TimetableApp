@@ -86,7 +86,8 @@
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:src="@drawable/baseline_room_black_48"/>
+                android:src="@drawable/baseline_room_black_48"
+                android:contentDescription="@string/pinpoint" />
 
             <TextView
                 android:layout_width="wrap_content"
