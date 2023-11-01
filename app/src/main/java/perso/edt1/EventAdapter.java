@@ -34,6 +34,7 @@ public class EventAdapter extends ArrayAdapter<Event>
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
 
         AbsListView.LayoutParams params = (AbsListView.LayoutParams) convertView.getLayoutParams();
+        assert event != null;
         params.height = 100 * Integer.parseInt(CalendarUtils.formattedHours(event.getEndTime())) - Integer.parseInt(CalendarUtils.formattedHours(event.getStartTime()));
         convertView.setLayoutParams(params);
 

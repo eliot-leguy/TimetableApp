@@ -60,7 +60,8 @@ public class Event implements Parcelable {
         ArrayList<Event> eventsForDateAndTime = new ArrayList<>();
 
         LocalTime eventHour;
-
+        if(events == null)
+            return eventsForDateAndTime;
         for (int i = 0; i < events.size(); i++) {
             eventHour = events.get(i).startTime;
             if (eventHour.equals(time) || eventHour.isBefore(time.plusHours(1)) && eventHour.isAfter(time))
@@ -71,7 +72,7 @@ public class Event implements Parcelable {
     }
 
     public static void prepareEventListForView() {
-        EventsByDay = addEmptyEvents(sortedEventsByDay(eventsByDay(eventsList)));
+        EventsByDay = sortedEventsByDay(addEmptyEvents(sortedEventsByDay(eventsByDay(eventsList))));
     }
 
     private static ArrayList<Event> addEmptyEvents(ArrayList<Event> events) {
@@ -188,23 +189,28 @@ public class Event implements Parcelable {
         Map<LocalDate, ArrayList<Event>> sortedEventsByDay = new Hashtable<LocalDate, ArrayList<Event>>();
 
         eventsByDay.forEach((key, value) -> {
-            ArrayList<Event> sortedEvents = new ArrayList<>();
-            for (int i = 0; i < value.size(); i++) {
-                if (sortedEvents.size() == 0) {
-                    sortedEvents.add(value.get(i));
-                } else {
-                    for (int j = 0; j < sortedEvents.size(); j++) {
-                        if (Integer.parseInt(CalendarUtils.formattedHours(value.get(i).getStartTime())) < Integer.parseInt(CalendarUtils.formattedHours(sortedEvents.get(j).getStartTime()))) {
-                            sortedEvents.add(j, value.get(i));
-                            break;
-                        } else if (j == sortedEvents.size() - 1) {
-                            sortedEvents.add(value.get(i));
-                            break;
+            if(value.size() > 0) {
+                ArrayList<Event> sortedEvents = new ArrayList<>();
+                for (int i = 0; i < value.size(); i++) {
+                    Event event = value.get(i);
+                    if (sortedEvents.size() == 0)
+                        sortedEvents.add(event);
+                    else {
+                        for (int j = 0; j < sortedEvents.size(); j++) {
+                            if (event.getStartTime().isBefore(sortedEvents.get(j).getStartTime())) {
+                                sortedEvents.add(j, event);
+                                break;
+                            }
+                            if (j == sortedEvents.size() - 1) {
+                                sortedEvents.add(event);
+                                break;
+                            }
                         }
                     }
+
                 }
+                sortedEventsByDay.put(key, sortedEvents);
             }
-            sortedEventsByDay.put(key, sortedEvents);
         });
         Log.d("Event", "sortedEventsByDay: " + sortedEventsByDay.size());
 

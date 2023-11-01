@@ -14,8 +14,7 @@ class HourEvent
         this.events = events;
     }
 
-    public LocalTime getTime()
-    {
+    public LocalTime getTime() {
         return time;
     }
 
