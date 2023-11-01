@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class DailyCalendarActivity extends AppCompatActivity
     private int hourPosition = 0;
 
     ArrayList<HourEvent> hourEvents;
+    ArrayList<HourEvent> events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,8 +57,6 @@ public class DailyCalendarActivity extends AppCompatActivity
         dayOfWeekTV = findViewById(R.id.dayOfWeekTV);
         hourListView = findViewById(R.id.hourListView);
         eventListView = findViewById(R.id.eventListView);
-
-
 
         //When we scroll one list, we want both to scroll so we have to link them :
 
@@ -126,10 +126,6 @@ public class DailyCalendarActivity extends AppCompatActivity
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if(view == clickSource) {
-                    //Log.d("Scroll", "2: " + firstVisibleItem + " " + view.getChildAt(0).getTop() + " " + totalItemCount);
-                    //eventListView.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop());
-                    //hourListView.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop());
-
                     hourPosition = firstVisibleItem;
                     HourOffset = view.getChildAt(0).getTop();
                 } else {
@@ -145,10 +141,6 @@ public class DailyCalendarActivity extends AppCompatActivity
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if(view == clickSource) {
-                    int position = view.getChildAt(0).getTop();
-                    //hourListView.setSelectionFromTop(firstVisibleItem, view.getChildAt(0).getTop());
-                    int offset = Integer.parseInt(formattedHours(hourEvents.get(firstVisibleItem).time));
-                    hourListView.smoothScrollToPosition(firstVisibleItem);
                     eventPosition = firstVisibleItem;
                 }
             }
@@ -164,22 +156,37 @@ public class DailyCalendarActivity extends AppCompatActivity
     {
         super.onResume();
         setDayView();
-        eventListView.setSelection(eventPosition);
+        //eventListView.setSelection(eventPosition);
         //eventListView.setSelectionFromTop(eventPosition, eventListView.getChildAt(0).getTop());
-        hourListView.setSelection(hourPosition);
+        //hourListView.setSelection(hourPosition);
     }
 
     private void setDayView()
     {
+        events = hourEventList();
         monthDayText.setText(CalendarUtils.monthDayFromDate(selectedDate));
         String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
         dayOfWeekTV.setText(dayOfWeek);
         setHourAdapter();
         setEventAdapter();
+
+        if(selectedDate.toString().equals(LocalDate.now().toString())){
+            hourListView.setSelectionFromTop(LocalTime.now().getHour(), 0);
+            eventListView.setSelectionFromTop(LocalTime.now().getHour(), 0);
+        } else {
+            eventListView.setSelection(1);
+            for(int i=0; i < events.size(); i++){
+                if(events.get(i).events.size() > 0 && !events.get(i).events.get(0).getCategory().equals("Fill")){
+                    int offset = Integer.parseInt(formattedHours(events.get(i).events.get(0).getStartTime()));
+                    hourListView.setSelection(offset);
+                    break;
+                }
+            }
+        }
     }
 
     private void setEventAdapter() {
-        DailyEventAdapter dailyEventAdapter = new DailyEventAdapter(getApplicationContext(), hourEventList());
+        DailyEventAdapter dailyEventAdapter = new DailyEventAdapter(getApplicationContext(), events);
         eventListView.setAdapter(dailyEventAdapter);
     }
 
