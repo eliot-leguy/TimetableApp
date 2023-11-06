@@ -19,6 +19,7 @@
         <activity
             android:name=".DailyCalendarActivity"
             android:exported="true" />
+        <activity android:name=".DailyCalendarActivityGrid"/>
         <activity android:name=".EventEditActivity" />
         <activity android:name=".WeekViewActivity" />
         <activity

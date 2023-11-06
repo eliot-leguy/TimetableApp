@@ -161,6 +161,8 @@ public class DailyCalendarActivity extends AppCompatActivity
         //hourListView.setSelection(hourPosition);
     }
 
+
+
     private void setDayView()
     {
         events = hourEventList();
