@@ -4,6 +4,7 @@ import static perso.edt1.CalendarUtils.selectedDate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,18 +42,23 @@ public class DailyCalendarActivityGrid extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("DailyCalendarActivity", "onResume");
         setDayView();
     }
 
     private void setDayView() {
         events = hourEventList();
+        Log.d("DailyCalendarActivity", "setDayView: " + events.size());
         monthDayText.setText(CalendarUtils.monthDayFromDate(selectedDate));
         String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
         dayOfWeekTV.setText(dayOfWeek);
 
+        //Update the list view
         RecyclerView.Adapter<DailyEventAdapterGrid.ViewHolder> adapter = new DailyEventAdapterGrid(this, hourEventList());
-
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+
     }
 
     private ArrayList<HourEvent> hourEventList()
@@ -90,11 +96,6 @@ public class DailyCalendarActivityGrid extends AppCompatActivity {
         setDayView();
     }
 
-    public void newEventAction(View view)
-    {
-        startActivity(new Intent(this, EventEditActivity.class));
-    }
-
     public void MonthlyAction(View view) {
         startActivity(new Intent(this, MainActivity.class));
     }
@@ -104,6 +105,5 @@ public class DailyCalendarActivityGrid extends AppCompatActivity {
         intent.putExtra("event", event);
         startActivity(intent);
     }
-
 
 }
