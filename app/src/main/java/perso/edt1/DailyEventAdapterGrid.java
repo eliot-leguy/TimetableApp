@@ -1,16 +1,12 @@
 package perso.edt1;
 
 import static java.lang.Math.round;
-import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,20 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class DailyEventAdapterGrid extends RecyclerView.Adapter<DailyEventAdapterGrid.ViewHolder>{
 
-    ArrayList<HourEvent> hourEvents;
+    ArrayList<HourEvent> dailyEvents;
     Context context;
     View ItemView;
     private int RelativeLayoutWidth;
     
 
-    public DailyEventAdapterGrid(Context context, ArrayList<HourEvent> hourEvents){
+    public DailyEventAdapterGrid(Context context, ArrayList<HourEvent> dailyEvents){
         this.context = context;
-        this.hourEvents = hourEvents;
+        this.dailyEvents = dailyEvents;
     }
 
     @NonNull
@@ -47,11 +46,30 @@ public class DailyEventAdapterGrid extends RecyclerView.Adapter<DailyEventAdapte
 
     @Override
     public void onBindViewHolder(@NonNull DailyEventAdapterGrid.ViewHolder holder, int position) {
-        Log.d("DailyEventAdapterGrid", String.valueOf(position));
-        Log.d("DailyEventAdapterGrid", String.valueOf(hourEvents.size()));
 //      String module = hourEvents.get(position).getEvents().get(0).getModule();
-        ArrayList<Event> events = hourEvents.get(position).getEvents();
+        ArrayList<Event> events = dailyEvents.get(position).getEvents();
+        LocalTime hour = dailyEvents.get(position).getTime();
         setEvents(events);
+//        setHours(hour);
+    }
+
+    private void setHours(LocalTime hour){
+
+        LinearLayout event1 = ItemView.findViewById(R.id.event1);
+        LinearLayout event2 = ItemView.findViewById(R.id.event2);
+        LinearLayout event3 = ItemView.findViewById(R.id.event3);
+        LinearLayout event4 = ItemView.findViewById(R.id.event4);
+        hideEvent(event1);
+        hideEvent(event2);
+        hideEvent(event3);
+        hideEvent(event4);
+
+        TextView timeTV = ItemView.findViewById(R.id.timeTV);
+        timeTV.setText(CalendarUtils.formattedTime(hour));
+
+        timeTV.setHeight(150);
+        timeTV.setWidth(70);
+
     }
     
     private void setEvents(ArrayList<Event> events)
@@ -60,6 +78,9 @@ public class DailyEventAdapterGrid extends RecyclerView.Adapter<DailyEventAdapte
         LinearLayout event2 = ItemView.findViewById(R.id.event2);
         LinearLayout event3 = ItemView.findViewById(R.id.event3);
         LinearLayout event4 = ItemView.findViewById(R.id.event4);
+
+        TextView timeTV = ItemView.findViewById(R.id.timeTV);
+        timeTV.setVisibility(View.GONE);
 
 
         event1.setOnClickListener(new View.OnClickListener() {
@@ -224,7 +245,7 @@ public class DailyEventAdapterGrid extends RecyclerView.Adapter<DailyEventAdapte
 
     @Override
     public int getItemCount() {
-        return hourEvents.size();
+        return dailyEvents.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
