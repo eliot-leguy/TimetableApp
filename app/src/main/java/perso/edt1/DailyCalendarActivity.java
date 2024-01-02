@@ -6,6 +6,7 @@ import static perso.edt1.CalendarUtils.selectedDate;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ public class DailyCalendarActivity extends AppCompatActivity
     private ScrollView scrollView;
     private LinearLayout hoursLinearLayout;
     private LinearLayout eventsLinearLayout;
+    private View redLine;
 
     ArrayList<HourEvent> hourEvents;
     ArrayList<HourEvent> events;
@@ -49,6 +51,7 @@ public class DailyCalendarActivity extends AppCompatActivity
         hoursLinearLayout = findViewById(R.id.hoursLinearLayout);
         eventsLinearLayout = findViewById(R.id.eventsLinearLayout);
         scrollView = findViewById(R.id.hoursEventsScrollView);
+        redLine = findViewById(R.id.redLine);
     }
 
     @Override
@@ -100,6 +103,16 @@ public class DailyCalendarActivity extends AppCompatActivity
                 }
             });
         }
+
+        //Adding a red line to show current time if the day is today
+        if (selectedDate.equals(currentDate)){
+            redLine.setVisibility(View.VISIBLE);
+            int scrollY = (int) currentTime.toSecondOfDay() / 60 * 5;
+            redLine.setY(scrollY);
+        } else {
+            redLine.setVisibility(View.GONE);
+        }
+
     }
 
     private void setEvents(){
