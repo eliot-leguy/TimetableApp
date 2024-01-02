@@ -7,19 +7,18 @@
 
     <TextView
         android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:gravity="top"
+        android:layout_height="106dp"
         android:id="@+id/timeTV"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:text="10:00"/>
 
     <LinearLayout
         android:background="@color/lightGray"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp">
+        android:paddingHorizontal="5dp">
 
         <LinearLayout
             android:background="@color/lightGray"
@@ -41,7 +40,8 @@
                 android:id="@+id/event1Module"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:text="Module"/>
+                android:text="Module"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,7 +52,8 @@
                 android:id="@+id/event1Room"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Room"/>
+                android:text="Room"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -63,7 +64,8 @@
                 android:id="@+id/event1Prof"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Prof"/>
+                android:text="Prof"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -74,7 +76,8 @@
                 android:id="@+id/event1Group"
                 android:textSize="10sp"
                 android:textColor="@color/black"
-                android:text="Group"/>
+                android:text="Group"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -85,7 +88,8 @@
                 android:id="@+id/event1Note"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Note"/>
+                android:text="Note"
+                android:singleLine="true"/>
 
 
         </LinearLayout>
@@ -110,7 +114,8 @@
                 android:id="@+id/event2Module"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:text="Module"/>
+                android:text="Module"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -121,7 +126,8 @@
                 android:id="@+id/event2Room"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Room"/>
+                android:text="Room"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -132,7 +138,8 @@
                 android:id="@+id/event2Prof"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Prof"/>
+                android:text="Prof"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -143,7 +150,8 @@
                 android:id="@+id/event2Group"
                 android:textSize="10sp"
                 android:textColor="@color/black"
-                android:text="Group"/>
+                android:text="Group"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -154,7 +162,8 @@
                 android:id="@+id/event2Note"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Note"/>
+                android:text="Note"
+                android:singleLine="true"/>
 
 
         </LinearLayout>
@@ -178,7 +187,8 @@
                 android:id="@+id/event3Module"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:text="Module"/>
+                android:text="Module"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -189,7 +199,8 @@
                 android:id="@+id/event3Room"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Room"/>
+                android:text="Room"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -200,7 +211,8 @@
                 android:id="@+id/event3Prof"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Prof"/>
+                android:text="Prof"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -211,7 +223,8 @@
                 android:id="@+id/event3Group"
                 android:textSize="10sp"
                 android:textColor="@color/black"
-                android:text="Group"/>
+                android:text="Group"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -222,7 +235,8 @@
                 android:id="@+id/event3Note"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Note"/>
+                android:text="Note"
+                android:singleLine="true"/>
 
 
         </LinearLayout>
@@ -246,7 +260,8 @@
                 android:id="@+id/event4Module"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:text="Module"/>
+                android:text="Module"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -257,7 +272,8 @@
                 android:id="@+id/event4Room"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Room"/>
+                android:text="Room"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -268,7 +284,8 @@
                 android:id="@+id/event4Prof"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Prof"/>
+                android:text="Prof"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -279,7 +296,8 @@
                 android:id="@+id/event4Group"
                 android:textSize="10sp"
                 android:textColor="@color/black"
-                android:text="Group"/>
+                android:text="Group"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -290,7 +308,8 @@
                 android:id="@+id/event4Note"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                android:text="Note"/>
+                android:text="Note"
+                android:singleLine="true"/>
 
 
         </LinearLayout>
