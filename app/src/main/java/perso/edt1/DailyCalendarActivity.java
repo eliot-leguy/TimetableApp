@@ -4,12 +4,14 @@ import static java.lang.Math.round;
 import static perso.edt1.CalendarUtils.selectedDate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,8 @@ public class DailyCalendarActivity extends AppCompatActivity
     private LinearLayout eventsLinearLayout;
     private View redLine;
 
+    private GestureDetector gestureDetector;
+
     ArrayList<HourEvent> hourEvents;
     ArrayList<HourEvent> events;
 
@@ -57,50 +61,15 @@ public class DailyCalendarActivity extends AppCompatActivity
         redLine = findViewById(R.id.redLine);
 
 
-//        //Changing the day when scrolling horizontally
-//        final float[] previousX = {0};
-//        final float[] previousY = {0};
-//        final boolean[] alreadyScrolled = {false};
-//        scrollView.setOnTouchListener((v, event) -> {
-//            switch (event.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//                    previousX[0] = event.getX();
-//                    previousY[0] = event.getY();
-//                    break;
-//                case MotionEvent.ACTION_UP:
-//                    alreadyScrolled[0] = false;
-////                    previousX[0] = event.getX();
-//                    break;
-//                case MotionEvent.ACTION_MOVE:
-//                    float currentX = event.getX();
-//                    float deltaX = currentX - previousX[0];
-//                    float currentY = event.getY();
-//                    float deltaY = currentY - previousY[0];
-//
-//                    Log.d("Scroll", "onTouch X: " + deltaX);
-//                    Log.d("Scroll", "onTouch Y: " + deltaY);
-//
-//                    // Assuming threshold for horizontal scroll
-//                    if (Math.abs(deltaX) > 20 && !alreadyScrolled[0] && Math.abs(deltaX) > Math.abs(deltaY)) {
-//                        alreadyScrolled[0] = true;
-//                        // Simulate horizontal change based on vertical scroll
-//                        if (deltaX > 0) {
-//                            // Swipe towards right
-//                            // Update content to the right in verticalLinearLayout
-//                            CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusDays(1);
-//                            setDayView();
-//                        } else {
-//                            // Swipe towards left
-//                            // Update content to the left in verticalLinearLayout
-//                            CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusDays(1);
-//                            setDayView();
-//                        }
-//                    }
-//                    previousX[0] = currentX;
-//                    break;
-//            }
-//            return false;
-//        });
+        // Create a GestureDetector
+        gestureDetector = new GestureDetector(this, new MyGestureListener());
+
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return gestureDetector.onTouchEvent(motionEvent);
+            }
+        });
     }
 
     @Override
@@ -108,6 +77,47 @@ public class DailyCalendarActivity extends AppCompatActivity
     {
         super.onResume();
         setDayView();
+    }
+
+
+    // Custom GestureDetector.SimpleOnGestureListener to handle swipe events
+    private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final int SWIPE_THRESHOLD = 80;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 80;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            float diffX = 0;
+            float diffY = 0;
+            if(e1 != null && e2 != null) {
+                diffX = e2.getX() - e1.getX();
+                diffY = e2.getY() - e1.getY();
+            }
+
+            Log.d("diffX", "diffX: " + diffX);
+            Log.d("diffY", "diffY: " + diffY);
+
+            if (Math.abs(diffX) > Math.abs(diffY) &&
+                    Math.abs(diffX) > SWIPE_THRESHOLD &&
+                    Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                // Right swipe
+                if (diffX > 0) {
+                    // Update content to the right in verticalLinearLayout
+                    CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusDays(1);
+                    setDayView();
+                    return true;
+                }
+                // Left swipe
+                else {
+                    // Update content to the left in verticalLinearLayout
+                    CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusDays(1);
+                    setDayView();
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 
 
