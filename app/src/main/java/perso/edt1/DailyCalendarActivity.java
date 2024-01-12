@@ -5,10 +5,12 @@ import static perso.edt1.CalendarUtils.selectedDate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -44,6 +46,7 @@ public class DailyCalendarActivity extends AppCompatActivity
         initWidgets();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initWidgets()
     {
         monthDayText = findViewById(R.id.monthDayText);
@@ -52,6 +55,52 @@ public class DailyCalendarActivity extends AppCompatActivity
         eventsLinearLayout = findViewById(R.id.eventsLinearLayout);
         scrollView = findViewById(R.id.hoursEventsScrollView);
         redLine = findViewById(R.id.redLine);
+
+
+//        //Changing the day when scrolling horizontally
+//        final float[] previousX = {0};
+//        final float[] previousY = {0};
+//        final boolean[] alreadyScrolled = {false};
+//        scrollView.setOnTouchListener((v, event) -> {
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    previousX[0] = event.getX();
+//                    previousY[0] = event.getY();
+//                    break;
+//                case MotionEvent.ACTION_UP:
+//                    alreadyScrolled[0] = false;
+////                    previousX[0] = event.getX();
+//                    break;
+//                case MotionEvent.ACTION_MOVE:
+//                    float currentX = event.getX();
+//                    float deltaX = currentX - previousX[0];
+//                    float currentY = event.getY();
+//                    float deltaY = currentY - previousY[0];
+//
+//                    Log.d("Scroll", "onTouch X: " + deltaX);
+//                    Log.d("Scroll", "onTouch Y: " + deltaY);
+//
+//                    // Assuming threshold for horizontal scroll
+//                    if (Math.abs(deltaX) > 20 && !alreadyScrolled[0] && Math.abs(deltaX) > Math.abs(deltaY)) {
+//                        alreadyScrolled[0] = true;
+//                        // Simulate horizontal change based on vertical scroll
+//                        if (deltaX > 0) {
+//                            // Swipe towards right
+//                            // Update content to the right in verticalLinearLayout
+//                            CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusDays(1);
+//                            setDayView();
+//                        } else {
+//                            // Swipe towards left
+//                            // Update content to the left in verticalLinearLayout
+//                            CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusDays(1);
+//                            setDayView();
+//                        }
+//                    }
+//                    previousX[0] = currentX;
+//                    break;
+//            }
+//            return false;
+//        });
     }
 
     @Override
@@ -63,8 +112,8 @@ public class DailyCalendarActivity extends AppCompatActivity
 
 
 
-    private void setDayView()
-    {
+    @SuppressLint("ClickableViewAccessibility")
+    private void setDayView() {
         eventsLinearLayout.removeAllViews();
         hoursLinearLayout.removeAllViews();
 
@@ -113,6 +162,9 @@ public class DailyCalendarActivity extends AppCompatActivity
             redLine.setVisibility(View.GONE);
         }
 
+
+
+
     }
 
     private void setEvents(){
@@ -124,18 +176,15 @@ public class DailyCalendarActivity extends AppCompatActivity
             }
         }
 
-
         for (int i = 0; i < events.size(); i++) {
             View view = getLayoutInflater().inflate(R.layout.hour_cell, null);
             setHourEvents(view, events.get(i).events);
 
             eventsLinearLayout.addView(view);
         }
-
     }
 
-    private void setHourEvents(View convertView, ArrayList<Event> events)
-    {
+    private void setHourEvents(View convertView, ArrayList<Event> events) {
         convertView.findViewById(R.id.timeTV).setVisibility(View.GONE);
         LinearLayout event1 = convertView.findViewById(R.id.event1);
         LinearLayout event2 = convertView.findViewById(R.id.event2);
