@@ -3,29 +3,27 @@ package perso.edt1;
 import static java.lang.Math.round;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import static perso.edt1.CalendarUtils.daysInMonthArray;
 import static perso.edt1.CalendarUtils.daysInWeekArray;
 import static perso.edt1.CalendarUtils.monthYearFromDate;
-import static perso.edt1.CalendarUtils.selectedDate;
 
 public class WeekViewActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
@@ -314,11 +312,14 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         Log.d("EventCategory", "EventCategory: " + eventCategory);
 
         int color = getApplicationContext().getResources().getIdentifier(eventCategory, "color", getApplicationContext().getPackageName());
+        Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners);
+        assert background != null;
         if(color != 0) {
-            eventCell.setBackgroundColor(getApplicationContext().getColor(color));
+            background.setColorFilter(getApplicationContext().getColor(color), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
-            eventCell.setBackgroundColor(getApplicationContext().getColor(R.color.defaultEvent));
+            background.setColorFilter(getApplicationContext().getColor(R.color.defaultEvent), android.graphics.PorterDuff.Mode.SRC_IN);
         }
+        eventCell.setBackground(background);
 
         ViewGroup.LayoutParams layoutParameters = eventCell.getLayoutParams();
         layoutParameters.width = perEventWidth;
