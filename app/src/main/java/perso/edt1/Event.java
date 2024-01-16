@@ -16,7 +16,7 @@ import java.util.Map;
 public class Event implements Parcelable {
     public static ArrayList<Event> eventsList = new ArrayList<>();
 
-    private static Map<LocalDate, ArrayList<Event>> EventsByDay;
+    static Map<LocalDate, ArrayList<Event>> EventsByDay;
     private String module;
     private LocalDate date;
     private LocalTime startTime;
@@ -55,7 +55,17 @@ public class Event implements Parcelable {
         return EventsByDay.get(date);
     }
 
+
+    /**
+     * Returns the events for a given date and time.
+     *
+     * @param date date of the events requested.
+     * @param time time in hour of the events requested.
+     * @return An ArrayList<Event> of the events for the given date and time.
+     */
     public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime time) {
+        if (EventsByDay == null)
+            return new ArrayList<Event>();
         ArrayList<Event> events = EventsByDay.get(date);
         ArrayList<Event> eventsForDateAndTime = new ArrayList<>();
 
