@@ -60,12 +60,14 @@ public class Event implements Parcelable {
         ArrayList<Event> eventsForDateAndTime = new ArrayList<>();
 
         LocalTime eventHour;
+        Event event;
         if(events == null)
             return eventsForDateAndTime;
         for (int i = 0; i < events.size(); i++) {
-            eventHour = events.get(i).startTime;
+            event = events.get(i);
+            eventHour = event.startTime;
             if (eventHour.equals(time) || eventHour.isBefore(time.plusHours(1)) && eventHour.isAfter(time))
-                eventsForDateAndTime.add(events.get(i));
+                eventsForDateAndTime.add(event);
         }
 
         return eventsForDateAndTime;
