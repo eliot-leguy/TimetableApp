@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import static perso.edt1.CalendarUtils.daysInWeekArray;
 import static perso.edt1.CalendarUtils.monthYearFromDate;
+import static perso.edt1.JsonFileHandler.loadEdtJson;
 import static perso.edt1.LoadXMLedt.loadEdt;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
@@ -416,6 +417,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         String url = "https://edt.univ-nantes.fr/chantrerie-gavy/g914391.xml";
         new UrlRequests(this).execute(url);
         loadEDT_action(null);
+        JsonFileHandler.main((Context) this, Event.EventsByDay);
     }
 
     public void loadEDT_action(View view) {
@@ -423,7 +425,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         if(Event.EventsByDay != null){
             Event.EventsByDay.clear();
         }
-        loadEdt(this.getDir("edtDir", Context.MODE_PRIVATE), this);
+        //loadEdt(this.getDir("edtDir", Context.MODE_PRIVATE), this);
+        loadEdtJson(this.getFilesDir(), this);
 
         setWeekView();
     }
