@@ -432,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private class loadEDT extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            loadEdtJson(getFilesDir(), getApplicationContext());
+            loadEdtJson(getFilesDir(), getApplicationContext(), CalendarUtils.selectedDate);
             return null;
         }
     }
