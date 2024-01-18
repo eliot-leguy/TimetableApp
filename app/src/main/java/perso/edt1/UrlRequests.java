@@ -71,6 +71,7 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
         }
         Context context = contextRef.get();
         saveStringToFile(context, result, "edt.xml");
+        JsonFileHandler.main(context, Event.EventsByDay);
     }
 
     protected void saveStringToFile(Context context, String myString, String fileName) {
