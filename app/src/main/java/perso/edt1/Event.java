@@ -51,11 +51,6 @@ public class Event implements Parcelable {
         this.notes = parcel.readString();
     }
 
-    public static ArrayList<Event> eventsForDate(LocalDate date) {
-        return EventsByDay.get(date);
-    }
-
-
     /**
      * Returns the events for a given date and time.
      *
@@ -85,37 +80,6 @@ public class Event implements Parcelable {
 
     public static void prepareEventListForView() {
         EventsByDay = sortedEventsByDay(addEmptyEvents(sortedEventsByDay(eventsByDay(eventsList))));
-    }
-
-    private static ArrayList<Event> addEmptyEvents(ArrayList<Event> events) {
-        if (events.size() == 0) {
-            Log.d("Event", "No Empty to add");
-            return events;
-        }
-
-        ArrayList<Event> newEvents = new ArrayList<>();
-
-        Event event = events.get(0);
-        LocalTime midnight = LocalTime.of(0, 0);
-
-        Event emptyEvent = new Event(0, midnight, event.getStartTime(), "Fill", event.getDate(), null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "");
-        newEvents.add(emptyEvent);
-        newEvents.add(event);
-
-        for (int i = 1; i < events.size() - 1; i++) {
-            event = events.get(i);
-            newEvents.add(event);
-            Event nextEvent = events.get(i + 1);
-            if (event.getEndTime().isBefore(nextEvent.getStartTime())) {
-//                Log.d("Event", "addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
-                emptyEvent = new Event(0, event.getEndTime(), nextEvent.getStartTime(), "Fill", event.getDate(), null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "");
-                newEvents.add(emptyEvent);
-            } else {
-                Log.d("Event", "Can't addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
-            }
-        }
-        newEvents.add(events.get(events.size() - 1));
-        return newEvents;
     }
 
     /**
@@ -251,72 +215,36 @@ public class Event implements Parcelable {
         return module;
     }
 
-    public void setModule(String module) {
-        this.module = module;
-    }
-
     public LocalDate getDate() {
         return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
     public String getCategory() {
         return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-
     public ArrayList<String> getRoom() {
         return room;
-    }
-
-    public void setRoom(ArrayList<String> room) {
-        this.room = room;
     }
 
     public ArrayList<String> getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(ArrayList<String> teacher) {
-        this.teacher = teacher;
-    }
-
     public ArrayList<String> getGroup() {
         return group;
     }
 
-    public void setGroup(ArrayList<String> group) {
-        this.group = group;
-    }
-
     public String getNotes() {
         return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 
     @Override
