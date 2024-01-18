@@ -17,7 +17,7 @@ import java.net.URL;
 
 public class UrlRequests extends AsyncTask<String, Void, String> {
 
-    private WeakReference<Context> contextRef;
+    private final WeakReference<Context> contextRef;
 
     public UrlRequests(Context context) {
         contextRef = new WeakReference<>(context);
@@ -43,7 +43,7 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
                 String line;
 
                 while ((line = reader.readLine()) != null) {
-                    response.append(line + "\n");
+                    response.append(line).append("\n");
                 }
 
                 reader.close();
@@ -70,7 +70,7 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
         Context context = contextRef.get();
-        saveStringToFile(context, result, "edt.xml");
+//        saveStringToFile(context, result, "edt.xml");
         JsonFileHandler.main(context, Event.EventsByDay);
     }
 
