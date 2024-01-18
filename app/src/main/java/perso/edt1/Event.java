@@ -78,6 +78,9 @@ public class Event implements Parcelable {
         return eventsForDateAndTime;
     }
 
+    /**
+     * Convert the eventsList to a map EventsByDay, adding 'filling' events for the layouts and by sorting the events by day and hour.
+     */
     public static void prepareEventListForView() {
         EventsByDay = sortedEventsByDay(addEmptyEvents(sortedEventsByDay(eventsByDay(eventsList))));
     }
@@ -111,11 +114,11 @@ public class Event implements Parcelable {
                     newEvents.add(event);
                     Event nextEvent = value.get(i + 1);
                     if (event.getEndTime().isBefore(nextEvent.getStartTime())) {
-                        Log.d("Event", "addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
+//                        Log.d("Event", "addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
                         emptyEvent = new Event(0, event.getEndTime(), nextEvent.getStartTime(), "Fill", event.getDate(), null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "");
                         newEvents.add(emptyEvent);
                     } else {
-                        Log.d("Event", "Can't addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
+//                        Log.d("Event", "Can't addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
                     }
                 }
                 newEvents.add(value.get(value.size() - 1));
@@ -149,7 +152,7 @@ public class Event implements Parcelable {
         }
 
         // Create a map with all days between minDate and maxDate
-        Map<LocalDate, ArrayList<Event>> EventsByDay = new Hashtable<LocalDate, ArrayList<Event>>();
+       Map<LocalDate, ArrayList<Event>> EventsByDay = new Hashtable<>();
         currentDate = minDate;
         while (currentDate.isBefore(maxDate) || currentDate.isEqual(maxDate)) {
             EventsByDay.put(currentDate, new ArrayList<Event>());
