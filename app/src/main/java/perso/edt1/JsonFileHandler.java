@@ -20,12 +20,21 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Map;
 
 public class JsonFileHandler extends Application {
 
-    public static void loadEdtJson(File DirectoryPath, Context context){
+    /**
+     * Read the json files inside of the DirectoryPath and parse them into the Event class to use them.
+     * It loads three weeks of calendar around the date given in parameter.
+     *
+     * @param DirectoryPath path of the directory containing the JSON files of the calendar.
+     * @param context context of the activity.
+     * @param date date of the calendar to load.
+     */
+    public static void loadEdtJson(File DirectoryPath, Context context, LocalDate date){
 
         ArrayList<File> files = getFiles(DirectoryPath);
         if(files.size() == 0){
@@ -34,7 +43,7 @@ public class JsonFileHandler extends Application {
             for (File file : files) {
                 if (file.getName().endsWith(".json")) {
                     Log.d("JsonFileHandler", "loadEdtJson: " + file.getName());
-                    readEventsFromJsonFile(context, DirectoryPath + "/" + file.getName());
+                    readEventsFromJsonFile(context, DirectoryPath + "/" + file.getName(), date);
                 }
             }
         }
@@ -56,113 +65,141 @@ public class JsonFileHandler extends Application {
         return files;
     }
 
-    public static void jsonToEvents(JSONArray eventsArray) {
+    /**
+     * Transforms the content of a JSONArray into a map of events, loading three weeks around the specified date.
+     * Then pass the map of events to the Event class.
+     *
+     * @param eventsArray JSONArray of the events read from a JSON file.
+     * @param dateOfCalendar date of the calendar to load.
+     */
+    public static void jsonToEvents(JSONArray eventsArray, LocalDate dateOfCalendar) {
         Map<LocalDate, ArrayList<Event>> EventsByDay = new Hashtable<LocalDate, ArrayList<Event>>();
+
+        //Getting the first day of the week before the dateOfCalendar
+        LocalDate firstDayOfCalendar = dateOfCalendar.minusDays(dateOfCalendar.getDayOfWeek().getValue() + 7);
+
+        //Getting the last day of the week after the dateOfCalendar
+        LocalDate lastDayOfCalendar = dateOfCalendar.plusDays(14 - dateOfCalendar.getDayOfWeek().getValue());
+
+        Log.d("JsonFileHandler", "jsonToEvents: " + firstDayOfCalendar + " " + lastDayOfCalendar);
+
+
         for (int i = 0; i < eventsArray.length(); i++) {
             try {
                 JSONObject JsonEvent = eventsArray.getJSONObject(i);
+                LocalDate date = LocalDate.parse(JsonEvent.getString("date"));
 
-                ArrayList<String> roomList = new ArrayList<>();
-                if(JsonEvent.has("room")) {
-                    String roomStr = JsonEvent.getString("room");
-                    StringBuilder roomStrBuilder = new StringBuilder();
-                    char currentChar;
-                    for (int j = 0; j < roomStr.length(); j++) {
-                        currentChar = roomStr.charAt(j);
-                        if (currentChar == ',' || currentChar == ']') {
-                            roomList.add(roomStrBuilder.toString());
-                            roomStrBuilder = new StringBuilder();
-                        } else if (currentChar != '[') {
-                            roomStrBuilder.append(currentChar);
+                // We only want to load three weeks of calendar around the dateOfCalendar
+                //Maybe we can use a dichotomy to find the first and last day of the calendar
+                if(date.isBefore(lastDayOfCalendar) || date.isAfter(firstDayOfCalendar)) {
+
+                    ArrayList<String> roomList = new ArrayList<>();
+                    if (JsonEvent.has("room")) {
+                        String roomStr = JsonEvent.getString("room");
+                        StringBuilder roomStrBuilder = new StringBuilder();
+                        char currentChar;
+                        for (int j = 0; j < roomStr.length(); j++) {
+                            currentChar = roomStr.charAt(j);
+                            if (currentChar == ',' || currentChar == ']') {
+                                roomList.add(roomStrBuilder.toString());
+                                roomStrBuilder = new StringBuilder();
+                            } else if (currentChar != '[') {
+                                roomStrBuilder.append(currentChar);
+                            }
                         }
                     }
-                }
 
-                ArrayList<String> teacherList = new ArrayList<>();
-                if(JsonEvent.has("teacher")) {
-                    String teacherStr = JsonEvent.getString("teacher");
-                    StringBuilder teacherStrBuilder = new StringBuilder();
-                    char currentChar;
-                    for (int j = 0; j < teacherStr.length(); j++) {
-                        currentChar = teacherStr.charAt(j);
-                        if (currentChar == ',' && !isUpperCase(teacherStr.charAt(j - 1)) || currentChar == ']') {
-                            teacherList.add(teacherStrBuilder.toString());
-                            teacherStrBuilder = new StringBuilder();
-                        } else if (currentChar != '[') {
-                            teacherStrBuilder.append(currentChar);
+                    ArrayList<String> teacherList = new ArrayList<>();
+                    if (JsonEvent.has("teacher")) {
+                        String teacherStr = JsonEvent.getString("teacher");
+                        StringBuilder teacherStrBuilder = new StringBuilder();
+                        char currentChar;
+                        for (int j = 0; j < teacherStr.length(); j++) {
+                            currentChar = teacherStr.charAt(j);
+                            if (currentChar == ',' && !isUpperCase(teacherStr.charAt(j - 1)) || currentChar == ']') {
+                                teacherList.add(teacherStrBuilder.toString());
+                                teacherStrBuilder = new StringBuilder();
+                            } else if (currentChar != '[') {
+                                teacherStrBuilder.append(currentChar);
+                            }
                         }
                     }
-                }
 
-                ArrayList<String> groupList = new ArrayList<>();
-                if(JsonEvent.has("group")) {
-                    String groupStr = JsonEvent.getString("group");
-                    StringBuilder groupStrBuilder = new StringBuilder();
-                    char currentChar;
-                    for (int j = 0; j < groupStr.length(); j++) {
-                        currentChar = groupStr.charAt(j);
-                        if (currentChar == ',' || currentChar == ']') {
-                            groupList.add(groupStrBuilder.toString());
-                            groupStrBuilder = new StringBuilder();
-                        } else if (currentChar != '[') {
-                            groupStrBuilder.append(currentChar);
+                    ArrayList<String> groupList = new ArrayList<>();
+                    if (JsonEvent.has("group")) {
+                        String groupStr = JsonEvent.getString("group");
+                        StringBuilder groupStrBuilder = new StringBuilder();
+                        char currentChar;
+                        for (int j = 0; j < groupStr.length(); j++) {
+                            currentChar = groupStr.charAt(j);
+                            if (currentChar == ',' || currentChar == ']') {
+                                groupList.add(groupStrBuilder.toString());
+                                groupStrBuilder = new StringBuilder();
+                            } else if (currentChar != '[') {
+                                groupStrBuilder.append(currentChar);
+                            }
                         }
                     }
-                }
 
-                LocalTime startTime = null;
-                if(JsonEvent.has("startTime")){
-                    startTime = LocalTime.parse(JsonEvent.getString("startTime"));
-                }
-                LocalTime endTime = null;
-                if(JsonEvent.has("endTime")){
-                    endTime = LocalTime.parse(JsonEvent.getString("endTime"));
-                }
-                String category = null;
-                if(JsonEvent.has("category")){
-                    category = JsonEvent.getString("category");
-                }
-                LocalDate date = null;
-                if(JsonEvent.has("date")){
-                    date = LocalDate.parse(JsonEvent.getString("date"));
-                }
-                String module = null;
-                if(JsonEvent.has("module")){
-                    module = JsonEvent.getString("module");
-                }
-                String notes = null;
-                if(JsonEvent.has("notes")){
-                    notes = JsonEvent.getString("notes");
-                }
+                    LocalTime startTime = null;
+                    if (JsonEvent.has("startTime")) {
+                        startTime = LocalTime.parse(JsonEvent.getString("startTime"));
+                    }
+                    LocalTime endTime = null;
+                    if (JsonEvent.has("endTime")) {
+                        endTime = LocalTime.parse(JsonEvent.getString("endTime"));
+                    }
+                    String category = null;
+                    if (JsonEvent.has("category")) {
+                        category = JsonEvent.getString("category");
+                    }
 
-                assert date != null;
-                Event event = new Event(0,
-                        startTime,
-                        endTime,
-                        category,
-                        date,
-                        module,
-                        roomList,
-                        teacherList,
-                        groupList,
-                        notes);
+                    String module = null;
+                    if (JsonEvent.has("module")) {
+                        module = JsonEvent.getString("module");
+                    }
+                    String notes = null;
+                    if (JsonEvent.has("notes")) {
+                        notes = JsonEvent.getString("notes");
+                    }
 
-                date = event.getDate();
-                if (EventsByDay.containsKey(date)) {
-                    EventsByDay.get(date).add(event);
-                } else {
-                    ArrayList<Event> dailyEvent = new ArrayList<>();
-                    dailyEvent.add(event);
-                    EventsByDay.put(date, dailyEvent);
+                    Event event = new Event(0,
+                            startTime,
+                            endTime,
+                            category,
+                            date,
+                            module,
+                            roomList,
+                            teacherList,
+                            groupList,
+                            notes);
+
+                    date = event.getDate();
+                    if (EventsByDay.containsKey(date)) {
+                        EventsByDay.get(date).add(event);
+                    } else {
+                        ArrayList<Event> dailyEvent = new ArrayList<>();
+                        dailyEvent.add(event);
+                        EventsByDay.put(date, dailyEvent);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+        Log.d("JsonFileHandler", "jsonToEvents: " + EventsByDay);
         Event.EventsByDay = EventsByDay;
     }
 
-    public static void readEventsFromJsonFile(Context context, String filePath) {
+    /**
+     * Read the JSON file at filePath and put his content into a JSONArray.
+     * Then calls jsonToEvents(JsonEventArray, date) to transform the JSONArray into a map of events around the specified date.
+     *
+     * @param filePath path of the .json file to read.
+     * @param date date of the calendar to load.
+     */
+    public static void readEventsFromJsonFile(Context context, String filePath, LocalDate date) {
+        //We still have to load the entire file before being able to select which days we want to display
         StringBuilder stringBuilder = new StringBuilder();
         JSONArray JsonEventArray = new JSONArray();
 
@@ -191,9 +228,15 @@ public class JsonFileHandler extends Application {
             e.printStackTrace();
         }
         Log.d("JsonFileHandler", "readEventsFromJsonFile: " + JsonEventArray.length());
-        jsonToEvents(JsonEventArray);
+        jsonToEvents(JsonEventArray, date);
     }
 
+    /**
+     * Write a JSONArray into fileName.json .
+     *
+     * @param fileName name to use for the JSON file.
+     * @param eventsArray JSONArray of the events.
+     */
     public static void writeEventsToJsonFile(Context context, String fileName, JSONArray eventsArray) {
         try {
             // Open FileOutputStream for writing
@@ -209,10 +252,18 @@ public class JsonFileHandler extends Application {
         }
     }
 
+    /**
+     * Transform the map of events into a JSONArray then calls writeEventsToJsonFile() to write the array to a JSON file.
+     *
+     * @param EventsByDay map of the events.
+     */
     public static void main(Context context, Map<LocalDate, ArrayList<Event>> EventsByDay) {
         JSONArray eventsArray = new JSONArray();
 
-        for(LocalDate key : EventsByDay.keySet()) {
+        ArrayList<LocalDate> dates = new ArrayList<>(EventsByDay.keySet());
+        Collections.sort(dates);
+
+        for(LocalDate key : dates) {
             ArrayList<Event> dailyEvent = EventsByDay.get(key);
             if (dailyEvent != null) {
                 for (int i = 0; i < dailyEvent.size(); i++) {
