@@ -107,7 +107,7 @@ public class Event implements Parcelable {
             newEvents.add(event);
             Event nextEvent = events.get(i + 1);
             if (event.getEndTime().isBefore(nextEvent.getStartTime())) {
-                Log.d("Event", "addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
+//                Log.d("Event", "addEmptyEvents: " + event.getEndTime() + " " + nextEvent.getStartTime());
                 emptyEvent = new Event(0, event.getEndTime(), nextEvent.getStartTime(), "Fill", event.getDate(), null, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), "");
                 newEvents.add(emptyEvent);
             } else {
