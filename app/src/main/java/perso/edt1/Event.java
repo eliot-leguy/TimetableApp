@@ -118,6 +118,12 @@ public class Event implements Parcelable {
         return newEvents;
     }
 
+    /**
+     * Add 'fill' events between the events to space the layout.
+     *
+     * @param eventsByDaySorted the map of the events by day, they have to be sorted.
+     * @return the map, with the empty events spaced between the events.
+     */
     private static Map<LocalDate, ArrayList<Event>> addEmptyEvents(Map<LocalDate, ArrayList<Event>> eventsByDaySorted) {        //TODO : check why some events are not added
 
         LocalTime midnight = LocalTime.of(0, 0);
@@ -158,6 +164,13 @@ public class Event implements Parcelable {
         return eventsByDaySorted;
     }
 
+    /**
+     * Sort the events by day and put them into a map.
+     * Also add an empty event for every empty day.
+     *
+     * @param events array list of all the events.
+     * @return a map of the events sorted by day.
+     */
     private static Map<LocalDate, ArrayList<Event>> eventsByDay(ArrayList<Event> events) {
         LocalDate minDate = events.get(0).getDate();
         LocalDate maxDate = events.get(0).getDate();
@@ -197,6 +210,12 @@ public class Event implements Parcelable {
         return EventsByDay;
     }
 
+    /**
+     * Sort the events by hour for each day.
+     *
+     * @param eventsByDay map of the events.
+     * @return the map of the events.
+     */
     private static Map<LocalDate, ArrayList<Event>> sortedEventsByDay(Map<LocalDate, ArrayList<Event>> eventsByDay) {
         Map<LocalDate, ArrayList<Event>> sortedEventsByDay = new Hashtable<LocalDate, ArrayList<Event>>();
 
@@ -224,7 +243,6 @@ public class Event implements Parcelable {
                 sortedEventsByDay.put(key, sortedEvents);
             }
         });
-        Log.d("Event", "sortedEventsByDay: " + sortedEventsByDay.size());
 
         return sortedEventsByDay;
     }
