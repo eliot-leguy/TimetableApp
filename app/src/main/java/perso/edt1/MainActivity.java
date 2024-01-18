@@ -27,13 +27,13 @@ import java.util.ArrayList;
 
 import static perso.edt1.CalendarUtils.daysInWeekArray;
 import static perso.edt1.CalendarUtils.monthYearFromDate;
+import static perso.edt1.CalendarUtils.sundayForDate;
 import static perso.edt1.JsonFileHandler.loadEdtJson;
 import static perso.edt1.LoadXMLedt.loadEdt;
 
-public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
+public class MainActivity extends AppCompatActivity
 {
     private TextView monthYearText;
-    private RecyclerView weekRecyclerView;
     private ScrollView weekScrollView;
     private LinearLayout hoursLinearLayout;
     private LinearLayout mondayLinearLayout;
@@ -42,8 +42,16 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private LinearLayout thursdayLinearLayout;
     private LinearLayout fridayLinearLayout;
     private LinearLayout saturdayLinearLayout;
-
     private View redLine;
+    private TextView sundayDateTV;
+    private TextView mondayDateTV;
+    private TextView tuesdayDateTV;
+    private TextView wednesdayDateTV;
+    private TextView thursdayDateTV;
+    private TextView fridayDateTV;
+    private TextView saturdayDateTV;
+
+    ArrayList<LocalDate> days;
 
 
     @Override
@@ -59,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
     private void initWidgets() {
         monthYearText = findViewById(R.id.monthYearTV);
-        weekRecyclerView = findViewById(R.id.weekRecyclerView);
         weekScrollView = findViewById(R.id.weekScrollView);
         hoursLinearLayout = findViewById(R.id.hoursLinearLayout);
         mondayLinearLayout = findViewById(R.id.mondayLinearLayout);
@@ -69,6 +76,13 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         fridayLinearLayout = findViewById(R.id.fridayLinearLayout);
         saturdayLinearLayout = findViewById(R.id.saturdayLinearLayout);
         redLine = findViewById(R.id.redLine);
+        sundayDateTV = findViewById(R.id.sundayDateTV);
+        mondayDateTV = findViewById(R.id.mondayDateTV);
+        tuesdayDateTV = findViewById(R.id.tuesdayDateTV);
+        wednesdayDateTV = findViewById(R.id.wednesdayDateTV);
+        thursdayDateTV = findViewById(R.id.thursdayDateTV);
+        fridayDateTV = findViewById(R.id.fridayDateTV);
+        saturdayDateTV = findViewById(R.id.saturdayDateTV);
 
         CalendarUtils.selectedDate = LocalDate.now();
     }
@@ -84,12 +98,40 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private void setCalendarAdapter()
     {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
-        ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
+        days = daysInWeekArray(CalendarUtils.selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(days, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
-        weekRecyclerView.setLayoutManager(layoutManager);
-        weekRecyclerView.setAdapter(calendarAdapter);
+        sundayDateTV.setText(String.valueOf(days.get(0).getDayOfMonth()));
+        mondayDateTV.setText(String.valueOf(days.get(1).getDayOfMonth()));
+        tuesdayDateTV.setText(String.valueOf(days.get(2).getDayOfMonth()));
+        wednesdayDateTV.setText(String.valueOf(days.get(3).getDayOfMonth()));
+        thursdayDateTV.setText(String.valueOf(days.get(4).getDayOfMonth()));
+        fridayDateTV.setText(String.valueOf(days.get(5).getDayOfMonth()));
+        saturdayDateTV.setText(String.valueOf(days.get(6).getDayOfMonth()));
+
+        switch(CalendarUtils.selectedDate.getDayOfWeek().getValue()){
+            case 7:
+                sundayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+                break;
+            case 1:
+                mondayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+                break;
+            case 2:
+                tuesdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+                break;
+            case 3:
+                wednesdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+                break;
+            case 4:
+                thursdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+                break;
+            case 5:
+                fridayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+                break;
+            case 6:
+                saturdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+                break;
+        }
+
 
     }
 
@@ -396,11 +438,81 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         setWeekView();
     }
 
-    @Override
-    public void onItemClick(int position, LocalDate date)
-    {
-        CalendarUtils.selectedDate = date;
-        setCalendarAdapter();
+    public void selectDateSunday(View view) {
+        CalendarUtils.selectedDate = sundayForDate(CalendarUtils.selectedDate);
+        sundayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+        mondayDateTV.setBackground(null);
+        tuesdayDateTV.setBackground(null);
+        wednesdayDateTV.setBackground(null);
+        thursdayDateTV.setBackground(null);
+        fridayDateTV.setBackground(null);
+        saturdayDateTV.setBackground(null);
+    }
+
+    public void selectDateMonday(View view) {
+        CalendarUtils.selectedDate = sundayForDate(CalendarUtils.selectedDate).plusDays(1);
+        sundayDateTV.setBackground(null);
+        mondayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+        tuesdayDateTV.setBackground(null);
+        wednesdayDateTV.setBackground(null);
+        thursdayDateTV.setBackground(null);
+        fridayDateTV.setBackground(null);
+        saturdayDateTV.setBackground(null);
+    }
+
+    public void selectDateTuesday(View view) {
+        CalendarUtils.selectedDate = sundayForDate(CalendarUtils.selectedDate).plusDays(2);
+        sundayDateTV.setBackground(null);
+        mondayDateTV.setBackground(null);
+        tuesdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+        wednesdayDateTV.setBackground(null);
+        thursdayDateTV.setBackground(null);
+        fridayDateTV.setBackground(null);
+        saturdayDateTV.setBackground(null);
+    }
+
+    public void selectDateWednesday(View view) {
+        CalendarUtils.selectedDate = sundayForDate(CalendarUtils.selectedDate).plusDays(3);
+        sundayDateTV.setBackground(null);
+        mondayDateTV.setBackground(null);
+        tuesdayDateTV.setBackground(null);
+        wednesdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+        thursdayDateTV.setBackground(null);
+        fridayDateTV.setBackground(null);
+        saturdayDateTV.setBackground(null);
+    }
+
+    public void selectDateThursday(View view) {
+        CalendarUtils.selectedDate = sundayForDate(CalendarUtils.selectedDate).plusDays(4);
+        sundayDateTV.setBackground(null);
+        mondayDateTV.setBackground(null);
+        tuesdayDateTV.setBackground(null);
+        wednesdayDateTV.setBackground(null);
+        thursdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+        fridayDateTV.setBackground(null);
+        saturdayDateTV.setBackground(null);
+    }
+
+    public void selectDateFriday(View view) {
+        CalendarUtils.selectedDate = sundayForDate(CalendarUtils.selectedDate).plusDays(5);
+        sundayDateTV.setBackground(null);
+        mondayDateTV.setBackground(null);
+        tuesdayDateTV.setBackground(null);
+        wednesdayDateTV.setBackground(null);
+        thursdayDateTV.setBackground(null);
+        fridayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
+        saturdayDateTV.setBackground(null);
+    }
+
+    public void selectDateSaturday(View view) {
+        CalendarUtils.selectedDate = sundayForDate(CalendarUtils.selectedDate).plusDays(6);
+        sundayDateTV.setBackground(null);
+        mondayDateTV.setBackground(null);
+        tuesdayDateTV.setBackground(null);
+        wednesdayDateTV.setBackground(null);
+        thursdayDateTV.setBackground(null);
+        fridayDateTV.setBackground(null);
+        saturdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
     }
 
     public void dailyAction(View view)

@@ -104,7 +104,7 @@ public class CalendarUtils
         return days;
     }
 
-    private static LocalDate sundayForDate(LocalDate current)
+    static LocalDate sundayForDate(LocalDate current)
     {
         LocalDate oneWeekAgo = current.minusWeeks(1);
 
