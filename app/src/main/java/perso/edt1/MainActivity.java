@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -316,7 +317,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         TextView eventNote = convertView.findViewById(noteId);
 
         String eventCategory = event.getCategory().replaceAll("\\s+", "_");
-        Log.d("EventCategory", "EventCategory: " + eventCategory);
 
         int color = getApplicationContext().getResources().getIdentifier(eventCategory, "color", getApplicationContext().getPackageName());
         Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners);
@@ -417,7 +417,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         String url = "https://edt.univ-nantes.fr/chantrerie-gavy/g914391.xml";
         new UrlRequests(this).execute(url);
         loadEDT_action(null);
-        JsonFileHandler.main((Context) this, Event.EventsByDay);
+        //JsonFileHandler.main((Context) this, Event.EventsByDay);
     }
 
     public void loadEDT_action(View view) {
@@ -425,9 +425,15 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         if(Event.EventsByDay != null){
             Event.EventsByDay.clear();
         }
-        //loadEdt(this.getDir("edtDir", Context.MODE_PRIVATE), this);
-        loadEdtJson(this.getFilesDir(), this);
+        loadEDT loadEDT = new loadEDT();
+        loadEDT.execute();
+    }
 
-        setWeekView();
+    private class loadEDT extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            loadEdtJson(getFilesDir(), getApplicationContext());
+            return null;
+        }
     }
 }
