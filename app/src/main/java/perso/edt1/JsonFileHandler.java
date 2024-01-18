@@ -62,49 +62,92 @@ public class JsonFileHandler extends Application {
             try {
                 JSONObject JsonEvent = eventsArray.getJSONObject(i);
 
-                String roomStr = JsonEvent.getString("room");
                 ArrayList<String> roomList = new ArrayList<>();
-                for(int j = 0; j < roomStr.length(); j++){
-                    if(roomStr.charAt(j) == ','){
-                        roomList.add(roomStr.substring(0, j));
-                        roomStr = roomStr.substring(j+1);
-                        j = 0;
+                if(JsonEvent.has("room")) {
+                    String roomStr = JsonEvent.getString("room");
+                    StringBuilder roomStrBuilder = new StringBuilder();
+                    char currentChar;
+                    for (int j = 0; j < roomStr.length(); j++) {
+                        currentChar = roomStr.charAt(j);
+                        if (currentChar == ',' || currentChar == ']') {
+                            roomList.add(roomStrBuilder.toString());
+                            roomStrBuilder = new StringBuilder();
+                        } else if (currentChar != '[') {
+                            roomStrBuilder.append(currentChar);
+                        }
                     }
                 }
 
-                String teacherStr = JsonEvent.getString("teacher");
                 ArrayList<String> teacherList = new ArrayList<>();
-                for(int j = 0; j < teacherStr.length(); j++){
-                    if(teacherStr.charAt(j) == ',' && !isUpperCase(teacherStr.charAt(j-1))){
-                        teacherList.add(teacherStr.substring(0, j));
-                        teacherStr = teacherStr.substring(j+1);
-                        j = 0;
+                if(JsonEvent.has("teacher")) {
+                    String teacherStr = JsonEvent.getString("teacher");
+                    StringBuilder teacherStrBuilder = new StringBuilder();
+                    char currentChar;
+                    for (int j = 0; j < teacherStr.length(); j++) {
+                        currentChar = teacherStr.charAt(j);
+                        if (currentChar == ',' && !isUpperCase(teacherStr.charAt(j - 1)) || currentChar == ']') {
+                            teacherList.add(teacherStrBuilder.toString());
+                            teacherStrBuilder = new StringBuilder();
+                        } else if (currentChar != '[') {
+                            teacherStrBuilder.append(currentChar);
+                        }
                     }
                 }
 
-                String groupStr = JsonEvent.getString("group");
                 ArrayList<String> groupList = new ArrayList<>();
-                for(int j = 0; j < groupStr.length(); j++){
-                    if(groupStr.charAt(j) == ','){
-                        groupList.add(groupStr.substring(0, j));
-                        groupStr = groupStr.substring(j+1);
-                        j = 0;
+                if(JsonEvent.has("group")) {
+                    String groupStr = JsonEvent.getString("group");
+                    StringBuilder groupStrBuilder = new StringBuilder();
+                    char currentChar;
+                    for (int j = 0; j < groupStr.length(); j++) {
+                        currentChar = groupStr.charAt(j);
+                        if (currentChar == ',' || currentChar == ']') {
+                            groupList.add(groupStrBuilder.toString());
+                            groupStrBuilder = new StringBuilder();
+                        } else if (currentChar != '[') {
+                            groupStrBuilder.append(currentChar);
+                        }
                     }
                 }
 
+                LocalTime startTime = null;
+                if(JsonEvent.has("startTime")){
+                    startTime = LocalTime.parse(JsonEvent.getString("startTime"));
+                }
+                LocalTime endTime = null;
+                if(JsonEvent.has("endTime")){
+                    endTime = LocalTime.parse(JsonEvent.getString("endTime"));
+                }
+                String category = null;
+                if(JsonEvent.has("category")){
+                    category = JsonEvent.getString("category");
+                }
+                LocalDate date = null;
+                if(JsonEvent.has("date")){
+                    date = LocalDate.parse(JsonEvent.getString("date"));
+                }
+                String module = null;
+                if(JsonEvent.has("module")){
+                    module = JsonEvent.getString("module");
+                }
+                String notes = null;
+                if(JsonEvent.has("notes")){
+                    notes = JsonEvent.getString("notes");
+                }
 
+                assert date != null;
                 Event event = new Event(0,
-                        LocalTime.parse(JsonEvent.getString("startTime")),
-                        LocalTime.parse(JsonEvent.getString("endTime")),
-                        JsonEvent.getString("category"),
-                        LocalDate.parse(JsonEvent.getString("date")),
-                        JsonEvent.getString("module"),
+                        startTime,
+                        endTime,
+                        category,
+                        date,
+                        module,
                         roomList,
                         teacherList,
                         groupList,
-                        JsonEvent.getString("notes"));
+                        notes);
 
-                LocalDate date = event.getDate();
+                date = event.getDate();
                 if (EventsByDay.containsKey(date)) {
                     EventsByDay.get(date).add(event);
                 } else {
