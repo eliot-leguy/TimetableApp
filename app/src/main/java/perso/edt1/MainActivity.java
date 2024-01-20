@@ -342,16 +342,47 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void _setEvent(View convertView, LinearLayout eventCell, Event event, int eventNb, int perEventWidth) {
-        int moduleId = getApplicationContext().getResources().getIdentifier("event" + eventNb + "Module", "id", getApplicationContext().getPackageName());
-        TextView eventModule = convertView.findViewById(moduleId);
-        int roomId = getApplicationContext().getResources().getIdentifier("event" + eventNb + "Room", "id", getApplicationContext().getPackageName());
-        TextView eventRoom = convertView.findViewById(roomId);
-        int teacherId = getApplicationContext().getResources().getIdentifier("event" + eventNb + "Prof", "id", getApplicationContext().getPackageName());
-        TextView eventTeacher = convertView.findViewById(teacherId);
-        int groupId = getApplicationContext().getResources().getIdentifier("event" + eventNb + "Group", "id", getApplicationContext().getPackageName());
-        TextView eventGroup = convertView.findViewById(groupId);
-        int noteId = getApplicationContext().getResources().getIdentifier("event" + eventNb + "Note", "id", getApplicationContext().getPackageName());
-        TextView eventNote = convertView.findViewById(noteId);
+        TextView eventModule = null;
+        TextView eventRoom = null;
+        TextView eventTeacher = null;
+        TextView eventGroup = null;
+        TextView eventNote = null;
+
+        switch (eventNb){
+            case 1:
+                eventModule = convertView.findViewById(R.id.event1Module);
+                eventRoom = convertView.findViewById(R.id.event1Room);
+                eventTeacher = convertView.findViewById(R.id.event1Prof);
+                eventGroup = convertView.findViewById(R.id.event1Group);
+                eventNote = convertView.findViewById(R.id.event1Note);
+                break;
+            case 2:
+                eventModule = convertView.findViewById(R.id.event2Module);
+                eventRoom = convertView.findViewById(R.id.event2Room);
+                eventTeacher = convertView.findViewById(R.id.event2Prof);
+                eventGroup = convertView.findViewById(R.id.event2Group);
+                eventNote = convertView.findViewById(R.id.event2Note);
+                break;
+            case 3:
+                eventModule = convertView.findViewById(R.id.event3Module);
+                eventRoom = convertView.findViewById(R.id.event3Room);
+                eventTeacher = convertView.findViewById(R.id.event3Prof);
+                eventGroup = convertView.findViewById(R.id.event3Group);
+                eventNote = convertView.findViewById(R.id.event3Note);
+                break;
+            case 4:
+                eventModule = convertView.findViewById(R.id.event4Module);
+                eventRoom = convertView.findViewById(R.id.event4Room);
+                eventTeacher = convertView.findViewById(R.id.event4Prof);
+                eventGroup = convertView.findViewById(R.id.event4Group);
+                eventNote = convertView.findViewById(R.id.event4Note);
+                break;
+        }
+
+
+
+
+
 
         String eventCategory = event.getCategory().replaceAll("\\s+", "_");
 
@@ -564,7 +595,7 @@ public class MainActivity extends AppCompatActivity
     public void downloadEDT_action(View view) {
         Toast.makeText(this, "Downloading Edt", Toast.LENGTH_SHORT).show();
         String url = "https://edt.univ-nantes.fr/chantrerie-gavy/g914391.xml";
-        new UrlRequests(this).execute(url);
+        new UrlRequests(this, "EDT").execute(url);
         loadEDT_action(null);
         //JsonFileHandler.main((Context) this, Event.EventsByDay);
     }
