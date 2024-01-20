@@ -94,6 +94,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/lightlightBlue"
         android:orientation="vertical">
 
         <LinearLayout
@@ -260,6 +261,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/lightlightBlue"
         android:paddingHorizontal="5dp">
 
         <FrameLayout
@@ -277,7 +279,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/oui"
                     android:orientation="vertical">
                 </LinearLayout>
 
@@ -286,7 +287,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/oui"
+                    android:background="@drawable/grid_background_transparent"
                     android:orientation="vertical">
                 </LinearLayout>
 
@@ -295,6 +296,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/grid_background_transparent"
                     android:orientation="vertical">
                 </LinearLayout>
 
@@ -302,6 +304,7 @@
                     android:id="@+id/wednesdayLinearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/grid_background_transparent"
                     android:layout_weight="1"
                     android:orientation="vertical">
                 </LinearLayout>
@@ -310,6 +313,7 @@
                     android:id="@+id/thursdayLinearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/grid_background_transparent"
                     android:layout_weight="1"
                     android:orientation="vertical">
                 </LinearLayout>
@@ -318,6 +322,7 @@
                     android:id="@+id/fridayLinearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/grid_background_transparent"
                     android:layout_weight="1"
                     android:orientation="vertical">
                 </LinearLayout>
@@ -326,6 +331,7 @@
                     android:id="@+id/saturdayLinearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/grid_background_transparent"
                     android:layout_weight="1"
                     android:orientation="vertical">
                 </LinearLayout>
