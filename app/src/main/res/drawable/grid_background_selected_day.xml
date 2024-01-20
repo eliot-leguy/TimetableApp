@@ -4,10 +4,10 @@
     <!-- Bottom Rectangle (Transparent with Black Border) -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <solid android:color="@color/lightBlue" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -18,6 +18,7 @@
             <stroke
                 android:width="1dip"
                 android:height="10dp"
+                android:color="@color/lightGray"
                 />
         </shape>
     </item>
@@ -28,7 +29,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -37,7 +38,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -46,7 +47,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -55,7 +56,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -64,7 +65,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -73,7 +74,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -82,7 +83,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -91,7 +92,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -100,7 +101,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -109,7 +110,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 
@@ -118,7 +119,7 @@
             <solid android:color="#00000000" /> <!-- Fully transparent color -->
             <stroke
                 android:width="1dp"
-                android:color="#000000" /> <!-- Black border -->
+                android:color="@color/lightGray" /> <!-- Black border -->
         </shape>
     </item>
 

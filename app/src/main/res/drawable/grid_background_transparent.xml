@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bottom Rectangle (Transparent with Black Border) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item>
+        <shape
+            android:shape="line"
+            android:top="0dp" >
+            <stroke
+                android:width="1dip"
+                android:height="10dp"
+                android:color="@color/lightGray"
+                />
+        </shape>
+    </item>
+
+    <!-- Top Rectangle (Transparent with Black Border) -->
+    <item android:top="53dp" android:bottom="53dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="106dp" android:bottom="106dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="159dp" android:bottom="159dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="212dp" android:bottom="212dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="265dp" android:bottom="265dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="318dp" android:bottom="318dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="371dp" android:bottom="371dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="424dp" android:bottom="424dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="477dp" android:bottom="477dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="583dp" android:bottom="583dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+    <item android:top="530dp" android:bottom="530dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Fully transparent color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/lightGray" /> <!-- Black border -->
+        </shape>
+    </item>
+
+</layer-list>
