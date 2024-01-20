@@ -14,13 +14,26 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+/**
+ * Read an URL and return the content as a String.
+ * The content is then used according to the TAG passed to the constructor.
+ */
 public class UrlRequests extends AsyncTask<String, Void, String> {
 
     private final WeakReference<Context> contextRef;
+    private String _tag = null;
 
-    public UrlRequests(Context context) {
+
+    /**
+     * Constructor for the UrlRequests class.
+     *
+     * @param context Context of the application.
+     * @param tag Used to know what to do with the content of the URL.
+     *            Can be "EDT" or "GROUPS".
+     */
+    public UrlRequests(Context context, String tag) {
         contextRef = new WeakReference<>(context);
+        _tag = tag;
     }
 
 
@@ -61,17 +74,15 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        // Process the response on the UI thread
-        // Update your UI or do any other post-processing here
-        //Log.d("Test", result);
-        try {
-            XmlParser.parseXml(result);
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
+        if (_tag.equals("EDT")) {
+            try {
+                XmlParser.parseXml(result);
+            } catch (XmlPullParserException | IOException e) {
+                e.printStackTrace();
+            }
+            Context context = contextRef.get();
+            JsonFileHandler.main(context, Event.EventsByDay);
         }
-        Context context = contextRef.get();
-//        saveStringToFile(context, result, "edt.xml");
-        JsonFileHandler.main(context, Event.EventsByDay);
     }
 
     protected void saveStringToFile(Context context, String myString, String fileName) {
