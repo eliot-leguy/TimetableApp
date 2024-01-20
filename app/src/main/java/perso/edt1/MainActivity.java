@@ -90,8 +90,7 @@ public class MainActivity extends AppCompatActivity
         setWeekView();
     }
 
-    private void setCalendarAdapter()
-    {
+    private void setCalendarAdapter() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         days = daysInWeekArray(CalendarUtils.selectedDate);
 
@@ -419,17 +418,18 @@ public class MainActivity extends AppCompatActivity
         return list;
     }
 
-
-    public void previousWeekAction(View view)
-    {
+    public void previousWeekAction(View view) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
+        loadEDT loadEDT = new loadEDT();
+        loadEDT.execute();
         setCalendarAdapter();
         setWeekView();
     }
 
-    public void nextWeekAction(View view)
-    {
+    public void nextWeekAction(View view) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
+        loadEDT loadEDT = new loadEDT();
+        loadEDT.execute();
         setCalendarAdapter();
         setWeekView();
     }
@@ -553,8 +553,7 @@ public class MainActivity extends AppCompatActivity
         saturdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
     }
 
-    public void dailyAction(View view)
-    {
+    public void dailyAction(View view) {
         startActivity(new Intent(this, DailyCalendarActivity.class));
     }
 
