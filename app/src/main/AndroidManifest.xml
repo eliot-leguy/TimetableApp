@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CalendarAppExample">
         <activity
+            android:name=".EdtSelectionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CalendarAppExample" />
+        <activity
             android:name=".FullScreenEventActivity"
             android:exported="false"
             android:label="@string/title_activity_full_sceen_event"

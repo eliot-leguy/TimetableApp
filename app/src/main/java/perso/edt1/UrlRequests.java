@@ -82,6 +82,8 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
             }
             Context context = contextRef.get();
             JsonFileHandler.main(context, Event.EventsByDay);
+        } else if (_tag.equals("GROUPS")){
+            EdtSelectionActivity.getGroups(result);
         }
     }
 
