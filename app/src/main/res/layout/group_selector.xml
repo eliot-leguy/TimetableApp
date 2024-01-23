@@ -7,6 +7,7 @@
     android:background="@drawable/around_border">
 
     <CheckBox
+        android:id="@+id/groupCheckBox"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_margin="25dp"
