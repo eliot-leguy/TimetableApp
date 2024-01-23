@@ -173,6 +173,42 @@
             android:textColor="@color/darkGrey"
             android:text="INFO3 PROMOTION"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="150dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/back"
+                android:textColor="@color/blue"
+                android:background="@null"
+                android:textStyle="bold"
+                android:textAlignment="textStart"
+                android:onClick="previousEventAction"
+                android:layout_margin="10dp"
+                android:textSize="30sp"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/forward"
+                android:textColor="@color/blue"
+                android:background="@null"
+                android:textStyle="bold"
+                android:onClick="nextEventAction"
+                android:textAlignment="textEnd"
+                android:layout_margin="10dp"
+                android:textSize="30sp"/>
+
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
 

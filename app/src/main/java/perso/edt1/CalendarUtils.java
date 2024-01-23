@@ -120,4 +120,27 @@ public class CalendarUtils
     }
 
 
+    public static Event getNextEvent(Event event) {
+        ArrayList<Event> events = Event.EventsByDay.get(event.getDate());
+        if (events != null) {
+            for (int i = 0; i < events.size(); i++) {
+                if (events.get(i).getStartTime().isAfter(event.getStartTime()) && !events.get(i).getCategory().equals("Fill")) {
+                    return events.get(i);
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Event getPreviousEvent(Event event) {
+        ArrayList<Event> events = Event.EventsByDay.get(event.getDate());
+        if (events != null) {
+            for (int i = events.size() - 1; i >= 0; i--) {
+                if (events.get(i).getStartTime().isBefore(event.getStartTime()) && !events.get(i).getCategory().equals("Fill")) {
+                    return events.get(i);
+                }
+            }
+        }
+        return null;
+    }
 }

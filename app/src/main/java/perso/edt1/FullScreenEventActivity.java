@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 
 import java.time.format.TextStyle;
@@ -80,5 +81,25 @@ public class FullScreenEventActivity extends Activity {
 
     public void closeActivityAction(View view) {
         finish();
+    }
+
+    public void nextEventAction(View view) {
+        Event nextEvent = CalendarUtils.getNextEvent(event);
+        if (nextEvent != null) {
+            event = nextEvent;
+            setInfo();
+        } else {
+        Toast.makeText(this, this.getString(R.string.NoMoreEvents), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void previousEventAction(View view) {
+        Event previousEvent = CalendarUtils.getPreviousEvent(event);
+        if (previousEvent != null) {
+            event = previousEvent;
+            setInfo();
+        } else {
+        Toast.makeText(this, this.getString(R.string.NoMoreEvents), Toast.LENGTH_SHORT).show();
+        }
     }
 }
