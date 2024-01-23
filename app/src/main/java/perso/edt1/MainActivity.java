@@ -108,21 +108,27 @@ public class MainActivity extends AppCompatActivity
                 sundayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
                 break;
             case 1:
+                mondayLinearLayout.setBackground(AppCompatResources.getDrawable(this,R.drawable.grid_background_selected_day));
                 mondayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
                 break;
             case 2:
+                tuesdayLinearLayout.setBackground(AppCompatResources.getDrawable(this,R.drawable.grid_background_selected_day));
                 tuesdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
                 break;
             case 3:
+                wednesdayLinearLayout.setBackground(AppCompatResources.getDrawable(this,R.drawable.grid_background_selected_day));
                 wednesdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
                 break;
             case 4:
+                thursdayLinearLayout.setBackground(AppCompatResources.getDrawable(this,R.drawable.grid_background_selected_day));
                 thursdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
                 break;
             case 5:
+                fridayLinearLayout.setBackground(AppCompatResources.getDrawable(this,R.drawable.grid_background_selected_day));
                 fridayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
                 break;
             case 6:
+                saturdayLinearLayout.setBackground(AppCompatResources.getDrawable(this,R.drawable.grid_background_selected_day));
                 saturdayDateTV.setBackground(AppCompatResources.getDrawable(this,R.drawable.rounded_corners_date));
                 break;
         }
@@ -593,11 +599,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void downloadEDT_action(View view) {
-        Toast.makeText(this, "Downloading Edt", Toast.LENGTH_SHORT).show();
-        String url = "https://edt.univ-nantes.fr/chantrerie-gavy/g914391.xml";
-        new UrlRequests(this, "EDT").execute(url);
-        loadEDT_action(null);
-        //JsonFileHandler.main((Context) this, Event.EventsByDay);
+//        Toast.makeText(this, "Downloading Edt", Toast.LENGTH_SHORT).show();
+//        String url = "https://edt.univ-nantes.fr/chantrerie-gavy/g914391.xml";
+//        new UrlRequests(this, "EDT").execute(url);
+//        loadEDT_action(null);
+
+        startActivity(new Intent(this, EdtSelectionActivity.class));
     }
 
     public void loadEDT_action(View view) {
