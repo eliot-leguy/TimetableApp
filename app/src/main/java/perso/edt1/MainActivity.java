@@ -416,7 +416,20 @@ public class MainActivity extends AppCompatActivity
         eventModule.setSingleLine(false);
         eventModule.setTextSize(12);
         eventModule.setText(event.getModule());
-        eventRoom.setVisibility(View.GONE);
+        eventModule.setPadding(5,5,5,1);
+
+        ArrayList<String> eventRooms = event.getRoom();
+        String StringEventRoom = "";
+        for (int i = 0; i < eventRooms.size(); i++) {
+            StringEventRoom += eventRooms.get(i);
+            if (i != eventRooms.size() - 1)
+                StringEventRoom += ", ";
+        }
+        eventRoom.setSingleLine(false);
+        eventRoom.setTextSize(8);
+        eventRoom.setText(StringEventRoom);
+        eventRoom.setPadding(5,1,5,5);
+
         eventTeacher.setVisibility(View.GONE);
         eventGroup.setVisibility(View.GONE);
 
