@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class Event implements Parcelable {
     public static ArrayList<Event> eventsList = new ArrayList<>();
-
     static Map<LocalDate, ArrayList<Event>> EventsByDay;
     private String module;
     private LocalDate date;
@@ -26,6 +25,7 @@ public class Event implements Parcelable {
     private ArrayList<String> group = new ArrayList<>();
     private String category;
     private String notes;
+    public static ArrayList<String> localEdt = new ArrayList<>();
 
     public Event(int dayShift, LocalTime startTime, LocalTime endTime, String category, LocalDate weekStartDate, String module, ArrayList<String> room, ArrayList<String> teacher, ArrayList<String> group, String notes) {
         this.module = module;

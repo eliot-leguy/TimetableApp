@@ -38,11 +38,12 @@ public class JsonFileHandler extends Application {
 
         ArrayList<File> files = getFiles(DirectoryPath);
         if(files.size() == 0){
-            Toast.makeText(context, "No Local Edt" + DirectoryPath, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "No Local Edt", Toast.LENGTH_SHORT).show();
         } else {
             for (File file : files) {
                 if (file.getName().endsWith(".json")) {
                     Log.d("JsonFileHandler", "loadEdtJson: " + file.getName());
+                    Event.localEdt.add(file.getName().substring(0, file.getName().length() - 5));
                     readEventsFromJsonFile(context, DirectoryPath + "/" + file.getName(), date);
                 }
             }
