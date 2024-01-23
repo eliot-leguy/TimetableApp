@@ -14,4 +14,6 @@
     <string name="daily">Jour</string>
     <string name="monthly">Mois</string>
     <string name="pinpoint">PinPoint</string>
+    <string name="select_timetable">Sélection des emplois du temps</string>
+    <string name="NoMoreEvents">Plus d\'évènements pour ce jour</string>
 </resources>
