@@ -393,7 +393,7 @@ public class MainActivity extends AppCompatActivity
         String eventCategory = event.getCategory().replaceAll("\\s+", "_");
 
         int color = getApplicationContext().getResources().getIdentifier(eventCategory, "color", getApplicationContext().getPackageName());
-        Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners);
+        Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners_default_event_color);
         assert background != null;
         if(color != 0) {
             background.setColorFilter(getApplicationContext().getColor(color), android.graphics.PorterDuff.Mode.SRC_IN);
