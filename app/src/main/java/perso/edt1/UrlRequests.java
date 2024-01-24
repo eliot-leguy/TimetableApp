@@ -2,6 +2,7 @@ package perso.edt1;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -86,12 +87,22 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
             JsonFileHandler.main(context, Event.EventsByDay, fileName);
         } else if (_tag.equals("GROUPS")){
             EdtSelectionActivity.groupsString = result;
+            saveStringToFile(contextRef.get(), result, fileName);
         }
     }
 
     protected void saveStringToFile(Context context, String myString, String fileName) {
         try {
-            File filePath = new File(context.getDir("edtDir", Context.MODE_PRIVATE), fileName);
+            File directoryPath = new File(context.getFilesDir(), "groups");
+
+            // If the directory doesn't exist, create it
+            if (!directoryPath.exists()) {
+                if (!directoryPath.mkdirs()) {
+                    Log.d("UrlRequests", "Directory creation failed");
+                }
+            }
+
+            File filePath = new File(directoryPath, fileName);
 
             FileWriter fileWriter = new FileWriter(filePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
