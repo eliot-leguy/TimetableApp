@@ -263,6 +263,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if(!events.get(0).getCategory().equals("Fill")){
+                    CalendarUtils.selectedDate = events.get(0).getDate();
+
                     Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("event", events.get(0));
@@ -275,6 +277,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if(!events.get(1).getCategory().equals("Fill")){
+                    CalendarUtils.selectedDate = events.get(1).getDate();
+
                     Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("event", events.get(1));
@@ -287,6 +291,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if(!events.get(2).getCategory().equals("Fill")){
+                    CalendarUtils.selectedDate = events.get(2).getDate();
+
                     Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("event", events.get(2));
@@ -299,6 +305,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if(!events.get(3).getCategory().equals("Fill")){
+                    CalendarUtils.selectedDate = events.get(3).getDate();
+
                     Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("event", events.get(3));
