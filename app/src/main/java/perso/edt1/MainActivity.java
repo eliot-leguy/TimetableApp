@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_view);
         initWidgets();
-        loadEDT_action(null);
-        setCalendarAdapter();
-        setWeekView();
+//        loadEDT_action(null);
+//        setCalendarAdapter();
+//        setWeekView();
     }
 
     private void initWidgets() {
@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity
     {
         super.onResume();
         setCalendarAdapter();
-        setWeekView();
+        loadEDT_action(null);
+//        setWeekView();
     }
 
     private void setCalendarAdapter() {
@@ -634,6 +635,12 @@ public class MainActivity extends AppCompatActivity
         protected Void doInBackground(Void... voids) {
             loadEdtJson(getFilesDir(), getApplicationContext(), CalendarUtils.selectedDate);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            setWeekView();
         }
     }
 }
