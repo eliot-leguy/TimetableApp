@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CalendarUtils
 {
@@ -124,7 +125,7 @@ public class CalendarUtils
         ArrayList<Event> events = Event.EventsByDay.get(event.getDate());
         if (events != null) {
             for (int i = 0; i < events.size(); i++) {
-                if (events.get(i).getStartTime().isAfter(event.getStartTime()) && !events.get(i).getCategory().equals("Fill")) {
+                if (!events.get(i).getCategory().equals("Fill") && events.get(i) != event && (events.get(i).getStartTime().isAfter(event.getStartTime()) || (Objects.equals(events.get(i).getCategory(), event.getCategory()) && events.get(i).getGroup() != event.getGroup() && events.get(i).getStartTime().equals(event.getStartTime())))) {
                     return events.get(i);
                 }
             }
@@ -136,7 +137,7 @@ public class CalendarUtils
         ArrayList<Event> events = Event.EventsByDay.get(event.getDate());
         if (events != null) {
             for (int i = events.size() - 1; i >= 0; i--) {
-                if (events.get(i).getStartTime().isBefore(event.getStartTime()) && !events.get(i).getCategory().equals("Fill")) {
+                if (!events.get(i).getCategory().equals("Fill") && events.get(i) != event && (events.get(i).getStartTime().isBefore(event.getStartTime()) || (Objects.equals(events.get(i).getCategory(), event.getCategory()) && events.get(i).getGroup() != event.getGroup() && events.get(i).getStartTime().equals(event.getStartTime())))) {
                     return events.get(i);
                 }
             }
