@@ -11,7 +11,7 @@
         android:id="@+id/groupCheckBox"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="20dp"
         android:minHeight="0dp"
         android:minWidth="0dp"/>
 
@@ -23,5 +23,16 @@
         android:textColor="@color/blue"
         android:layout_gravity="center"
         android:text="INFO3 G1"/>
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/trashImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/trash"
+        android:layout_margin="5dp"/>
 
 </LinearLayout>

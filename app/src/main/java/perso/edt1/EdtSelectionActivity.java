@@ -3,8 +3,10 @@ package perso.edt1;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
@@ -122,11 +125,14 @@ public class EdtSelectionActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate(R.layout.group_selector, null);
                 TextView groupNameTextView = view.findViewById(R.id.groupNameTextView);
                 CheckBox groupCheckBox = view.findViewById(R.id.groupCheckBox);
+                ImageView trashImageView = view.findViewById(R.id.trashImageView);
 
                 groupNameTextView.setText(groupName);
 
                 if(Event.localEdt.contains(groupName)){
                     groupCheckBox.setChecked(true);
+                } else {
+                    trashImageView.setVisibility(View.GONE);
                 }
                 groupCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isChecked) {
@@ -134,6 +140,17 @@ public class EdtSelectionActivity extends AppCompatActivity {
                     } else {
                         selectedGroups.remove(groupName);
                     }
+                });
+
+                trashImageView.setOnClickListener(v -> {
+                    Event.localEdt.remove(groupName);
+                    File file = new File(getFilesDir() + "/" + groupName + ".json");
+                    try {
+                        file.delete();
+                    } catch (Exception e) {
+                        Log.e("EdtSelectionActivity", "Error while deleting file " + file.getName());
+                    }
+
                 });
 
                 groupLinearLayout.addView(view);
