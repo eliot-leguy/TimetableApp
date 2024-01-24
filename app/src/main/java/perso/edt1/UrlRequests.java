@@ -22,6 +22,7 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
 
     private final WeakReference<Context> contextRef;
     private String _tag = null;
+    private String fileName = "default";
 
 
     /**
@@ -31,9 +32,10 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
      * @param tag Used to know what to do with the content of the URL.
      *            Can be "EDT" or "GROUPS".
      */
-    public UrlRequests(Context context, String tag) {
+    public UrlRequests(Context context, String tag, String filename) {
         contextRef = new WeakReference<>(context);
         _tag = tag;
+        fileName = filename;
     }
 
 
@@ -81,7 +83,7 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
             Context context = contextRef.get();
-            JsonFileHandler.main(context, Event.EventsByDay);
+            JsonFileHandler.main(context, Event.EventsByDay, fileName);
         } else if (_tag.equals("GROUPS")){
             EdtSelectionActivity.groupsString = result;
         }
