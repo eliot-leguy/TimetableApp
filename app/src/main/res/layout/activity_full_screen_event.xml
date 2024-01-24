@@ -171,13 +171,38 @@
             android:id="@+id/eventProf"
             android:textSize="18sp"
             android:textColor="@color/darkGrey"
-            android:text="INFO3 PROMOTION"/>
+            android:text="JP Guédon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:id="@+id/eventNotesTitle"
+            android:text="@string/notes"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="5dp"
+            android:id="@+id/eventNotes"
+            android:textSize="18sp"
+            android:textColor="@color/darkGrey"
+            android:text="Vacances"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="150dp">
+            android:layout_marginBottom="10dp">
 
             <Button
                 android:layout_width="0dp"

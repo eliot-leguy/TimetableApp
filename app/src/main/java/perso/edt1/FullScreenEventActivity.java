@@ -41,12 +41,24 @@ public class FullScreenEventActivity extends Activity {
         TextView roomText = findViewById(R.id.eventRoom);
         TextView profText = findViewById(R.id.eventProf);
         TextView groupText = findViewById(R.id.eventGroup);
+        TextView notesText = findViewById(R.id.eventNotes);
+        TextView eventNotesTitle = findViewById(R.id.eventNotesTitle);
 
 
         categoryText.setText(event.getCategory());
         startTimeText.setText(event.getStartTime().toString());
         endTimeText.setText(event.getEndTime().toString());
         moduleText.setText(event.getModule());
+
+        String notes = event.getNotes();
+        if (notes == null){
+            notesText.setVisibility(View.GONE);
+            eventNotesTitle.setVisibility(View.GONE);
+        } else {
+            notesText.setText(event.getNotes());
+            notesText.setVisibility(View.VISIBLE);
+            eventNotesTitle.setVisibility(View.VISIBLE);
+        }
 
         String date = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + CalendarUtils.monthDayFromDate(selectedDate);
         dateText.setText(CalendarUtils.upperCaseWords(date));

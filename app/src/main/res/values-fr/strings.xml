@@ -16,4 +16,5 @@
     <string name="pinpoint">PinPoint</string>
     <string name="select_timetable">Sélection des emplois du temps</string>
     <string name="NoMoreEvents">Plus d\'évènements pour ce jour</string>
+    <string name="notes">Notes</string>
 </resources>
