@@ -258,7 +258,7 @@ public class JsonFileHandler extends Application {
      *
      * @param EventsByDay map of the events.
      */
-    public static void main(Context context, Map<LocalDate, ArrayList<Event>> EventsByDay) {
+    public static void main(Context context, Map<LocalDate, ArrayList<Event>> EventsByDay, String fileName) {
         JSONArray eventsArray = new JSONArray();
 
         ArrayList<LocalDate> dates = new ArrayList<>(EventsByDay.keySet());
@@ -289,6 +289,6 @@ public class JsonFileHandler extends Application {
         }
 
         // Save to JSON file
-        writeEventsToJsonFile(context, "events.json", eventsArray);
+        writeEventsToJsonFile(context, fileName+".json", eventsArray);
     }
 }
