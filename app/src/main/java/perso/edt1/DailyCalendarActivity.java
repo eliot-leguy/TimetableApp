@@ -5,11 +5,9 @@ import static perso.edt1.CalendarUtils.selectedDate;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.view.GestureDetectorCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -309,7 +307,7 @@ public class DailyCalendarActivity extends AppCompatActivity
         Log.d("EventCategory", "EventCategory: " + eventCategory);
 
         int color = getApplicationContext().getResources().getIdentifier(eventCategory, "color", getApplicationContext().getPackageName());
-        Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners);
+        Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners_default_event_color);
         assert background != null;
         if(color != 0) {
             background.setColorFilter(getApplicationContext().getColor(color), android.graphics.PorterDuff.Mode.SRC_IN);
