@@ -44,7 +44,7 @@ public class JsonFileHandler extends Application {
                 if (file.getName().endsWith(".json")) {
                     Log.d("JsonFileHandler", "loadEdtJson: " + file.getName());
                     Event.localEdt.add(file.getName().substring(0, file.getName().length() - 5));
-                    readEventsFromJsonFile(context, DirectoryPath + "/" + file.getName(), date);
+                    readEventsFromJsonFile(DirectoryPath + "/" + file.getName(), date);
                 }
             }
         }
@@ -64,6 +64,46 @@ public class JsonFileHandler extends Application {
         }
 
         return files;
+    }
+
+    /**
+     * Read the JSON file at filePath and put his content into a JSONArray.
+     * Then calls jsonToEvents(JsonEventArray, date) to transform the JSONArray into a map of events around the specified date.
+     *
+     * @param filePath path of the .json file to read.
+     * @param date date of the calendar to load.
+     */
+    public static void readEventsFromJsonFile(String filePath, LocalDate date) {
+        //We still have to load the entire file before being able to select which days we want to display
+        StringBuilder stringBuilder = new StringBuilder();
+        JSONArray JsonEventArray = new JSONArray();
+
+        try {
+            // Open FileInputStream for reading
+            FileInputStream inputStream = new FileInputStream(filePath);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+            // Read file content into StringBuilder
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+
+            // Close the streams
+            bufferedReader.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            // Parse the JSON string into a JSONArray
+            JsonEventArray = new JSONArray(stringBuilder.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("JsonFileHandler", "readEventsFromJsonFile: " + JsonEventArray.length());
+        jsonToEvents(JsonEventArray, date);
     }
 
     /**
@@ -189,48 +229,14 @@ public class JsonFileHandler extends Application {
             }
         }
         Log.d("JsonFileHandler", "jsonToEvents: " + EventsByDay);
-        Event.EventsByDay = EventsByDay;
+
+        if(Event.EventsByDay != null && Event.EventsByDay.size() > 0){
+            Event.EventsByDay.putAll(EventsByDay);
+        } else {
+            Event.EventsByDay = EventsByDay;
+        }
     }
 
-    /**
-     * Read the JSON file at filePath and put his content into a JSONArray.
-     * Then calls jsonToEvents(JsonEventArray, date) to transform the JSONArray into a map of events around the specified date.
-     *
-     * @param filePath path of the .json file to read.
-     * @param date date of the calendar to load.
-     */
-    public static void readEventsFromJsonFile(Context context, String filePath, LocalDate date) {
-        //We still have to load the entire file before being able to select which days we want to display
-        StringBuilder stringBuilder = new StringBuilder();
-        JSONArray JsonEventArray = new JSONArray();
-
-        try {
-            // Open FileInputStream for reading
-            FileInputStream inputStream = new FileInputStream(filePath);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-            // Read file content into StringBuilder
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-
-            // Close the streams
-            bufferedReader.close();
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            // Parse the JSON string into a JSONArray
-            JsonEventArray = new JSONArray(stringBuilder.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("JsonFileHandler", "readEventsFromJsonFile: " + JsonEventArray.length());
-        jsonToEvents(JsonEventArray, date);
-    }
 
     /**
      * Write a JSONArray into fileName.json .
@@ -240,14 +246,17 @@ public class JsonFileHandler extends Application {
      */
     public static void writeEventsToJsonFile(Context context, String fileName, JSONArray eventsArray) {
         try {
-            // Open FileOutputStream for writing
-            FileOutputStream outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            if(context != null) {
+                Log.d("JsonFileHandler", "writeEventsToJsonFile: " + context);
+                // Open FileOutputStream for writing
+                FileOutputStream outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
 
-            // Write the JSON string to the file
-            outputStream.write(eventsArray.toString().getBytes());
+                // Write the JSON string to the file
+                outputStream.write(eventsArray.toString().getBytes());
 
-            // Close the stream
-            outputStream.close();
+                // Close the stream
+                outputStream.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
