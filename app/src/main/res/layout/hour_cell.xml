@@ -26,14 +26,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:id="@+id/event1"
-            android:padding="5dp">
+            android:id="@+id/event1">
 
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_weight=".95"
-                android:layout_margin="5dp"
+                android:layout_weight=".85"
+                android:layout_marginHorizontal="5dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event1Module"
@@ -69,7 +68,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
+                android:layout_marginHorizontal="5dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event1Group"
@@ -100,14 +99,13 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/event2"
-            android:padding="5dp">
+            android:id="@+id/event2">
 
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_weight=".95"
-                android:layout_margin="5dp"
+                android:layout_weight=".85"
+                android:layout_marginHorizontal="5dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event2Module"
@@ -143,7 +141,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
+                android:layout_marginHorizontal="5dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event2Group"
@@ -173,14 +171,13 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/event3"
-            android:padding="5dp">
+            android:id="@+id/event3">
 
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_weight=".95"
-                android:layout_margin="5dp"
+                android:layout_weight=".85"
+                android:layout_marginHorizontal="5dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event3Module"
@@ -216,7 +213,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
+                android:layout_marginHorizontal="5dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event3Group"
@@ -246,14 +243,13 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/event4"
-            android:padding="5dp">
+            android:id="@+id/event4">
 
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_weight=".95"
-                android:layout_margin="5dp"
+                android:layout_weight=".85"
+                android:layout_marginHorizontal="5dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event4Module"
@@ -288,8 +284,8 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/event4Group"
