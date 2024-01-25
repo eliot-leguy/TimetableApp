@@ -5,11 +5,11 @@ import static perso.edt1.CalendarUtils.selectedDate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
+
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
 
 import android.app.Activity;
 import android.widget.Toast;
@@ -101,7 +101,7 @@ public class FullScreenEventActivity extends Activity {
             event = nextEvent;
             setInfo();
         } else {
-        Toast.makeText(this, this.getString(R.string.NoMoreEvents), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.NoMoreEvents), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -111,7 +111,7 @@ public class FullScreenEventActivity extends Activity {
             event = previousEvent;
             setInfo();
         } else {
-        Toast.makeText(this, this.getString(R.string.NoMoreEvents), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.NoMoreEvents), Toast.LENGTH_SHORT).show();
         }
     }
 }

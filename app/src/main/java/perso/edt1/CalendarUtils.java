@@ -7,10 +7,13 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Comparator;
 
 public class CalendarUtils
 {
     public static LocalDate selectedDate;
+
+    public static ArrayList<Event> selectedDateEvents;
 
     public static String formattedDate(LocalDate date)
     {
@@ -122,26 +125,70 @@ public class CalendarUtils
 
 
     public static Event getNextEvent(Event event) {
-        ArrayList<Event> events = Event.EventsByDay.get(event.getDate());
-        if (events != null) {
-            for (int i = 0; i < events.size(); i++) {
-                if (!events.get(i).getCategory().equals("Fill") && events.get(i) != event && (events.get(i).getStartTime().isAfter(event.getStartTime()) || (Objects.equals(events.get(i).getCategory(), event.getCategory()) && events.get(i).getGroup() != event.getGroup() && events.get(i).getStartTime().equals(event.getStartTime())))) {
-                    return events.get(i);
+
+        if(selectedDateEvents == null || selectedDateEvents.isEmpty() || !Objects.equals(selectedDateEvents.get(0).getDate(), selectedDate)) {
+
+            selectedDateEvents = Event.EventsByDay.get(selectedDate);
+
+            Comparator<Event> eventComparator = Comparator.comparing(Event::getStartTime);
+            selectedDateEvents.sort(eventComparator);
+        }
+
+        Event currentEvent = null;
+
+        for(int i = 0; i < selectedDateEvents.size(); i++) {
+            currentEvent = selectedDateEvents.get(i);
+
+            if (!Objects.equals(currentEvent.getCategory(), "Fill")) {
+
+                if (Objects.equals(currentEvent.getCategory(), event.getCategory()) && Objects.equals(event.getStartTime(), currentEvent.getStartTime()) && Objects.equals(event.getGroup(), currentEvent.getGroup())) {
+                    if (i < selectedDateEvents.size() - 1) {
+                        if(selectedDateEvents.get(i + 1).getCategory().equals("Fill")) {
+                            if (i < selectedDateEvents.size() - 2) {
+                                return selectedDateEvents.get(i + 2);
+                            }
+                        } else {
+                            return selectedDateEvents.get(i + 1);
+                        }
+                    }
                 }
             }
         }
+
         return null;
     }
 
     public static Event getPreviousEvent(Event event) {
-        ArrayList<Event> events = Event.EventsByDay.get(event.getDate());
-        if (events != null) {
-            for (int i = events.size() - 1; i >= 0; i--) {
-                if (!events.get(i).getCategory().equals("Fill") && events.get(i) != event && (events.get(i).getStartTime().isBefore(event.getStartTime()) || (Objects.equals(events.get(i).getCategory(), event.getCategory()) && events.get(i).getGroup() != event.getGroup() && events.get(i).getStartTime().equals(event.getStartTime())))) {
-                    return events.get(i);
+
+            if(selectedDateEvents == null || selectedDateEvents.isEmpty() || !Objects.equals(selectedDateEvents.get(0).getDate(), selectedDate)) {
+
+                selectedDateEvents = Event.EventsByDay.get(selectedDate);
+
+                Comparator<Event> eventComparator = Comparator.comparing(Event::getStartTime);
+                selectedDateEvents.sort(eventComparator);
+            }
+
+            Event currentEvent = null;
+
+            for(int i = 0; i < selectedDateEvents.size(); i++) {
+                currentEvent = selectedDateEvents.get(i);
+
+                if (!Objects.equals(currentEvent.getCategory(), "Fill")) {
+
+                    if (Objects.equals(currentEvent.getCategory(), event.getCategory()) && Objects.equals(event.getStartTime(), currentEvent.getStartTime()) && Objects.equals(event.getGroup(), currentEvent.getGroup())) {
+                        if (i > 0) {
+                            if(selectedDateEvents.get(i - 1).getCategory().equals("Fill")) {
+                                if (i > 1) {
+                                    return selectedDateEvents.get(i - 2);
+                                }
+                            } else {
+                                return selectedDateEvents.get(i - 1);
+                            }
+                        }
+                    }
                 }
             }
-        }
-        return null;
+
+            return null;
     }
 }
