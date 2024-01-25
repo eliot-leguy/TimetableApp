@@ -24,6 +24,13 @@
             android:textColor="@color/blue"
             android:layout_gravity="center"/>
 
+    <LinearLayout
+        android:id="@+id/selectedGroupLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical"/>
+
 
     <ScrollView
         android:id="@+id/groupsScrollView"

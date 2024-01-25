@@ -28,6 +28,7 @@ public class EdtSelectionActivity extends AppCompatActivity {
     private static Map<String,String> selectedGroups;
 
     LinearLayout groupLinearLayout;
+    LinearLayout selectedGroupLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class EdtSelectionActivity extends AppCompatActivity {
 
         setContentView(R.layout.edt_selection_activity);
         groupLinearLayout = findViewById(R.id.groupLinearLayout);
+        selectedGroupLinearLayout = findViewById(R.id.selectedGroupLinearLayout);
 
         Toast.makeText(this, "Fetching groups", Toast.LENGTH_SHORT).show();
 
@@ -187,14 +189,11 @@ public class EdtSelectionActivity extends AppCompatActivity {
                 TextView groupNameTextView = view.findViewById(R.id.groupNameTextView);
                 CheckBox groupCheckBox = view.findViewById(R.id.groupCheckBox);
                 ImageView trashImageView = view.findViewById(R.id.trashImageView);
+                LinearLayout selectorLinearLayout = view.findViewById(R.id.selectorLinearLayout);
 
                 groupNameTextView.setText(groupName);
 
-                if(Event.localEdt.contains(groupName)){
-                    groupCheckBox.setChecked(true);
-                } else {
-                    trashImageView.setVisibility(View.GONE);
-                }
+
                 groupCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isChecked) {
                         selectedGroups.put(groupName, groups.get(groupName));
@@ -208,13 +207,23 @@ public class EdtSelectionActivity extends AppCompatActivity {
                     File file = new File(getFilesDir() + "/" + groupName + ".json");
                     try {
                         file.delete();
+                        groupCheckBox.setChecked(false);
                     } catch (Exception e) {
                         Log.e("EdtSelectionActivity", "Error while deleting file " + file.getName());
                     }
 
                 });
 
-                groupLinearLayout.addView(view);
+                if(Event.localEdt.contains(groupName)){
+                    groupCheckBox.setChecked(true);
+                    selectedGroupLinearLayout.addView(view);
+                    selectorLinearLayout.setBackgroundColor(getColor(R.color.lightPink));
+
+                } else {
+                    trashImageView.setVisibility(View.GONE);
+                    groupLinearLayout.addView(view);
+                }
+
             }
         }
     }
