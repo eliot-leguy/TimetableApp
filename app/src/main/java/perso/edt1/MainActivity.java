@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        setCalendarAdapter();
         loadEDT_action(null);
 //        setWeekView();
     }
@@ -481,16 +480,13 @@ public class MainActivity extends AppCompatActivity
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
         loadEDT loadEDT = new loadEDT();
         loadEDT.execute();
-        setCalendarAdapter();
-        setWeekView();
+
     }
 
     public void nextWeekAction(View view) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
         loadEDT loadEDT = new loadEDT();
         loadEDT.execute();
-        setCalendarAdapter();
-        setWeekView();
     }
 
     public void selectDateSunday(View view) {
@@ -648,6 +644,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            setCalendarAdapter();
             setWeekView();
         }
     }
