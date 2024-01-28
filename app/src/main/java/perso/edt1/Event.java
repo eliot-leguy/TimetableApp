@@ -215,24 +215,64 @@ public class Event implements Parcelable {
         return sortedEventsByDay;
     }
 
+
+    /**
+     * Test if the events are the same event.
+     *
+     * @param eventA the first event.
+     * @param eventB the second event.
+     * @return eventA == event B.
+     */
+    private static boolean equalEvents(Event eventA, Event eventB){
+        boolean startTime = eventA.getStartTime().equals(eventB.getStartTime());
+        boolean endTime = eventA.getEndTime().equals(eventB.getEndTime());
+        boolean category;
+        boolean room;
+        boolean teacher;
+        boolean module;
+
+        if(eventA.getCategory() == null) {
+            category = true;
+        } else if (eventB.getCategory() == null){
+            category = true;
+        } else category = eventA.getCategory().equals(eventB.getCategory());
+
+        if(eventA.getRoom() == null) {
+            room = true;
+        } else if (eventB.getRoom() == null){
+            room = true;
+        } else room = eventA.getRoom().equals(eventB.getRoom());
+
+        if(eventA.getTeacher() == null) {
+            teacher = true;
+        } else if (eventB.getTeacher() == null){
+            teacher = true;
+        } else teacher = eventA.getTeacher().equals(eventB.getTeacher());
+
+        if(eventA.getModule() == null) {
+            return eventB.getModule() == null;
+        } else if (eventB.getModule() == null){
+            return false;
+        } else module = eventA.getModule().equals(eventB.getModule());
+
+        return startTime && endTime && category && room && teacher && module;
+    }
+
     //Marche pas
     public static void removeRedundantEvents(){
         //In the EventsByDay map, remove the event if it is the same as the previous one
         ArrayList<LocalDate> keys = new ArrayList<>(EventsByDay.keySet());
+        Log.d("Test", "test");
         for (LocalDate key : keys) {
             ArrayList<Event> events = EventsByDay.get(key);
-            if(events == null && events.size() > 0){
+            if(events != null && events.size() > 0){
                 Event previousEvent = events.get(0);
-            for (int i = 1; i < Objects.requireNonNull(events).size(); i++) {
+            for (int i = 1; i < events.size(); i++) {
                 Event event = events.get(i);
-                    Log.d("Test", String.valueOf(event.getStartTime().equals(previousEvent.getStartTime())));
-                    Log.d("Test", String.valueOf(event.getEndTime().equals(previousEvent.getEndTime())));
-                    Log.d("Test", String.valueOf(event.getModule().equals(previousEvent.getModule())));
-                    Log.d("Test", String.valueOf(event.getCategory().equals(previousEvent.getCategory())));
-                    if (event.getStartTime().equals(previousEvent.getStartTime()) && event.getEndTime().equals(previousEvent.getEndTime()) && event.getModule().equals(previousEvent.getModule()) && event.getCategory().equals(previousEvent.getCategory())) {
-                        events.remove(i);
-                        i--;
-                    }
+                if (equalEvents(previousEvent, event)) {
+                    events.remove(i);
+                    i--;
+                }
                     previousEvent = event;
                 }
             }
