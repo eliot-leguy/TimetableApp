@@ -637,6 +637,9 @@ public class MainActivity extends AppCompatActivity
     private class loadEDT extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
+            if(Event.EventsByDay != null){
+                Event.EventsByDay.clear();
+            }
             loadEdtJson(getFilesDir(), getApplicationContext(), CalendarUtils.selectedDate);
             return null;
         }
