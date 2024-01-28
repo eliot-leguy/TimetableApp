@@ -2,13 +2,17 @@ package perso.edt1;
 
 import static java.lang.Math.round;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -47,13 +51,15 @@ public class MainActivity extends AppCompatActivity
     private TextView saturdayDateTV;
     ArrayList<LocalDate> days;
     private boolean reloadEdt;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week_view);
+        setContentView(R.layout.activity_main);
         initWidgets();
 //        loadEDT_action(null);
 //        setCalendarAdapter();
@@ -80,6 +86,12 @@ public class MainActivity extends AppCompatActivity
         fridayDateTV = findViewById(R.id.fridayDateTV);
         saturdayDateTV = findViewById(R.id.saturdayDateTV);
 
+        drawerLayout = findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CalendarUtils.selectedDate = LocalDate.now();
     }
 
@@ -90,7 +102,17 @@ public class MainActivity extends AppCompatActivity
         if(reloadEdt){
             loadEDT_action(null);
         }
+        reloadEdt = false;
 //        setWeekView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setCalendarAdapter() {
