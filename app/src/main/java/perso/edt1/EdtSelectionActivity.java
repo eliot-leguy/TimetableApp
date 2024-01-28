@@ -197,8 +197,10 @@ public class EdtSelectionActivity extends AppCompatActivity {
                 groupCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isChecked) {
                         selectedGroups.put(groupName, groups.get(groupName));
+                        Event.selectedEdt.add(groupName);
                     } else {
                         selectedGroups.remove(groupName);
+                        Event.selectedEdt.remove(groupName);
                     }
                 });
 
@@ -213,17 +215,17 @@ public class EdtSelectionActivity extends AppCompatActivity {
                     }
 
                 });
-
-                if(Event.localEdt.contains(groupName)){
-                    groupCheckBox.setChecked(true);
+                if(Event.localEdt != null && Event.localEdt.contains(groupName)){
                     selectedGroupLinearLayout.addView(view);
                     selectorLinearLayout.setBackgroundColor(getColor(R.color.lightPink));
+                    if(Event.selectedEdt.contains(groupName)){
+                        groupCheckBox.setChecked(true);
+                    }
 
                 } else {
                     trashImageView.setVisibility(View.GONE);
                     groupLinearLayout.addView(view);
                 }
-
             }
         }
     }

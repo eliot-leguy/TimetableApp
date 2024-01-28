@@ -41,10 +41,14 @@ public class JsonFileHandler extends Application {
             Toast.makeText(context, "No Local Edt", Toast.LENGTH_SHORT).show();
         } else {
             for (File file : files) {
-                if (file.getName().endsWith(".json")) {
-                    Log.d("JsonFileHandler", "loadEdtJson: " + file.getName());
-                    Event.localEdt.add(file.getName().substring(0, file.getName().length() - 5));
-                    readEventsFromJsonFile(DirectoryPath + "/" + file.getName(), date);
+                String fileName = file.getName();
+                if (fileName.endsWith(".json")) {
+                    String fileNameWithoutExtension = fileName.substring(0, fileName.length() - 5);
+                    if((Event.selectedEdt.size() > 0 && Event.selectedEdt.contains(fileNameWithoutExtension)) || Event.selectedEdt.size() == 0){
+                        Log.d("JsonFileHandler", "loadEdtJson: " + fileName);
+                        Event.localEdt.add(fileNameWithoutExtension);
+                        readEventsFromJsonFile(DirectoryPath + "/" + fileName, date);
+                    }
                 }
             }
         }
@@ -232,6 +236,7 @@ public class JsonFileHandler extends Application {
 
         if(Event.EventsByDay != null && Event.EventsByDay.size() > 0){
             Event.EventsByDay.putAll(EventsByDay);
+            Event.removeRedundantEvents();
         } else {
             Event.EventsByDay = EventsByDay;
         }
