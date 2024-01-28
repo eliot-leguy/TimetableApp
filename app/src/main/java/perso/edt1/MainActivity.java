@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity
     private TextView thursdayDateTV;
     private TextView fridayDateTV;
     private TextView saturdayDateTV;
-
     ArrayList<LocalDate> days;
+    private boolean reloadEdt;
 
 
     @Override
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity
 //        loadEDT_action(null);
 //        setCalendarAdapter();
 //        setWeekView();
+        reloadEdt = true;
     }
 
     private void initWidgets() {
@@ -86,7 +87,9 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        loadEDT_action(null);
+        if(reloadEdt){
+            loadEDT_action(null);
+        }
 //        setWeekView();
     }
 
@@ -263,6 +266,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(!events.get(0).getCategory().equals("Fill")){
                     CalendarUtils.selectedDate = events.get(0).getDate();
+                    reloadEdt = false;
 
                     Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -277,6 +281,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(!events.get(1).getCategory().equals("Fill")){
                     CalendarUtils.selectedDate = events.get(1).getDate();
+                    reloadEdt = false;
 
                     Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -291,6 +296,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(!events.get(2).getCategory().equals("Fill")){
                     CalendarUtils.selectedDate = events.get(2).getDate();
+                    reloadEdt = false;
 
                     Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -305,6 +311,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 if(!events.get(3).getCategory().equals("Fill")){
                     CalendarUtils.selectedDate = events.get(3).getDate();
+                    reloadEdt = false;
 
                     Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -610,6 +617,7 @@ public class MainActivity extends AppCompatActivity
 
     public void dailyAction(View view) {
         startActivity(new Intent(this, DailyCalendarActivity.class));
+        reloadEdt = false;
     }
 
     private void hideEvent(LinearLayout eventCell) {
@@ -623,6 +631,7 @@ public class MainActivity extends AppCompatActivity
 //        loadEDT_action(null);
 
         startActivity(new Intent(this, EdtSelectionActivity.class));
+        reloadEdt = true;
     }
 
     public void loadEDT_action(View view) {
