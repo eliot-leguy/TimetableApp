@@ -17,4 +17,6 @@
     <string name="select_timetable">Sélection des emplois du temps</string>
     <string name="NoMoreEvents">Plus d\'évènements pour ce jour</string>
     <string name="notes">Notes</string>
+    <string name="open">Ouvrir</string>
+    <string name="close">Fermer</string>
 </resources>

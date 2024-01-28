@@ -20,4 +20,6 @@
     <string name="select_timetable">Select a Timetable</string>
     <string name="NoMoreEvents">No more events for this day</string>
     <string name="notes">Notes</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
