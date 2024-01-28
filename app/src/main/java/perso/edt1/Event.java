@@ -11,6 +11,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class Event implements Parcelable {
@@ -26,6 +27,7 @@ public class Event implements Parcelable {
     private String category;
     private String notes;
     public static ArrayList<String> localEdt = new ArrayList<>();
+    public static ArrayList<String> selectedEdt = new ArrayList<>();
 
     public Event(int dayShift, LocalTime startTime, LocalTime endTime, String category, LocalDate weekStartDate, String module, ArrayList<String> room, ArrayList<String> teacher, ArrayList<String> group, String notes) {
         this.module = module;
@@ -210,8 +212,32 @@ public class Event implements Parcelable {
                 sortedEventsByDay.put(key, sortedEvents);
             }
         });
-
         return sortedEventsByDay;
+    }
+
+    //Marche pas
+    public static void removeRedundantEvents(){
+        //In the EventsByDay map, remove the event if it is the same as the previous one
+        ArrayList<LocalDate> keys = new ArrayList<>(EventsByDay.keySet());
+        for (LocalDate key : keys) {
+            ArrayList<Event> events = EventsByDay.get(key);
+            if(events == null && events.size() > 0){
+                Event previousEvent = events.get(0);
+            for (int i = 1; i < Objects.requireNonNull(events).size(); i++) {
+                Event event = events.get(i);
+                    Log.d("Test", String.valueOf(event.getStartTime().equals(previousEvent.getStartTime())));
+                    Log.d("Test", String.valueOf(event.getEndTime().equals(previousEvent.getEndTime())));
+                    Log.d("Test", String.valueOf(event.getModule().equals(previousEvent.getModule())));
+                    Log.d("Test", String.valueOf(event.getCategory().equals(previousEvent.getCategory())));
+                    if (event.getStartTime().equals(previousEvent.getStartTime()) && event.getEndTime().equals(previousEvent.getEndTime()) && event.getModule().equals(previousEvent.getModule()) && event.getCategory().equals(previousEvent.getCategory())) {
+                        events.remove(i);
+                        i--;
+                    }
+                    previousEvent = event;
+                }
+            }
+            EventsByDay.put(key, events);
+        }
     }
 
     public String getModule() {
