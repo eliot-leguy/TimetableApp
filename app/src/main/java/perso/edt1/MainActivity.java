@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +28,11 @@ import java.util.ArrayList;
 
 import static perso.edt1.CalendarUtils.daysInWeekArray;
 import static perso.edt1.CalendarUtils.monthYearFromDate;
+import static perso.edt1.CalendarUtils.selectedDate;
 import static perso.edt1.CalendarUtils.sundayForDate;
 import static perso.edt1.JsonFileHandler.loadEdtJson;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements EventsLoaderThread.DatabaseLoadListener
 {
     private TextView monthYearText;
     private ScrollView weekScrollView;
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onResume();
         if(reloadEdt){
+            setCalendarAdapter();
             loadEDT_action(null);
         }
         reloadEdt = false;
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void setCalendarAdapter() {
+    public void setCalendarAdapter() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         days = daysInWeekArray(CalendarUtils.selectedDate);
 
@@ -158,11 +161,14 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
+        hoursLinearLayout.removeAllViews();
+        setHours();
+
+
 
     }
 
-    private void setWeekView(){
-        hoursLinearLayout.removeAllViews();
+    public void setWeekView(){
         mondayLinearLayout.removeAllViews();
         mondayLinearLayout.setPadding(0,1,1,1);
         tuesdayLinearLayout.removeAllViews();
@@ -183,12 +189,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        setHours();
-
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
         boolean displayRedLine = false;
         for(int i=1; i < days.size(); i++){
+            Log.d("LoadDay","-----------------------" + i);
             setEvents(days.get(i), i);
+            Log.d("LoadDay","-----------------------");
             if (days.get(i).equals(LocalDate.now())) {
                 displayRedLine = true;
                 int finalI = i;
@@ -507,15 +513,15 @@ public class MainActivity extends AppCompatActivity
 
     public void previousWeekAction(View view) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
-        loadEDT loadEDT = new loadEDT();
-        loadEDT.execute();
+        EventsLoaderThread eventsLoaderThread = new EventsLoaderThread(this, this, selectedDate);
+        eventsLoaderThread.start();
 
     }
 
     public void nextWeekAction(View view) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
-        loadEDT loadEDT = new loadEDT();
-        loadEDT.execute();
+        EventsLoaderThread eventsLoaderThread = new EventsLoaderThread(this, this, selectedDate);
+        eventsLoaderThread.start();
     }
 
     public void selectDateSunday(View view) {
@@ -661,8 +667,12 @@ public class MainActivity extends AppCompatActivity
         if(Event.EventsByDay != null){
             Event.EventsByDay.clear();
         }
-        loadEDT loadEDT = new loadEDT();
-        loadEDT.execute();
+//        loadEDT loadEDT = new loadEDT();
+//        loadEDT.execute();
+
+
+        EventsLoaderThread eventsLoaderThread = new EventsLoaderThread(this, this, selectedDate);
+        eventsLoaderThread.start();
     }
 
     private class loadEDT extends AsyncTask<Void, Void, Void> {
@@ -681,5 +691,12 @@ public class MainActivity extends AppCompatActivity
             setCalendarAdapter();
             setWeekView();
         }
+    }
+
+    public void onEventsLoadComplete(){
+//        setCalendarAdapter();
+        Log.d("onEventsLoadComplete","-----------------------");
+        setWeekView();
+        Log.d("onEventsLoadComplete","-----------------------");
     }
 }

@@ -84,7 +84,11 @@ public class UrlRequests extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
             Context context = contextRef.get();
-            JsonFileHandler.main(context, Event.EventsByDay, fileName);
+//            JsonFileHandler.main(context, Event.EventsByDay, fileName);
+            Log.d("UrlRequests", "onPostExecute: " + fileName);
+            DBManager dbManager = new DBManager(context);
+            dbManager.addGroup(fileName);
+            dbManager.addAllEvents(Event.EventsByDay, fileName);
         } else if (_tag.equals("GROUPS")){
             EdtSelectionActivity.groupsString = result;
             saveStringToFile(contextRef.get(), result, fileName);

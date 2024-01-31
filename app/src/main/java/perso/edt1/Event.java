@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class Event implements Parcelable {
     public static ArrayList<Event> eventsList = new ArrayList<>();
-    static Map<LocalDate, ArrayList<Event>> EventsByDay;
+    static Map<LocalDate, ArrayList<Event>> EventsByDay = new Hashtable<LocalDate, ArrayList<Event>>();
     private String module;
     private LocalDate date;
     private LocalTime startTime;
@@ -304,12 +304,42 @@ public class Event implements Parcelable {
         return room;
     }
 
+    public String getRoomString() {
+        StringBuilder roomString = new StringBuilder();
+        for (String _room : room) {
+            roomString.append(_room);
+            if(room.size() > 1)
+                roomString.append(";");
+        }
+        return roomString.toString();
+    }
+
     public ArrayList<String> getTeacher() {
         return teacher;
     }
 
+    public String getTeacherString() {
+        StringBuilder teacherString = new StringBuilder();
+        for (String _teacher : teacher) {
+            teacherString.append(_teacher);
+            if(teacher.size() > 1)
+                teacherString.append(";");
+        }
+        return teacherString.toString();
+    }
+
     public ArrayList<String> getGroup() {
         return group;
+    }
+
+    public String getGroupString() {
+        StringBuilder groupString = new StringBuilder();
+        for (String _group : group) {
+            groupString.append(group);
+            if(group.size() > 1)
+                groupString.append(";");
+        }
+        return groupString.toString();
     }
 
     public String getNotes() {
