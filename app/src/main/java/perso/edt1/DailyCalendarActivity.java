@@ -187,7 +187,7 @@ public class DailyCalendarActivity extends AppCompatActivity
         }
 
         for (int i = 0; i < events.size(); i++) {
-            View view = getLayoutInflater().inflate(R.layout.hour_cell, null);
+            View view = getLayoutInflater().inflate(R.layout.event_cells_daily, null);
             setHourEvents(view, events.get(i).events);
 
             eventsLinearLayout.addView(view);
@@ -195,7 +195,6 @@ public class DailyCalendarActivity extends AppCompatActivity
     }
 
     private void setHourEvents(View convertView, ArrayList<Event> events) {
-        convertView.findViewById(R.id.timeTV).setVisibility(View.GONE);
         LinearLayout event1 = convertView.findViewById(R.id.event1);
         LinearLayout event2 = convertView.findViewById(R.id.event2);
         LinearLayout event3 = convertView.findViewById(R.id.event3);
@@ -380,16 +379,27 @@ public class DailyCalendarActivity extends AppCompatActivity
         }
 
         for (int i = 0; i < hourEvents.size(); i++) {
-            View view = getLayoutInflater().inflate(R.layout.hour_cell, null);
-            TextView timeTV = view.findViewById(R.id.timeTV);
-            timeTV.setText(hourEvents.get(i).getTime().toString());
+//            View view = getLayoutInflater().inflate(R.layout.event_cells, null);
+//            TextView timeTV = view.findViewById(R.id.timeTV);
+//            timeTV.setText(hourEvents.get(i).getTime().toString());
+//
+//            hideEvent(view.findViewById(R.id.event1));
+//            hideEvent(view.findViewById(R.id.event2));
+//            hideEvent(view.findViewById(R.id.event3));
+//            hideEvent(view.findViewById(R.id.event4));
+//
+//            hoursLinearLayout.addView(view);
 
-            hideEvent(view.findViewById(R.id.event1));
-            hideEvent(view.findViewById(R.id.event2));
-            hideEvent(view.findViewById(R.id.event3));
-            hideEvent(view.findViewById(R.id.event4));
+            TextView timeTV2 = new TextView(this);
+            timeTV2.setText(LocalTime.of(i, 0).toString());
+            timeTV2.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+//            timeTV2.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            timeTV2.setTextSize(17);
+            timeTV2.setHeight((int)round(60*2.5));
+            timeTV2.setWidth(70);
 
-            hoursLinearLayout.addView(view);
+            hoursLinearLayout.addView(timeTV2);
+
         }
     }
 

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -218,24 +219,15 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
     private void setHours() {
 
         for (int i = 0; i < 24; i++) {
-            View view = getLayoutInflater().inflate(R.layout.hour_cell, null);
-            TextView timeTV = view.findViewById(R.id.timeTV);
-            timeTV.setText(LocalTime.of(i, 0).toString());
-            timeTV.setTextSize(17);
-            timeTV.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            TextView timeTV2 = new TextView(this);
+            timeTV2.setText(LocalTime.of(i, 0).toString());
+            timeTV2.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+//            timeTV2.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            timeTV2.setTextSize(17);
+            timeTV2.setHeight((int)round(60*2.5));
+            timeTV2.setWidth(70);
 
-            hideEvent(view.findViewById(R.id.event1));
-            hideEvent(view.findViewById(R.id.event2));
-            hideEvent(view.findViewById(R.id.event3));
-            hideEvent(view.findViewById(R.id.event4));
-
-
-            //Change the height of the view
-            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)round(60*2.5)));
-
-            hoursLinearLayout.addView(view);
-
-
+            hoursLinearLayout.addView(timeTV2);
         }
     }
 
@@ -249,8 +241,8 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
         }
 
         for (int i = 0; i < events.size(); i++) {
-            View view = getLayoutInflater().inflate(R.layout.hour_cell, null);
-            view.setPadding(0,0,0,0);
+            View view = getLayoutInflater().inflate(R.layout.events_cells_week, null);
+//            view.setPadding(0,0,0,0);
             setHourEvents(view, events.get(i).events);
 
             switch(dayOfWeek){
@@ -277,11 +269,10 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
     }
 
     private void setHourEvents(View convertView, ArrayList<Event> events) {
-        convertView.findViewById(R.id.timeTV).setVisibility(View.GONE);
-        LinearLayout event1 = convertView.findViewById(R.id.event1);
-        LinearLayout event2 = convertView.findViewById(R.id.event2);
-        LinearLayout event3 = convertView.findViewById(R.id.event3);
-        LinearLayout event4 = convertView.findViewById(R.id.event4);
+        ConstraintLayout event1 = convertView.findViewById(R.id.event1);
+        ConstraintLayout event2 = convertView.findViewById(R.id.event2);
+        ConstraintLayout event3 = convertView.findViewById(R.id.event3);
+        ConstraintLayout event4 = convertView.findViewById(R.id.event4);
         int relativeLayoutWidth = convertView.getWidth();
 
         event1.setPadding(1,1,1,1);
@@ -390,40 +381,30 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
         }
     }
 
-    private void _setEvent(View convertView, LinearLayout eventCell, Event event, int eventNb, int perEventWidth) {
+    private void _setEvent(View convertView, ConstraintLayout eventCell, Event event, int eventNb, int perEventWidth) {
         TextView eventModule = null;
         TextView eventRoom = null;
-        TextView eventTeacher = null;
-        TextView eventGroup = null;
         TextView eventNote = null;
 
         switch (eventNb){
             case 1:
                 eventModule = convertView.findViewById(R.id.event1Module);
                 eventRoom = convertView.findViewById(R.id.event1Room);
-                eventTeacher = convertView.findViewById(R.id.event1Prof);
-                eventGroup = convertView.findViewById(R.id.event1Group);
                 eventNote = convertView.findViewById(R.id.event1Note);
                 break;
             case 2:
                 eventModule = convertView.findViewById(R.id.event2Module);
                 eventRoom = convertView.findViewById(R.id.event2Room);
-                eventTeacher = convertView.findViewById(R.id.event2Prof);
-                eventGroup = convertView.findViewById(R.id.event2Group);
                 eventNote = convertView.findViewById(R.id.event2Note);
                 break;
             case 3:
                 eventModule = convertView.findViewById(R.id.event3Module);
                 eventRoom = convertView.findViewById(R.id.event3Room);
-                eventTeacher = convertView.findViewById(R.id.event3Prof);
-                eventGroup = convertView.findViewById(R.id.event3Group);
                 eventNote = convertView.findViewById(R.id.event3Note);
                 break;
             case 4:
                 eventModule = convertView.findViewById(R.id.event4Module);
                 eventRoom = convertView.findViewById(R.id.event4Room);
-                eventTeacher = convertView.findViewById(R.id.event4Prof);
-                eventGroup = convertView.findViewById(R.id.event4Group);
                 eventNote = convertView.findViewById(R.id.event4Note);
                 break;
         }
@@ -456,10 +437,9 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
 
         eventCell.setLayoutParams(layoutParameters);
 
-        eventModule.setSingleLine(false);
-        eventModule.setTextSize(12);
+//        eventModule.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+//        eventModule.setTextSize(15);
         eventModule.setText(event.getModule());
-        eventModule.setPadding(5,5,5,1);
 
         ArrayList<String> eventRooms = event.getRoom();
         String StringEventRoom = "";
@@ -468,14 +448,9 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
             if (i != eventRooms.size() - 1)
                 StringEventRoom += ", ";
         }
-        eventRoom.setSingleLine(false);
-        eventRoom.setTextSize(8);
+
+//        eventRoom.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         eventRoom.setText(StringEventRoom);
-        eventRoom.setPadding(5,1,5,5);
-
-        eventTeacher.setVisibility(View.GONE);
-        eventGroup.setVisibility(View.GONE);
-
 
         String noteText = event.getNotes();
         if (eventNote != null) {
@@ -648,7 +623,7 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
         reloadEdt = false;
     }
 
-    private void hideEvent(LinearLayout eventCell) {
+    private void hideEvent(ConstraintLayout eventCell) {
         eventCell.setVisibility(View.GONE);
     }
 

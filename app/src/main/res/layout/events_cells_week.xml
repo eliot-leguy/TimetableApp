@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/event1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/event2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="3dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event1Module"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:text="Module"
+            app:layout_constraintHeight_percent=".7"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/event1Room"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event1Room"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="Room"
+            app:layout_constraintHeight="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/event1Module"
+            app:layout_constraintBottom_toTopOf="@+id/event1Note"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event1Note"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="Note"
+            app:layout_constraintTop_toBottomOf="@+id/event1Room"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/event2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/event1"
+        app:layout_constraintEnd_toStartOf="@+id/event3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="3dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event2Module"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:text="Module"
+            app:layout_constraintHeight_percent=".7"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/event2Room"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:id="@+id/event2Room"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="Room"
+            app:layout_constraintHeight="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/event2Module"
+            app:layout_constraintBottom_toTopOf="@+id/event2Note"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event2Note"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="Note"
+            app:layout_constraintTop_toBottomOf="@+id/event2Room"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/event3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/event2"
+        app:layout_constraintEnd_toStartOf="@+id/event4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="3dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHeight_percent=".7"
+            app:layout_constrainedHeight="true"
+            android:gravity="center"
+            android:id="@+id/event3Module"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:text="Module"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/event3Room"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:id="@+id/event3Room"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="Room"
+            app:layout_constraintHeight="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/event3Module"
+            app:layout_constraintBottom_toTopOf="@+id/event3Note"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event3Note"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="Note"
+            app:layout_constraintTop_toBottomOf="@+id/event3Room"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/event4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/event3"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="3dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event4Module"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:text="Module"
+            app:layout_constraintHeight_percent=".7"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/event4Room"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event4Room"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="Room"
+            app:layout_constraintHeight="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/event4Module"
+            app:layout_constraintBottom_toTopOf="@+id/event4Note"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/event4Note"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:text="Note"
+            app:layout_constraintTop_toBottomOf="@+id/event4Room"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

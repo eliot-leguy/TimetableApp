@@ -58,9 +58,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <Button
                 android:layout_width="0dp"
@@ -96,170 +96,202 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/lightlightBlue"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/sunday"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:id="@+id/sundayTV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/mondayTV"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/monday"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:id="@+id/mondayTV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/sundayTV"
+                app:layout_constraintEnd_toStartOf="@+id/tuesdayTV"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/tuesday"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:id="@+id/tuesdayTV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mondayTV"
+                app:layout_constraintEnd_toStartOf="@+id/wednesdayTV"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/wednesday"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:id="@+id/wednesdayTV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tuesdayTV"
+                app:layout_constraintEnd_toStartOf="@+id/thursdayTV"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/thursday"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:id="@+id/thursdayTV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/wednesdayTV"
+                app:layout_constraintEnd_toStartOf="@+id/fridayTV"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/friday"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:id="@+id/fridayTV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/thursdayTV"
+                app:layout_constraintEnd_toStartOf="@id/saturdayTV"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/saturday"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:id="@+id/saturdayTV"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fridayTV"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:onClick="selectDateSunday"
+                android:id="@+id/sundayDateTV"
+                android:text="1"
+                android:textColor="@color/gray"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/sundayTV"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/mondayDateTV"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/sunday"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/monday"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/tuesday"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/wednesday"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/thursday"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/friday"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/saturday"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="5dp"
-                android:id="@+id/datesLayout">
+                android:onClick="selectDateMonday"
+                android:id="@+id/mondayDateTV"
+                android:text="2"
+                android:textColor="@color/gray"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/mondayTV"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sundayDateTV"
+                app:layout_constraintEnd_toStartOf="@+id/tuesdayDateTV"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="selectDateSunday"
-                    android:id="@+id/sundayDateTV"
-                    android:text="1"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="selectDateTuesday"
+                android:id="@+id/tuesdayDateTV"
+                android:text="3"
+                android:textColor="@color/gray"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/tuesdayTV"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mondayDateTV"
+                app:layout_constraintEnd_toStartOf="@+id/wednesdayDateTV"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="selectDateMonday"
-                    android:id="@+id/mondayDateTV"
-                    android:text="2"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="selectDateWednesday"
+                android:id="@+id/wednesdayDateTV"
+                android:text="4"
+                android:textColor="@color/gray"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/wednesdayTV"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tuesdayDateTV"
+                app:layout_constraintEnd_toStartOf="@+id/thursdayDateTV"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="selectDateTuesday"
-                    android:id="@+id/tuesdayDateTV"
-                    android:text="3"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="selectDateThursday"
+                android:id="@+id/thursdayDateTV"
+                android:text="5"
+                android:textColor="@color/gray"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/thursdayTV"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/wednesdayDateTV"
+                app:layout_constraintEnd_toStartOf="@+id/fridayDateTV"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="selectDateWednesday"
-                    android:id="@+id/wednesdayDateTV"
-                    android:text="4"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="selectDateFriday"
+                android:id="@+id/fridayDateTV"
+                android:text="6"
+                android:textColor="@color/gray"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/fridayTV"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/thursdayDateTV"
+                app:layout_constraintEnd_toStartOf="@+id/saturdayDateTV"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="selectDateThursday"
-                    android:id="@+id/thursdayDateTV"
-                    android:text="5"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="selectDateFriday"
-                    android:id="@+id/fridayDateTV"
-                    android:text="6"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="selectDateSaturday"
-                    android:id="@+id/saturdayDateTV"
-                    android:text="7"
-                    android:textColor="@color/gray"
-                    android:textAlignment="center"
-                    android:textSize="16sp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="selectDateSaturday"
+                android:id="@+id/saturdayDateTV"
+                android:text="7"
+                android:textColor="@color/gray"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/thursdayTV"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/fridayDateTV"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
 
-            </LinearLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
             android:id="@+id/weekScrollView"
