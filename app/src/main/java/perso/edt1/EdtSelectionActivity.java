@@ -197,10 +197,8 @@ public class EdtSelectionActivity extends AppCompatActivity {
                 groupCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isChecked) {
                         selectedGroups.put(groupName, groups.get(groupName));
-                        Event.selectedEdt.add(groupName);
                     } else {
                         selectedGroups.remove(groupName);
-                        Event.selectedEdt.remove(groupName);
                     }
                 });
 
