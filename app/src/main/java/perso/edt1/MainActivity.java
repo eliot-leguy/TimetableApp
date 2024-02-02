@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -193,9 +194,7 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
         boolean displayRedLine = false;
         for(int i=1; i < days.size(); i++){
-            Log.d("LoadDay","-----------------------" + i);
             setEvents(days.get(i), i);
-            Log.d("LoadDay","-----------------------");
             if (days.get(i).equals(LocalDate.now())) {
                 displayRedLine = true;
                 int finalI = i;
@@ -213,6 +212,8 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
         if(!displayRedLine){
             redLine.setVisibility(View.GONE);
         }
+
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
     }
 
@@ -241,29 +242,66 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
         }
 
         for (int i = 0; i < events.size(); i++) {
-            View view = getLayoutInflater().inflate(R.layout.events_cells_week, null);
-//            view.setPadding(0,0,0,0);
-            setHourEvents(view, events.get(i).events);
 
-            switch(dayOfWeek){
-                case 1:
-                    mondayLinearLayout.addView(view);
-                    break;
-                case 2:
-                    tuesdayLinearLayout.addView(view);
-                    break;
-                case 3:
-                    wednesdayLinearLayout.addView(view);
-                    break;
-                case 4:
-                    thursdayLinearLayout.addView(view);
-                    break;
-                case 5:
-                    fridayLinearLayout.addView(view);
-                    break;
-                case 6:
-                    saturdayLinearLayout.addView(view);
-                    break;
+            if(events.get(i).events.get(0).getCategory().equals("Fill")){
+                FrameLayout emptyView = new FrameLayout(this);
+                Duration elapsedTime = Duration.between(events.get(i).events.get(0).getStartTime(), events.get(i).events.get(0).getEndTime());
+                int minutes = (int) elapsedTime.toMinutes();
+                emptyView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, (int)round(minutes*2.5)));
+                switch (dayOfWeek) {
+                    case 1:
+                        mondayLinearLayout.addView(emptyView);
+                        break;
+                    case 2:
+                        tuesdayLinearLayout.addView(emptyView);
+                        break;
+                    case 3:
+                        wednesdayLinearLayout.addView(emptyView);
+                        break;
+                    case 4:
+                        thursdayLinearLayout.addView(emptyView);
+                        break;
+                    case 5:
+                        fridayLinearLayout.addView(emptyView);
+                        break;
+                    case 6:
+                        saturdayLinearLayout.addView(emptyView);
+                        break;
+                }
+            } else {
+                View view = null;
+                switch (dayOfWeek) {
+                    case 1:
+                        view = getLayoutInflater().inflate(R.layout.events_cells_week, null);
+                        setHourEvents(view, events.get(i).events);
+                        mondayLinearLayout.addView(view);
+                        break;
+                    case 2:
+                        view = getLayoutInflater().inflate(R.layout.events_cells_week, null);
+                        setHourEvents(view, events.get(i).events);
+                        tuesdayLinearLayout.addView(view);
+                        break;
+                    case 3:
+                        view = getLayoutInflater().inflate(R.layout.events_cells_week, null);
+                        setHourEvents(view, events.get(i).events);
+                        wednesdayLinearLayout.addView(view);
+                        break;
+                    case 4:
+                        view = getLayoutInflater().inflate(R.layout.events_cells_week, null);
+                        setHourEvents(view, events.get(i).events);
+                        thursdayLinearLayout.addView(view);
+                        break;
+                    case 5:
+                        view = getLayoutInflater().inflate(R.layout.events_cells_week, null);
+                        setHourEvents(view, events.get(i).events);
+                        fridayLinearLayout.addView(view);
+                        break;
+                    case 6:
+                        view = getLayoutInflater().inflate(R.layout.events_cells_week, null);
+                        setHourEvents(view, events.get(i).events);
+                        saturdayLinearLayout.addView(view);
+                        break;
+                }
             }
         }
     }
@@ -275,93 +313,77 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
         ConstraintLayout event4 = convertView.findViewById(R.id.event4);
         int relativeLayoutWidth = convertView.getWidth();
 
-        event1.setPadding(1,1,1,1);
-        event2.setPadding(1,1,1,1);
-        event3.setPadding(1,1,1,1);
-        event4.setPadding(1,1,1,1);
+//        event1.setPadding(1,1,1,1);
+//        event2.setPadding(1,1,1,1);
+//        event3.setPadding(1,1,1,1);
+//        event4.setPadding(1,1,1,1);
 
         event1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!events.get(0).getCategory().equals("Fill")){
-                    CalendarUtils.selectedDate = events.get(0).getDate();
-                    reloadEdt = false;
+                CalendarUtils.selectedDate = events.get(0).getDate();
+                reloadEdt = false;
 
-                    Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("event", events.get(0));
-                    startActivity(intent, null);
-                }
+                Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("event", events.get(0));
+                startActivity(intent, null);
             }
         });
 
         event2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!events.get(1).getCategory().equals("Fill")){
-                    CalendarUtils.selectedDate = events.get(1).getDate();
-                    reloadEdt = false;
+                CalendarUtils.selectedDate = events.get(1).getDate();
+                reloadEdt = false;
 
-                    Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("event", events.get(1));
-                    startActivity(intent, null);
-                }
+                Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("event", events.get(1));
+                startActivity(intent, null);
             }
         });
 
         event3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!events.get(2).getCategory().equals("Fill")){
-                    CalendarUtils.selectedDate = events.get(2).getDate();
-                    reloadEdt = false;
+                CalendarUtils.selectedDate = events.get(2).getDate();
+                reloadEdt = false;
 
-                    Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("event", events.get(2));
-                    startActivity(intent, null);
-                }
+                Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("event", events.get(2));
+                startActivity(intent, null);
             }
         });
 
         event4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!events.get(3).getCategory().equals("Fill")){
-                    CalendarUtils.selectedDate = events.get(3).getDate();
-                    reloadEdt = false;
+                CalendarUtils.selectedDate = events.get(3).getDate();
+                reloadEdt = false;
 
-                    Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("event", events.get(3));
-                    startActivity(intent, null);
-                }
+                Intent intent = new Intent(getApplicationContext(), FullScreenEventActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("event", events.get(3));
+                startActivity(intent, null);
             }
         });
 
         if(events.size() == 0)
         {
             hideEvent(event1);
-            hideEvent(event2);
-            hideEvent(event3);
-            hideEvent(event4);
         }
         else if(events.size() == 1)
         {
             int perEventWidth = relativeLayoutWidth - (int) round(relativeLayoutWidth * 0.2);
             _setEvent(convertView, event1, events.get(0),1, perEventWidth);
-            hideEvent(event2);
-            hideEvent(event3);
-            hideEvent(event4);
         }
         else if(events.size() == 2)
         {
             int perEventWidth = (relativeLayoutWidth - (int) round(relativeLayoutWidth * 0.2)) / 2;
             _setEvent(convertView, event1, events.get(0),1, perEventWidth);
             _setEvent(convertView, event2, events.get(1),2, perEventWidth);
-            hideEvent(event3);
-            hideEvent(event4);
         }
         else if(events.size() == 3)
         {
@@ -369,7 +391,6 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
             _setEvent(convertView, event1, events.get(0),1, perEventWidth);
             _setEvent(convertView, event2, events.get(1),2, perEventWidth);
             _setEvent(convertView, event3, events.get(2),3, perEventWidth);
-            hideEvent(event4);
         }
         else        //TODO: Limiter à 4 events max
         {
@@ -409,22 +430,35 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
                 break;
         }
 
-
-
-
-
-
         String eventCategory = event.getCategory().replaceAll("\\s+", "_");
 
-        int color = getApplicationContext().getResources().getIdentifier(eventCategory, "color", getApplicationContext().getPackageName());
         Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners_default_event_color);
-        assert background != null;
-        if(color != 0) {
-            background.setColorFilter(getApplicationContext().getColor(color), android.graphics.PorterDuff.Mode.SRC_IN);
-        } else {
-            background.setColorFilter(getApplicationContext().getColor(R.color.defaultEvent), android.graphics.PorterDuff.Mode.SRC_IN);
+        switch (eventCategory){
+            case "CM":
+                background.setColorFilter(getApplicationContext().getColor(R.color.CM), android.graphics.PorterDuff.Mode.SRC_IN);
+                eventCell.setBackground(background);
+                break;
+            case "TD":
+                background.setColorFilter(getApplicationContext().getColor(R.color.TD), android.graphics.PorterDuff.Mode.SRC_IN);
+                eventCell.setBackground(background);
+                break;
+            case "TP":
+                background.setColorFilter(getApplicationContext().getColor(R.color.TP), android.graphics.PorterDuff.Mode.SRC_IN);
+                eventCell.setBackground(background);
+                break;
+            case "Examens":
+                background.setColorFilter(getApplicationContext().getColor(R.color.Examens), android.graphics.PorterDuff.Mode.SRC_IN);
+                eventCell.setBackground(background);
+                break;
+            case "TD_anglais":
+                background.setColorFilter(getApplicationContext().getColor(R.color.TD_anglais), android.graphics.PorterDuff.Mode.SRC_IN);
+                eventCell.setBackground(background);
+                break;
+            case "Vacances":
+                background.setColorFilter(getApplicationContext().getColor(R.color.Vacances), android.graphics.PorterDuff.Mode.SRC_IN);
+                eventCell.setBackground(background);
+                break;
         }
-        eventCell.setBackground(background);
 
         ViewGroup.LayoutParams layoutParameters = eventCell.getLayoutParams();
         layoutParameters.width = perEventWidth;
@@ -433,12 +467,8 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
         int minutes = (int) elapsedTime.toMinutes();
 
         layoutParameters.height = (int)round(minutes*2.5);
-        eventCell.post(new Runnable() { @Override public void run() { eventCell.setLayoutParams(layoutParameters); }});
-
         eventCell.setLayoutParams(layoutParameters);
 
-//        eventModule.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-//        eventModule.setTextSize(15);
         eventModule.setText(event.getModule());
 
         ArrayList<String> eventRooms = event.getRoom();
@@ -449,7 +479,6 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
                 StringEventRoom += ", ";
         }
 
-//        eventRoom.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         eventRoom.setText(StringEventRoom);
 
         String noteText = event.getNotes();
@@ -487,6 +516,7 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
     }
 
     public void previousWeekAction(View view) {
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
         EventsLoaderThread eventsLoaderThread = new EventsLoaderThread(this, this, selectedDate);
         eventsLoaderThread.start();
@@ -494,6 +524,7 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
     }
 
     public void nextWeekAction(View view) {
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
         EventsLoaderThread eventsLoaderThread = new EventsLoaderThread(this, this, selectedDate);
         eventsLoaderThread.start();
