@@ -124,7 +124,7 @@ public class CalendarUtils
     }
 
 
-    public static Event getNextEvent(Event event) {
+    public static Event getNextEvent(Event event, Boolean dayOnly) {
 
         if(selectedDateEvents == null || selectedDateEvents.isEmpty() || !Objects.equals(selectedDateEvents.get(0).getDate(), selectedDate)) {
 
@@ -154,7 +154,24 @@ public class CalendarUtils
                 }
             }
         }
-
+        if(dayOnly) {
+            return null;
+        } else {
+            int nbTries = 0;
+            while(nbTries < 20) {
+                nbTries++;
+                selectedDate = event.getDate().plusDays(1);
+                selectedDateEvents = Event.EventsByDay.get(selectedDate);
+                if(selectedDateEvents != null && !selectedDateEvents.isEmpty()) {
+                    for(int i = 0; i < selectedDateEvents.size(); i++) {
+                        currentEvent = selectedDateEvents.get(i);
+                        if (!Objects.equals(currentEvent.getCategory(), "Fill")) {
+                            return selectedDateEvents.get(i);
+                        }
+                    }
+                }
+            }
+        }
         return null;
     }
 
