@@ -165,7 +165,7 @@ public class DBManager extends SQLiteOpenHelper {
         Log.d("DBManager", "addGroup: " + group);
 
         values.put(COLUMN_LOCAL_GROUP, group);
-        values.put(COLUMN_SELECTED, false);
+        values.put(COLUMN_SELECTED, true);
 
         db.insert(TABLE_LOCAL_GROUPS, null, values);
         db.close();
@@ -193,7 +193,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         String[] columns = {COLUMN_ID, COLUMN_LOCAL_GROUP};
         Cursor cursor;
-        if(!selected) { //TODO enlever le ! c'est juste le temps que la sélection soit implémentée
+        if(selected) {
             String selection = COLUMN_SELECTED + "=?";
             String[] selectionArgs = {"1"};
 
