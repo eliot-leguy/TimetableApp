@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -475,8 +477,6 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
 
         String eventCategory = event.getCategory().replaceAll("\\s+", "_");
 
-        Log.d("Test", event.getGroup().get(0));
-
         Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners_default_event_color);
         switch (eventCategory){
             case "CM":
@@ -561,7 +561,9 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
     }
 
     public void previousWeekAction(View view) {
+        setLoadingBarCenter();
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
         EventsLoaderThread eventsLoaderThread = new EventsLoaderThread(this, this, selectedDate);
         eventsLoaderThread.start();
@@ -569,10 +571,18 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
     }
 
     public void nextWeekAction(View view) {
+        setLoadingBarCenter();
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
         EventsLoaderThread eventsLoaderThread = new EventsLoaderThread(this, this, selectedDate);
         eventsLoaderThread.start();
+    }
+
+    public void setLoadingBarCenter(){
+        ProgressBar loadingPanel = findViewById(R.id.loadingPanel);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500);
+        params.gravity = Gravity.CENTER;
+        loadingPanel.setLayoutParams(params);
     }
 
     public void selectDateSunday(View view) {
