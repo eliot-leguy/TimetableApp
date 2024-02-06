@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/app_widget"
+    android:orientation="vertical"
+    android:background="@color/lightlightBlue">
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/currentEvent"
+        android:paddingHorizontal="1dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentEvent1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="3dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent1Module"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent1Hours"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:text="10h - 12h"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent1Room"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent1Note"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentEvent2"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="3dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent2Module"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent2Hours"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:text="10h - 12h"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:id="@+id/currentEvent2Room"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent2Note"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentEvent3"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="3dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHeight_percent=".7"
+                app:layout_constrainedHeight="true"
+                android:gravity="center"
+                android:id="@+id/currentEvent3Module"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent3Hours"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:text="10h - 12h"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:id="@+id/currentEvent3Room"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent3Note"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/currentEvent4"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="3dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent4Module"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent4Hours"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:text="10h - 12h"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent4Room"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/currentEvent4Note"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextEvent"
+        android:paddingHorizontal="1dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextEvent1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="3dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent1Module"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent1Hours"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:text="10h - 12h"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent1Room"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent1Note"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextEvent2"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="3dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent2Module"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent2Hours"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:text="10h - 12h"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:id="@+id/nextEvent2Room"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent2Note"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextEvent3"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="3dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHeight_percent=".7"
+                app:layout_constrainedHeight="true"
+                android:gravity="center"
+                android:id="@+id/nextEvent3Module"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent3Hours"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:text="10h - 12h"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:id="@+id/nextEvent3Room"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent3Note"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextEvent4"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="3dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent4Module"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:text="Module"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent4Hours"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:text="10h - 12h"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent4Room"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Room"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/nextEvent4Note"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:text="Note"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    
+    
+</LinearLayout>
+
+
+

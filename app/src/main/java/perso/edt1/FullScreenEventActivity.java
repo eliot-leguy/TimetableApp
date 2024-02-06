@@ -96,7 +96,7 @@ public class FullScreenEventActivity extends Activity {
     }
 
     public void nextEventAction(View view) {
-        Event nextEvent = CalendarUtils.getNextEvent(event);
+        Event nextEvent = CalendarUtils.getNextEvent(event, true);
         if (nextEvent != null) {
             event = nextEvent;
             setInfo();
