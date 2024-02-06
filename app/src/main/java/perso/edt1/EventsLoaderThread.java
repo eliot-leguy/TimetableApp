@@ -36,12 +36,8 @@ public class EventsLoaderThread extends Thread{
         //Getting the last day of the week after the dateOfCalendar
         LocalDate lastDayOfCalendar = dateOfCalendar.plusDays(14 - dateOfCalendar.getDayOfWeek().getValue());
 
-        Log.d("EventsLoaderThread","-----------------------");
-
         //Getting the events from the db :
         dbHelper.getEvents(firstDayOfCalendar, lastDayOfCalendar, groups);
-        Log.d("EventsLoaderThread","-----------------------");
-
 
         // Notify the UI thread with the loaded events
         uiHandler.post(new Runnable() {

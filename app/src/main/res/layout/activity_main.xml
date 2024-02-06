@@ -69,6 +69,7 @@
                 android:text="@string/back"
                 android:textColor="@color/blue"
                 android:background="@null"
+                android:clickable="true"
                 android:textStyle="bold"
                 android:onClick="previousWeekAction"
                 android:textSize="20sp"/>
@@ -90,6 +91,7 @@
                 android:text="@string/forward"
                 android:textColor="@color/blue"
                 android:background="@null"
+                android:clickable="true"
                 android:textStyle="bold"
                 android:onClick="nextWeekAction"
                 android:textSize="20sp"/>
@@ -306,11 +308,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:indeterminate="true"
-                    android:id="@+id/loadingPanel"/>
 
                 <LinearLayout
                     android:id="@+id/weekLinearLayout"
@@ -389,6 +386,13 @@
                     android:id="@+id/redLine"
                     android:visibility="gone"/>
 
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:indeterminate="true"
+                    android:layout_gravity="center"
+                    android:id="@+id/loadingPanel"/>
+
             </FrameLayout>
 
         </ScrollView>
@@ -402,6 +406,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:id="@+id/navigationView"
         app:menu="@menu/navigation_menu"/>
 
 

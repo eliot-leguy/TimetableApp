@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 public class EdtSelectionActivity extends AppCompatActivity {
@@ -183,6 +184,9 @@ public class EdtSelectionActivity extends AppCompatActivity {
             ArrayList<String> groupsNames = new ArrayList<>(groups.keySet());
             selectedGroups = new Hashtable<>();
 
+            DBManager dbHelper = new DBManager(EdtSelectionActivity.this);
+            List<String> localGroups = dbHelper.getGroups(false);
+
             for (String groupName : groupsNames) {
 
                 View view = getLayoutInflater().inflate(R.layout.group_selector, null);
@@ -213,7 +217,7 @@ public class EdtSelectionActivity extends AppCompatActivity {
                     }
 
                 });
-                if(Event.localEdt != null && Event.localEdt.contains(groupName)){
+                if(localGroups.contains(groupName)){
                     selectedGroupLinearLayout.addView(view);
                     selectorLinearLayout.setBackgroundColor(getColor(R.color.lightPink));
                     if(Event.selectedEdt.contains(groupName)){
