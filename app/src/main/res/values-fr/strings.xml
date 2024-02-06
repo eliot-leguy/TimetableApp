@@ -19,4 +19,9 @@
     <string name="notes">Notes</string>
     <string name="open">Ouvrir</string>
     <string name="close">Fermer</string>
+    <string name="schedule">Emplois du temps</string>
+    <string name="parameters">Paramètres</string>
+    <string name="others">Autres</string>
+    <string name="cm">CM</string>
+    <string name="selection">Sélection</string>
 </resources>

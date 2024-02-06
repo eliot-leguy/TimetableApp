@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigationView">
 
-    <item
-        android:id="@+id/nav_account"
-        android:title="My Account" />
+    <item android:title="@string/selection">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/CM"
+                    android:title="@string/cm"
+                    app:actionViewClass="android.widget.Switch"/>
+                <item
+                    android:id="@+id/TD"
+                    android:title="TD"
+                    app:actionViewClass="android.widget.Switch"/>
+                <item
+                    android:id="@+id/TP"
+                    android:title="TP"
+                    app:actionViewClass="android.widget.Switch"/>
+                <item
+                    android:id="@+id/other"
+                    android:title="@string/others"
+                    app:actionViewClass="android.widget.Switch"/>
 
-    <item
-        android:id="@+id/nav_settings"
-        android:title="Settings" />
+            </group>
+        </menu>
+    </item>
 
-    <item
-        android:id="@+id/nav_logout"
-        android:title="Logout" />
+
+    <item android:checkableBehavior="single"
+        android:id="@+id/parameters"
+        android:title="@string/parameters"/>
+
+
 
 </menu>

@@ -14,9 +14,12 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -27,12 +30,15 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static perso.edt1.CalendarUtils.daysInWeekArray;
 import static perso.edt1.CalendarUtils.monthYearFromDate;
 import static perso.edt1.CalendarUtils.selectedDate;
 import static perso.edt1.CalendarUtils.sundayForDate;
 import static perso.edt1.JsonFileHandler.loadEdtJson;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements EventsLoaderThread.DatabaseLoadListener
 {
@@ -69,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
 //        setCalendarAdapter();
 //        setWeekView();
         reloadEdt = true;
+        setMenu();
     }
 
     private void initWidgets() {
@@ -118,6 +125,42 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setMenu(){
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        Menu menu = navigationView.getMenu();
+
+        //Getting the groups out of the db :
+        DBManager dbHelper = new DBManager(this);
+        List<String> allGroups = dbHelper.getGroups(false);
+        List<String> selectedGroups = dbHelper.getGroups(true);
+
+        for(String group : allGroups){
+            MenuItem item = menu.add(group);
+            View actionView = LayoutInflater.from(this).inflate(R.layout.edt_menu, null);
+
+            CheckBox checkBox = actionView.findViewById(R.id.checkBox);
+            checkBox.setChecked(selectedGroups.contains(group));
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(checkBox.isChecked()){
+                        dbHelper.updateGroup(group, true);
+                    } else {
+                        dbHelper.updateGroup(group, false);
+                    }
+                    loadEDT_action(null);
+                }
+            });
+
+
+
+            item.setActionView(actionView);
+        }
+//        navigationView.invalidate();
+
+
     }
 
     public void setCalendarAdapter() {
@@ -432,6 +475,8 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
 
         String eventCategory = event.getCategory().replaceAll("\\s+", "_");
 
+        Log.d("Test", event.getGroup().get(0));
+
         Drawable background = AppCompatResources.getDrawable(this,R.drawable.rounded_corners_default_event_color);
         switch (eventCategory){
             case "CM":
@@ -676,6 +721,8 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
 //        loadEDT loadEDT = new loadEDT();
 //        loadEDT.execute();
 
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+
 
         EventsLoaderThread eventsLoaderThread = new EventsLoaderThread(this, this, selectedDate);
         eventsLoaderThread.start();
@@ -700,9 +747,8 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
     }
 
     public void onEventsLoadComplete(){
-//        setCalendarAdapter();
-        Log.d("onEventsLoadComplete","-----------------------");
+        setCalendarAdapter();
         setWeekView();
-        Log.d("onEventsLoadComplete","-----------------------");
+
     }
 }

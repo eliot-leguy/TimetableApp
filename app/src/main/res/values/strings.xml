@@ -22,4 +22,9 @@
     <string name="notes">Notes</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="schedule">Schedules</string>
+    <string name="parameters">Parameters</string>
+    <string name="others">Others</string>
+    <string name="cm">Lectures</string>
+    <string name="selection">Selection</string>
 </resources>
