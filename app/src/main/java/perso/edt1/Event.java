@@ -233,7 +233,7 @@ public class Event implements Parcelable {
 
         if(eventA.getCategory() == null) {
             category = true;
-        } else if (eventB.getCategory() == null){
+        } if (eventB.getCategory() == null){
             category = true;
         } else category = eventA.getCategory().equals(eventB.getCategory());
 
@@ -262,14 +262,14 @@ public class Event implements Parcelable {
     public static void removeRedundantEvents(){
         //In the EventsByDay map, remove the event if it is the same as the previous one
         ArrayList<LocalDate> keys = new ArrayList<>(EventsByDay.keySet());
-        Log.d("Test", "test");
         for (LocalDate key : keys) {
             ArrayList<Event> events = EventsByDay.get(key);
             if(events != null && events.size() > 0){
                 Event previousEvent = events.get(0);
             for (int i = 1; i < events.size(); i++) {
                 Event event = events.get(i);
-                if (equalEvents(previousEvent, event)) {
+                if (equalEvents(previousEvent, event) || (event.getCategory().equals("Fill") && previousEvent.getCategory().equals("Fill"))) {
+                    Log.d("Event","Removing an event " + event.getCategory());
                     events.remove(i);
                     i--;
                 }

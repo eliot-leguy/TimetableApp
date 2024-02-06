@@ -216,14 +216,75 @@ public class DBManager extends SQLiteOpenHelper {
     }
     @SuppressLint("Range")
     public void getEvents(LocalDate firstDay, LocalDate lastDay, List<String> groups) {
-        LocalDate currentDay = firstDay;
         for(String group : groups){
+            LocalDate currentDay = firstDay;
             while(currentDay.isBefore(lastDay)){
                 ArrayList<Event> events = getEventsByDate(currentDay.toString(), group);
-                Event.EventsByDay.put(currentDay, events);
+                ArrayList<Event> eventsByDay = Event.EventsByDay.get(currentDay);
+                if(eventsByDay != null){
+                    Event.EventsByDay.put(currentDay, mergeArrays(eventsByDay, events));
+                } else {
+                    Event.EventsByDay.put(currentDay, events);
+                }
+
+
+
                 currentDay = currentDay.plusDays(1);
             }
         }
+    }
 
+
+    public ArrayList<Event> mergeArrays(ArrayList<Event> eventsA, ArrayList<Event> eventsB){
+        ArrayList<Event> mergedEvents = new ArrayList<>();
+        for(Event eventA : eventsA){
+            boolean found = false;
+            for(Event eventB : eventsB){
+                if(equalEvents(eventA, eventB)){
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                mergedEvents.add(eventA);
+            }
+        }
+        mergedEvents.addAll(eventsB);
+        return mergedEvents;
+    }
+
+    private static boolean equalEvents(Event eventA, Event eventB){
+        boolean startTime = eventA.getStartTime().equals(eventB.getStartTime());
+        boolean endTime = eventA.getEndTime().equals(eventB.getEndTime());
+        boolean category;
+        boolean room;
+        boolean teacher;
+        boolean module;
+
+        if(eventA.getCategory() == null) {
+            category = true;
+        } if (eventB.getCategory() == null){
+            category = true;
+        } else category = eventA.getCategory().equals(eventB.getCategory());
+
+        if(eventA.getRoom() == null) {
+            room = true;
+        } else if (eventB.getRoom() == null){
+            room = true;
+        } else room = eventA.getRoom().equals(eventB.getRoom());
+
+        if(eventA.getTeacher() == null) {
+            teacher = true;
+        } else if (eventB.getTeacher() == null){
+            teacher = true;
+        } else teacher = eventA.getTeacher().equals(eventB.getTeacher());
+
+        if(eventA.getModule() == null) {
+            return eventB.getModule() == null;
+        } else if (eventB.getModule() == null){
+            return false;
+        } else module = eventA.getModule().equals(eventB.getModule());
+
+        return startTime && endTime && category && room && teacher && module;
     }
 }
