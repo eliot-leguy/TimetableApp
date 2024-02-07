@@ -1,32 +1,27 @@
 package perso.edt1;
 
-import static java.lang.Math.round;
-import static perso.edt1.Event.eventsForDateAndTime;
-
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.provider.CalendarContract;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
-import android.widget.TextView;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class AppWidget extends AppWidgetProvider {
+
+    static DBManager dbHelper;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 
@@ -36,27 +31,11 @@ public class AppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
 
         //Getting the events
-        ArrayList<Event> currentEvents = eventsForDateAndTime(LocalDate.now(), LocalTime.now());
-        if(currentEvents.size() == 0)
-        {
-            currentEvents = eventsForDateAndTime(LocalDate.now().plusDays(1), LocalTime.of(8,0,0));
+        ArrayList<Event> currentEvents = getCurrentEvent();
+        if(currentEvents!=null) {
+            //Setting the current event
+            setCurrentEvent(views, currentEvents);
         }
-//        LocalTime nextEventStartTime = CalendarUtils.getNextEvent(currentEvents.get(currentEvents.size()-1), false).getStartTime();
-//        ArrayList<Event> nextEvents = null;
-//
-//        for(int i = 0; i < 4; i++) {
-//            nextEvents = eventsForDateAndTime(LocalDate.now(), nextEventStartTime.plusHours(i));
-//            if(nextEvents.size() > 0) {
-//                break;
-//            }
-//        }
-
-
-        //Setting the current event
-        setCurrentEvent(views, currentEvents);
-
-
-
 
 
 
@@ -172,15 +151,71 @@ public class AppWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
+
+        // Create an Intent to be triggered periodically
+        Intent intent = new Intent(context, AppWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //long updateIntervalMillis = 1000 * 60 * 15; // 15 minutes
+
+        // Schedule the periodic update using AlarmManager
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), updateIntervalMillis, pendingIntent);
     }
 
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
+        dbHelper = new DBManager(context);
     }
 
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    private static ArrayList<Event> getCurrentEvent(){
+        Map<LocalDate, ArrayList<Event>> eventsMap = new Hashtable<LocalDate, ArrayList<Event>>();
+        ArrayList<Event> dayEvents = new ArrayList<Event>();
+        ArrayList<Event> currentEvent = new ArrayList<Event>();
+
+        ArrayList<String> groups = dbHelper.getGroups(true);
+        //Loading the events from the db, with 15 days of events to be sure to find an event even after an empty period.
+        eventsMap = dbHelper.getEvents(LocalDate.now(), LocalDate.now().plusDays(15), groups);
+
+        //Getting the current event or if there is no event now, the upcoming one
+        for(int i = 0; i < 15; i++){
+            dayEvents = eventsMap.get(LocalDate.now().plusDays(i));
+
+            if(dayEvents != null){
+                for(int j = 0; j < dayEvents.size(); j++){
+                    //If the event is currently happening and is not a "Fill" event
+                    if(dayEvents.get(j).getStartTime().isBefore(LocalTime.now()) && dayEvents.get(j).getEndTime().isAfter(LocalTime.now()) && !Objects.equals(dayEvents.get(j).getCategory(), "Fill")){
+                        currentEvent.add(dayEvents.get(j));
+                    }
+                }
+                //If no events are currently happening, getting the next one that is not a "Fill" event
+                if(currentEvent.isEmpty()){
+                    Boolean nextEventFound = false;
+                    for(int j = 0; j < dayEvents.size(); j++){
+                        if(!nextEventFound && dayEvents.get(j).getStartTime().isAfter(LocalTime.now()) && !Objects.equals(dayEvents.get(j).getCategory(), "Fill")){
+                            currentEvent.add(dayEvents.get(j));
+                            nextEventFound = true;
+                        }
+                        //When one event is found, getting the others event happening in the same time
+                        if(nextEventFound){
+                            if(dayEvents.get(j).getStartTime().equals(currentEvent.get(0).getStartTime()) && !Objects.equals(dayEvents.get(j).getCategory(), "Fill")){
+                                currentEvent.add(dayEvents.get(j));
+                            }
+                        }
+                    }
+                }
+                if(currentEvent.size() > 0){
+                    return currentEvent;
+                }
+            }
+        }
+        return null;
     }
 }
