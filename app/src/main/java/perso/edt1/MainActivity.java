@@ -503,6 +503,8 @@ public class MainActivity extends AppCompatActivity implements EventsLoaderThrea
                 background.setColorFilter(getApplicationContext().getColor(R.color.Vacances), android.graphics.PorterDuff.Mode.SRC_IN);
                 eventCell.setBackground(background);
                 break;
+            default:
+                eventCell.setBackground(background);
         }
 
         ViewGroup.LayoutParams layoutParameters = eventCell.getLayoutParams();
