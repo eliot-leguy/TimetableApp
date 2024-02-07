@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -215,16 +216,17 @@ public class DBManager extends SQLiteOpenHelper {
         return groups;
     }
     @SuppressLint("Range")
-    public void getEvents(LocalDate firstDay, LocalDate lastDay, List<String> groups) {
+    public Map<LocalDate, ArrayList<Event>> getEvents(LocalDate firstDay, LocalDate lastDay, List<String> groups) {
+        Map<LocalDate, ArrayList<Event>> EventsByDay = new Hashtable<LocalDate, ArrayList<Event>>();
         for(String group : groups){
             LocalDate currentDay = firstDay;
             while(currentDay.isBefore(lastDay)){
                 ArrayList<Event> events = getEventsByDate(currentDay.toString(), group);
-                ArrayList<Event> eventsByDay = Event.EventsByDay.get(currentDay);
+                ArrayList<Event> eventsByDay = EventsByDay.get(currentDay);
                 if(eventsByDay != null){
-                    Event.EventsByDay.put(currentDay, mergeArrays(eventsByDay, events));
+                    EventsByDay.put(currentDay, mergeArrays(eventsByDay, events));
                 } else {
-                    Event.EventsByDay.put(currentDay, events);
+                    EventsByDay.put(currentDay, events);
                 }
 
 
@@ -232,6 +234,7 @@ public class DBManager extends SQLiteOpenHelper {
                 currentDay = currentDay.plusDays(1);
             }
         }
+        return EventsByDay;
     }
 
 
